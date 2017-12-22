@@ -12,6 +12,6 @@ namespace Hotel.Data.Models
         // vise gradova
 
 
-        public virtual List<Grad> Grad { get; set; }//blabla
+        public virtual List<Grad> Grad { get; set; }
     }
 }
