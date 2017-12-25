@@ -19,6 +19,6 @@ namespace Hotel.Data.Models
 
         // vise zaposlenika
 
-        public virtual List<Zaposlenik> Zaposlenik { get; set; }//test
+        public virtual List<Zaposlenik> Zaposlenik { get; set; }
     }
 }
