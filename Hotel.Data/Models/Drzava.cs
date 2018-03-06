@@ -9,9 +9,5 @@ namespace Hotel.Data.Models
     {
         public int Id { get; set; }
         public string Naziv { get; set; }
-        // vise gradova
-
-
-        public virtual List<Grad> Grad { get; set; }
     }
 }
