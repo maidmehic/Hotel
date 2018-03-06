@@ -23,20 +23,9 @@ namespace Hotel.Data.Models
         public bool isRecepcioner { set; get; }
         public bool isCistacica { set; get; }
         public bool isKuhar { set; get; }
-        // više check ina note: ako je cistacica onemogucit mu to
-
-        public virtual List<CheckIN> CheckIN { get; set; }
-        // vise zahtjeva za čišćenjem
-
-        public virtual List<ZahtjevZaCiscenjem> ZahtjevZaCiscenjem { get; set; }
         //jedan grad
         public int GradId { get; set; }
         [ForeignKey(nameof(GradId))]
         public virtual Grad Grad { get; set; }
-        //vise narudzbi
-
-        public virtual List<Narudzba> Narudzba { get; set; }
-
-
     }
 }

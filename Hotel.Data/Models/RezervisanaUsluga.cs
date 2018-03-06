@@ -16,6 +16,6 @@ namespace Hotel.Data.Models
         // jedancheckin
         public int CheckINId { get; set; }
         [ForeignKey(nameof(CheckINId))]
-        public virtual CheckIN CheckIN { get; set; } //kada se izbrise checkInId ovdje, ef ce automatski dodati checkinID zato sto u tabeli checkIn ima lista rezervisanih usluga
+        public virtual CheckIN CheckIN { get; set; }
     }
 }

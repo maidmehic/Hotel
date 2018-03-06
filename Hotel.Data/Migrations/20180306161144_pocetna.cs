@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Hotel.Data.Migrations
 {
-    public partial class HotelData : Migration
+    public partial class pocetna : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,6 +20,19 @@ namespace Hotel.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Drzava", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Pogodnost",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Opis = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pogodnost", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -185,23 +198,30 @@ namespace Hotel.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pogodnost",
+                name: "PogodnostiSmjestaja",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Opis = table.Column<string>(nullable: true),
-                    SmjestajId = table.Column<int>(nullable: true)
+                    Napomena = table.Column<string>(nullable: true),
+                    PogodnostId = table.Column<int>(nullable: false),
+                    SmjestajId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pogodnost", x => x.Id);
+                    table.PrimaryKey("PK_PogodnostiSmjestaja", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pogodnost_Smjestaj_SmjestajId",
+                        name: "FK_PogodnostiSmjestaja_Pogodnost_PogodnostId",
+                        column: x => x.PogodnostId,
+                        principalTable: "Pogodnost",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PogodnostiSmjestaja_Smjestaj_SmjestajId",
                         column: x => x.SmjestajId,
                         principalTable: "Smjestaj",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -218,8 +238,7 @@ namespace Hotel.Data.Migrations
                     GostId = table.Column<int>(nullable: false),
                     Napomena = table.Column<string>(nullable: true),
                     TipUslugeId = table.Column<int>(nullable: false),
-                    ZaposlenikId = table.Column<int>(nullable: false),
-                    ZaposlenikId1 = table.Column<int>(nullable: true)
+                    ZaposlenikId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -239,12 +258,6 @@ namespace Hotel.Data.Migrations
                     table.ForeignKey(
                         name: "FK_CheckIN_Zaposlenik_ZaposlenikId",
                         column: x => x.ZaposlenikId,
-                        principalTable: "Zaposlenik",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CheckIN_Zaposlenik_ZaposlenikId1",
-                        column: x => x.ZaposlenikId1,
                         principalTable: "Zaposlenik",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -302,33 +315,6 @@ namespace Hotel.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PogodnostiSmjestaja",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Napomena = table.Column<string>(nullable: true),
-                    PogodnostId = table.Column<int>(nullable: false),
-                    SmjestajId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PogodnostiSmjestaja", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PogodnostiSmjestaja_Pogodnost_PogodnostId",
-                        column: x => x.PogodnostId,
-                        principalTable: "Pogodnost",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PogodnostiSmjestaja_Smjestaj_SmjestajId",
-                        column: x => x.SmjestajId,
-                        principalTable: "Smjestaj",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Feedback",
                 columns: table => new
                 {
@@ -336,7 +322,6 @@ namespace Hotel.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CheckINId = table.Column<int>(nullable: false),
                     GostId = table.Column<int>(nullable: false),
-                    GostId1 = table.Column<int>(nullable: true),
                     Sadrzaj = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -354,12 +339,6 @@ namespace Hotel.Data.Migrations
                         principalTable: "Gost",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Feedback_Gost_GostId1",
-                        column: x => x.GostId1,
-                        principalTable: "Gost",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -371,7 +350,6 @@ namespace Hotel.Data.Migrations
                     CheckINId = table.Column<int>(nullable: false),
                     DatumIzdavanja = table.Column<DateTime>(nullable: false),
                     GostId = table.Column<int>(nullable: false),
-                    GostId1 = table.Column<int>(nullable: true),
                     Suma = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
@@ -386,12 +364,6 @@ namespace Hotel.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Racun_Gost_GostId",
                         column: x => x.GostId,
-                        principalTable: "Gost",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Racun_Gost_GostId1",
-                        column: x => x.GostId1,
                         principalTable: "Gost",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -432,7 +404,6 @@ namespace Hotel.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CheckINId = table.Column<int>(nullable: false),
                     GostId = table.Column<int>(nullable: false),
-                    GostId1 = table.Column<int>(nullable: true),
                     SmjestajId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -447,12 +418,6 @@ namespace Hotel.Data.Migrations
                     table.ForeignKey(
                         name: "FK_RezervisanSmjestaj_Gost_GostId",
                         column: x => x.GostId,
-                        principalTable: "Gost",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_RezervisanSmjestaj_Gost_GostId1",
-                        column: x => x.GostId1,
                         principalTable: "Gost",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -528,11 +493,6 @@ namespace Hotel.Data.Migrations
                 column: "ZaposlenikId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CheckIN_ZaposlenikId1",
-                table: "CheckIN",
-                column: "ZaposlenikId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Feedback_CheckINId",
                 table: "Feedback",
                 column: "CheckINId");
@@ -541,11 +501,6 @@ namespace Hotel.Data.Migrations
                 name: "IX_Feedback_GostId",
                 table: "Feedback",
                 column: "GostId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Feedback_GostId1",
-                table: "Feedback",
-                column: "GostId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Gost_GradId",
@@ -561,11 +516,6 @@ namespace Hotel.Data.Migrations
                 name: "IX_Narudzba_ZaposlenikId",
                 table: "Narudzba",
                 column: "ZaposlenikId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pogodnost_SmjestajId",
-                table: "Pogodnost",
-                column: "SmjestajId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PogodnostiSmjestaja_PogodnostId",
@@ -588,11 +538,6 @@ namespace Hotel.Data.Migrations
                 column: "GostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Racun_GostId1",
-                table: "Racun",
-                column: "GostId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RezervisanaUsluga_CheckINId",
                 table: "RezervisanaUsluga",
                 column: "CheckINId");
@@ -611,11 +556,6 @@ namespace Hotel.Data.Migrations
                 name: "IX_RezervisanSmjestaj_GostId",
                 table: "RezervisanSmjestaj",
                 column: "GostId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RezervisanSmjestaj_GostId1",
-                table: "RezervisanSmjestaj",
-                column: "GostId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RezervisanSmjestaj_SmjestajId",

@@ -11,9 +11,6 @@ namespace Hotel.Data.Models
         public DateTime DatumKreiranja { set; get; }
         public string Hitnost { set; get; }
         public string Opis { set; get; }
-        // vise stavki
-
-        public virtual List<Stavke> Stavke { get; set; }
         // jedan zaposlenik
         public int ZaposlenikId { get; set; }
         [ForeignKey(nameof(ZaposlenikId))]

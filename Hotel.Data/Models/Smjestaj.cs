@@ -13,18 +13,6 @@ namespace Hotel.Data.Models
         public int BrojKreveta { set; get; }
         public int Kvadratura { set; get; }
 
-        // više zahtjeva za čišćenjem
-
-        public virtual List<ZahtjevZaCiscenjem> ZahtjevZaCiscenjem { get; set; }
-
-        // više pogodnosti
-
-        public virtual List<Pogodnost> Pogodnost { get; set; }
-
-        //vise rezervisanihsmjestaja
-
-        public virtual List<RezervisanSmjestaj> RezervisanSmjestaj { get; set; }
-
         //jedna vrsta smjestaja
         public int VrstaSmjestajaId { get; set; }
         [ForeignKey(nameof(VrstaSmjestajaId))]

@@ -17,24 +17,6 @@ namespace Hotel.Data.Models
         public string Email { get; set; }
         public string Spol { get; set; }
 
-        //  više check in
-
-
-        public virtual List<CheckIN> CheckIN { get; set; }
-        // vise rezervisanih smjestaja
-
-
-        public virtual List<RezervisanSmjestaj> RezervisanSmjestaj { get; set; }
-        //vise racuna
-
-
-        public virtual List<Racun> Racun { get; set; }
-        // vise feedbacka
-
-
-        public virtual List<Feedback> Feedback { get; set; }
-        // jedan grad
-
         public int GradId { get; set; }
         [ForeignKey(nameof(GradId))]
         public virtual Grad Grad { get; set; }

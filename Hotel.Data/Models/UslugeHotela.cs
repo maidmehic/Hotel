@@ -12,8 +12,5 @@ namespace Hotel.Data.Models
         public DateTime DatumPocetka { set; get; }
         public DateTime DatumZavrsetka { set; get; }
         public string Opis { set; get; }
-        // vise rezervisanih usluga
-
-        public virtual List<RezervisanaUsluga> RezervisanaUsluga { get; set; }
     }
 }

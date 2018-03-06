@@ -9,9 +9,6 @@ namespace Hotel.Data.Models
     {
         public int Id { set; get; }
         public string Naziv { set; get; }
-        // vise check in-a
-
-        public virtual List<CheckIN> CheckIN { get; set; }
 
     }
 }

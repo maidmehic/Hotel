@@ -8,8 +8,5 @@ namespace Hotel.Data.Models
     {
         public int Id { set; get; }
         public string Opis { set; get; }
-        // vise pogodnosti smjestaja
-
-        public virtual List<PogodnostiSmjestaja> PogodnostiSmjestaja { get; set; }
     }
 }

@@ -13,12 +13,5 @@ namespace Hotel.Data.Models
         public int DrzavaId { get; set; }
         [ForeignKey(nameof(DrzavaId))]
         public virtual Drzava Drzava { get; set; }
-        // vise gostiju
-
-        public virtual List<Gost> Gost { get; set; }
-
-        // vise zaposlenika
-
-        public virtual List<Zaposlenik> Zaposlenik { get; set; }
     }
 }

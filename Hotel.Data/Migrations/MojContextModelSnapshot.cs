@@ -43,8 +43,6 @@ namespace Hotel.Data.Migrations
 
                     b.Property<int>("ZaposlenikId");
 
-                    b.Property<int?>("ZaposlenikId1");
-
                     b.HasKey("Id");
 
                     b.HasIndex("GostId");
@@ -52,8 +50,6 @@ namespace Hotel.Data.Migrations
                     b.HasIndex("TipUslugeId");
 
                     b.HasIndex("ZaposlenikId");
-
-                    b.HasIndex("ZaposlenikId1");
 
                     b.ToTable("CheckIN");
                 });
@@ -79,8 +75,6 @@ namespace Hotel.Data.Migrations
 
                     b.Property<int>("GostId");
 
-                    b.Property<int?>("GostId1");
-
                     b.Property<string>("Sadrzaj");
 
                     b.HasKey("Id");
@@ -88,8 +82,6 @@ namespace Hotel.Data.Migrations
                     b.HasIndex("CheckINId");
 
                     b.HasIndex("GostId");
-
-                    b.HasIndex("GostId1");
 
                     b.ToTable("Feedback");
                 });
@@ -167,11 +159,7 @@ namespace Hotel.Data.Migrations
 
                     b.Property<string>("Opis");
 
-                    b.Property<int?>("SmjestajId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SmjestajId");
 
                     b.ToTable("Pogodnost");
                 });
@@ -223,8 +211,6 @@ namespace Hotel.Data.Migrations
 
                     b.Property<int>("GostId");
 
-                    b.Property<int?>("GostId1");
-
                     b.Property<double>("Suma");
 
                     b.HasKey("Id");
@@ -232,8 +218,6 @@ namespace Hotel.Data.Migrations
                     b.HasIndex("CheckINId");
 
                     b.HasIndex("GostId");
-
-                    b.HasIndex("GostId1");
 
                     b.ToTable("Racun");
                 });
@@ -267,8 +251,6 @@ namespace Hotel.Data.Migrations
 
                     b.Property<int>("GostId");
 
-                    b.Property<int?>("GostId1");
-
                     b.Property<int>("SmjestajId");
 
                     b.HasKey("Id");
@@ -276,8 +258,6 @@ namespace Hotel.Data.Migrations
                     b.HasIndex("CheckINId");
 
                     b.HasIndex("GostId");
-
-                    b.HasIndex("GostId1");
 
                     b.HasIndex("SmjestajId");
 
@@ -459,12 +439,12 @@ namespace Hotel.Data.Migrations
             modelBuilder.Entity("Hotel.Data.Models.CheckIN", b =>
                 {
                     b.HasOne("Hotel.Data.Models.Gost", "Gost")
-                        .WithMany("CheckIN")
+                        .WithMany()
                         .HasForeignKey("GostId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Hotel.Data.Models.TipUsluge", "TipUsluge")
-                        .WithMany("CheckIN")
+                        .WithMany()
                         .HasForeignKey("TipUslugeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -472,16 +452,12 @@ namespace Hotel.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ZaposlenikId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hotel.Data.Models.Zaposlenik")
-                        .WithMany("CheckIN")
-                        .HasForeignKey("ZaposlenikId1");
                 });
 
             modelBuilder.Entity("Hotel.Data.Models.Feedback", b =>
                 {
                     b.HasOne("Hotel.Data.Models.CheckIN", "CheckIN")
-                        .WithMany("Feedback")
+                        .WithMany()
                         .HasForeignKey("CheckINId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -489,16 +465,12 @@ namespace Hotel.Data.Migrations
                         .WithMany()
                         .HasForeignKey("GostId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hotel.Data.Models.Gost")
-                        .WithMany("Feedback")
-                        .HasForeignKey("GostId1");
                 });
 
             modelBuilder.Entity("Hotel.Data.Models.Gost", b =>
                 {
                     b.HasOne("Hotel.Data.Models.Grad", "Grad")
-                        .WithMany("Gost")
+                        .WithMany()
                         .HasForeignKey("GradId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -506,7 +478,7 @@ namespace Hotel.Data.Migrations
             modelBuilder.Entity("Hotel.Data.Models.Grad", b =>
                 {
                     b.HasOne("Hotel.Data.Models.Drzava", "Drzava")
-                        .WithMany("Grad")
+                        .WithMany()
                         .HasForeignKey("DrzavaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -514,22 +486,15 @@ namespace Hotel.Data.Migrations
             modelBuilder.Entity("Hotel.Data.Models.Narudzba", b =>
                 {
                     b.HasOne("Hotel.Data.Models.Zaposlenik", "Zaposlenik")
-                        .WithMany("Narudzba")
+                        .WithMany()
                         .HasForeignKey("ZaposlenikId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Hotel.Data.Models.Pogodnost", b =>
-                {
-                    b.HasOne("Hotel.Data.Models.Smjestaj")
-                        .WithMany("Pogodnost")
-                        .HasForeignKey("SmjestajId");
                 });
 
             modelBuilder.Entity("Hotel.Data.Models.PogodnostiSmjestaja", b =>
                 {
                     b.HasOne("Hotel.Data.Models.Pogodnost", "Pogodnost")
-                        .WithMany("PogodnostiSmjestaja")
+                        .WithMany()
                         .HasForeignKey("PogodnostId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -542,7 +507,7 @@ namespace Hotel.Data.Migrations
             modelBuilder.Entity("Hotel.Data.Models.Racun", b =>
                 {
                     b.HasOne("Hotel.Data.Models.CheckIN", "CheckIN")
-                        .WithMany("Racun")
+                        .WithMany()
                         .HasForeignKey("CheckINId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -550,21 +515,17 @@ namespace Hotel.Data.Migrations
                         .WithMany()
                         .HasForeignKey("GostId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hotel.Data.Models.Gost")
-                        .WithMany("Racun")
-                        .HasForeignKey("GostId1");
                 });
 
             modelBuilder.Entity("Hotel.Data.Models.RezervisanaUsluga", b =>
                 {
                     b.HasOne("Hotel.Data.Models.CheckIN", "CheckIN")
-                        .WithMany("RezervisanaUsluga")
+                        .WithMany()
                         .HasForeignKey("CheckINId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Hotel.Data.Models.UslugeHotela", "UslugeHotela")
-                        .WithMany("RezervisanaUsluga")
+                        .WithMany()
                         .HasForeignKey("UslugeHotelaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -572,7 +533,7 @@ namespace Hotel.Data.Migrations
             modelBuilder.Entity("Hotel.Data.Models.RezervisanSmjestaj", b =>
                 {
                     b.HasOne("Hotel.Data.Models.CheckIN", "CheckIN")
-                        .WithMany("RezervisanSmjestaj")
+                        .WithMany()
                         .HasForeignKey("CheckINId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -581,12 +542,8 @@ namespace Hotel.Data.Migrations
                         .HasForeignKey("GostId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Hotel.Data.Models.Gost")
-                        .WithMany("RezervisanSmjestaj")
-                        .HasForeignKey("GostId1");
-
                     b.HasOne("Hotel.Data.Models.Smjestaj", "Smjestaj")
-                        .WithMany("RezervisanSmjestaj")
+                        .WithMany()
                         .HasForeignKey("SmjestajId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -594,7 +551,7 @@ namespace Hotel.Data.Migrations
             modelBuilder.Entity("Hotel.Data.Models.Smjestaj", b =>
                 {
                     b.HasOne("Hotel.Data.Models.VrstaSmjestaja", "VrstaSmjestaja")
-                        .WithMany("Smjestaj")
+                        .WithMany()
                         .HasForeignKey("VrstaSmjestajaId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -602,12 +559,12 @@ namespace Hotel.Data.Migrations
             modelBuilder.Entity("Hotel.Data.Models.Stavke", b =>
                 {
                     b.HasOne("Hotel.Data.Models.Narudzba", "Narudzba")
-                        .WithMany("Stavke")
+                        .WithMany()
                         .HasForeignKey("NarudzbaId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Hotel.Data.Models.Proizvodi", "Proizvodi")
-                        .WithMany("Stavke")
+                        .WithMany()
                         .HasForeignKey("ProizvodId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -615,7 +572,7 @@ namespace Hotel.Data.Migrations
             modelBuilder.Entity("Hotel.Data.Models.Uplata", b =>
                 {
                     b.HasOne("Hotel.Data.Models.CheckIN", "CheckIN")
-                        .WithMany("Uplata")
+                        .WithMany()
                         .HasForeignKey("CheckINId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -623,12 +580,12 @@ namespace Hotel.Data.Migrations
             modelBuilder.Entity("Hotel.Data.Models.ZahtjevZaCiscenjem", b =>
                 {
                     b.HasOne("Hotel.Data.Models.Smjestaj", "Smjestaj")
-                        .WithMany("ZahtjevZaCiscenjem")
+                        .WithMany()
                         .HasForeignKey("SmjestajId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Hotel.Data.Models.Zaposlenik", "Zaposlenik")
-                        .WithMany("ZahtjevZaCiscenjem")
+                        .WithMany()
                         .HasForeignKey("ZaposlenikId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -636,7 +593,7 @@ namespace Hotel.Data.Migrations
             modelBuilder.Entity("Hotel.Data.Models.Zaposlenik", b =>
                 {
                     b.HasOne("Hotel.Data.Models.Grad", "Grad")
-                        .WithMany("Zaposlenik")
+                        .WithMany()
                         .HasForeignKey("GradId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
