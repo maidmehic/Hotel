@@ -1,0 +1,89 @@
+﻿@model Hotel.Web.Areas.ModulAdministracija.ViewModels.NoviZaposlenikVM
+@{
+    ViewData["Title"] = "UrediZaposlenika";
+}
+
+<h2>Uredi zaposlenika</h2>
+
+
+
+<form action="/ModulAdministracija/Zaposlenik/SnimiZaposlenika">
+    <table>
+        <tr>
+            <td>
+                @Html.HiddenFor(x => x.Id, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td><b>Ime</b></td>
+            <td>@Html.TextBoxFor(x => x.Ime, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Prezime</b></td>
+            <td>@Html.TextBoxFor(x => x.Prezime, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Datum rođenja</b></td>
+            <td>@Html.TextBoxFor(x => x.DatumRodjenja, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Telefon</b></td>
+            <td>@Html.TextBoxFor(x => x.Telefon, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Email</b></td>
+            <td>@Html.TextBoxFor(x => x.Email, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Broj ugovora</b></td>
+            <td>@Html.TextBoxFor(x => x.BrojUgovora, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Datum zaposlenja</b></td>
+            <td>@Html.TextBoxFor(x => x.DatumZaposljenja, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>JBMG</b></td>
+            <td>@Html.TextBoxFor(x => x.JMBG, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Spol</b></td>
+            <td>@Html.DropDownListFor(x => x.Spol, Model.spoloviStavke, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Bračni status</b></td>
+            <td>@Html.DropDownListFor(x => x.BracniStatus, Model.brakStavke, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Grad</b></td>
+            <td>@Html.DropDownListFor(x => x.GradId, Model.gradoviStavke, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Aktivan</b></td>
+            <td>@Html.CheckBoxFor(x => x.Aktivan, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Administrator</b></td>
+            <td>@Html.CheckBoxFor(x => x.isAdministrator, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Recepcioner</b></td>
+            <td>@Html.CheckBoxFor(x => x.isRecepcioner, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Čistač</b></td>
+            <td>@Html.CheckBoxFor(x => x.isCistacica, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Kuhar</b></td>
+            <td>@Html.CheckBoxFor(x => x.isKuhar, new { @class = "form-control" })</td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="submit" value="Sačuvaj" class="btn btn-success" />
+            </td>
+        </tr>
+    </table>
+</form>
+
