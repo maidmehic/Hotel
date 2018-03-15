@@ -9,6 +9,7 @@ namespace Hotel.Data.Models
     {
         public int Id { set; get; }
         public string Naziv { set; get; }
+        public float Cijena { get; set; }
 
     }
 }

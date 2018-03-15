@@ -1,0 +1,30 @@
+﻿@model Hotel.Web.Areas.ModulOdrzavanje.ViewModels.ProizvodIndexVM
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<table>
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Cijena</th>
+            <th>Vrsta</th>
+            <th>Akcija</th>
+
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var i in Model.Proizvodi)
+    {
+        <tr>
+            <td>@i.Naziv</td>
+            <td>@i.Cijena</td>
+            <td>@i.Vrsta</td>
+            <td></td>
+        </tr>
+}
+
+    </tbody>
+</table>
+

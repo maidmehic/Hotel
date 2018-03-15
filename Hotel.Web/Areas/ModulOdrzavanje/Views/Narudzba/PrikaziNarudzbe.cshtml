@@ -1,0 +1,54 @@
+﻿@model Hotel.Web.Areas.ModulOdrzavanje.ViewModels.PrikaziNarudzbeVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "PrikaziNarudzbe";
+}
+<h2>PrikaziNarudzbe</h2>
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>DatumKreiranja</th>
+            <th>Hitnost</th>
+            <th>Opis</th>
+            <th>Ime Zaposlenika</th>
+            <th>Akcija </th>
+
+
+        </tr>
+
+
+
+    </thead>
+
+
+
+    <tbody>
+        @foreach (var i in Model.podaci)
+        {
+            <tr>
+                <td>@i.DatumKreiranja.ToShortDateString()</td>
+                <td>@i.Hitnost</td>
+                <td>@i.Opis</td>
+                <td>@i.ImeZaposlenika</td>
+
+                <td>
+                    @Html.ActionLink("Detalji", "Detalji", "Narudzba", new { NarudzbaID = i.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Uredi", "UrediNarudzbu", "Narudzba", new { id = i.Id }, new { @class = "btn btn-success" })
+
+                    @Html.ActionLink("Obrisi", "ObrisiNarudzbu", "Narudzba", new { id = i.Id }, new { @class = "btn btn-danger" })
+
+                </td>
+
+
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+

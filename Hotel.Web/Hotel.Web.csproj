@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\ModulAdministracija\Data\" />
+    <Folder Include="Areas\ModulOdrzavanje\Data\" />
   </ItemGroup>
 
 </Project>

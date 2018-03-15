@@ -1,0 +1,30 @@
+﻿@model Hotel.Web.Areas.ModulOdrzavanje.ViewModels.PrikaziStavkeNarudzbeVM
+@{ 
+
+}
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <th>Naziv Proizvoda</th>
+            <th>Kolicina</th>          
+            <th>Akcija</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var i in Model.stavke)
+        {
+        <tr>
+            <td>@i.NazivProizvoda</td>
+            <td>@i.Kolicina</td>
+            <td>@Html.ActionLink("Obrisi", "Obrisi", "Stavke",new { StavkaId= i.StavkaId , narudzbaID = Model.IdNarudzbe })   </td>
+
+
+        </tr>
+        }
+        
+    </tbody>
+
+</table>

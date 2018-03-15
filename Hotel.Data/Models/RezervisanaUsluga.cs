@@ -7,8 +7,7 @@ namespace Hotel.Data.Models
 {
     public class RezervisanaUsluga
     {
-        public int Id { set; get; }
-        public DateTime Datumrezervacije { set; get; }
+        public int Id { set; get; }     
         // jedna uslugahotela
         public int UslugeHotelaId { get; set; }
         [ForeignKey(nameof(UslugeHotelaId))]
