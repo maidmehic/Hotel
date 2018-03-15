@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "PrikaziNarudzbe";
 }
-<h2>PrikaziNarudzbe</h2>
+<h2>Prikazi Narudzbe</h2>
 <table class="table table-striped">
 
     <thead>
@@ -36,8 +36,7 @@
                 <td>
                     @Html.ActionLink("Detalji", "Detalji", "Narudzba", new { NarudzbaID = i.Id }, new { @class = "btn btn-success" })
                     @Html.ActionLink("Uredi", "UrediNarudzbu", "Narudzba", new { id = i.Id }, new { @class = "btn btn-success" })
-
-                    @Html.ActionLink("Obrisi", "ObrisiNarudzbu", "Narudzba", new { id = i.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Obrisi", "ObrisiNarudzbu", "Narudzba", new { NarudzbaId = i.Id }, new { @class = "btn btn-danger" })
 
                 </td>
 
@@ -48,7 +47,7 @@
         }
     </tbody>
 </table>
-
+@Html.ActionLink("Dodaj Narudzbu", "DodajNarudzbu","Narudzba",new { },new { @class="btn btn-success"})
 
 
 

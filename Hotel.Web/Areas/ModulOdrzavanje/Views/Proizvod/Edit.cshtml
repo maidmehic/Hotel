@@ -1,14 +1,14 @@
 ﻿@model Hotel.Web.Areas.ModulOdrzavanje.ViewModels.ProizvodDodajVM
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+@{
+    ViewData["Title"] = "Edit";
+}
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
-@{
-    ViewData["Title"] = "Dodaj Proizvod";
-}
-<h2>Dodaj Proizvod</h2>
-<form asp-action="Dodaj" asp-controller="Proizvod" method="post">
+<h2>Edit</h2>
+
+<form asp-action="Edit" asp-controller="Proizvod" method="post">
+
+    <input asp-for="ID" hidden/>
 
     <div class="form-group">
         <label>Naziv:</label>
@@ -22,14 +22,16 @@
 
     </div>
 
+
     <div class="form-group">
         <label>Vrsta:</label>
         <input asp-for="Vrsta" class="form-control" />
 
     </div>
 
-    <div>  <input type="submit" value="Snimi" class="btn btn-primary" /></div>
 
+    <input type="submit" value="Snimi" class="btn btn-primary" />
 
 
 </form>
+

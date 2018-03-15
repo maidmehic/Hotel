@@ -3,7 +3,7 @@
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-<table>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Naziv</th>
@@ -21,7 +21,14 @@
             <td>@i.Naziv</td>
             <td>@i.Cijena</td>
             <td>@i.Vrsta</td>
-            <td></td>
+            <td>
+                @Html.ActionLink("Uredi", "Edit", "Proizvod", new { ProizvodId = i.ID }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Obrisi", "Obrisi", "Proizvod", new {id=i.ID }, new { @class = "btn btn-success" })
+
+
+
+            </td>
+          
         </tr>
 }
 

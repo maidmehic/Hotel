@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
 {
+    [Area("ModulOdrzavanje")]
     public class ProizvodController : Controller
     {
         MojContext db = new MojContext();
@@ -18,8 +19,8 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             model.Proizvodi = db.Proizvod.Select(x=> new ProizvodIndexVM.Row {
                 Naziv=x.Naziv,
                 Cijena=x.Cijena,
-                Vrsta=x.Vrsta
-
+                Vrsta=x.Vrsta,
+               ID=x.Id
             }).ToList();
 
 
@@ -38,7 +39,7 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
         public IActionResult Dodaj(ProizvodDodajVM model)
         {
 
-            Proizvodi p = new Proizvodi();
+            Proizvodi p  = new Proizvodi();
 
             p.Naziv = model.Naziv;
             p.Cijena = model.Cijena;
@@ -50,24 +51,43 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
 
             return RedirectToAction("Index");
         }
-        public IActionResult Edit(int Id)
+        public IActionResult Edit(int ProizvodId)
         {
             ProizvodDodajVM model = new ProizvodDodajVM();
 
             Proizvodi p = new Proizvodi();
-            p = db.Proizvod.Where(x => x.Id == Id).FirstOrDefault();
+            p = db.Proizvod.Where(x => x.Id == ProizvodId).FirstOrDefault();
 
             model.Naziv = p.Naziv;
             model.Cijena = p.Cijena;
             model.Vrsta = p.Vrsta;
-
+            model.ID = p.Id;
 
 
             return View(model);
         }
-        public IActionResult Izbrisi()
+        [HttpPost]
+        public IActionResult Edit(ProizvodDodajVM model)
         {
-            return View();
+            
+            Proizvodi p = db.Proizvod.Where(x => x.Id == model.ID).FirstOrDefault();
+
+            p.Naziv = model.Naziv;
+            p.Cijena = model.Cijena;
+            p.Vrsta = model.Vrsta;
+
+            db.Proizvod.Update(p);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult Obrisi(int Id)
+        {
+            Proizvodi p= db.Proizvod.Where(x => x.Id == Id).FirstOrDefault();
+            db.Proizvod.Remove(p);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
     }

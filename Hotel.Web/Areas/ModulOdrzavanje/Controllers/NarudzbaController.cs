@@ -15,9 +15,11 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
     public class NarudzbaController : Controller
     {
         MojContext db = new MojContext();
+      
+
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("PrikaziNarudzbe");
         }
         public IActionResult DodajNarudzbu()
         {
@@ -74,10 +76,10 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             return View(narudzbe);
         }
 
-        public IActionResult ObrisiStavkeNarudzbe()
+        public IActionResult ObrisiStavkeNarudzbe(int ID)
         {
 
-            return RedirectToAction("PrikaziStavkeNarudzbe");
+            return RedirectToAction("ObrisiSveStavkeNarudzbe","Stavke", new { narudzbaID = ID });
         }
         public IActionResult UrediNarudzbu(int id)
         {
@@ -111,11 +113,17 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
 
             return RedirectToAction("PrikaziNarudzbe");
         }
-        public IActionResult ObrisiNarudzbu()
+        public IActionResult ObrisiNarudzbu(int NarudzbaId)
         {
+            
+            ObrisiStavkeNarudzbe(NarudzbaId);
+            Narudzba n = new Narudzba();
+            n = db.Narudzba.Where(x => x.Id == NarudzbaId).FirstOrDefault();
 
+            db.Narudzba.Remove(n);
+            db.SaveChanges();
 
-            return View();
+            return RedirectToAction("PrikaziNarudzbe");
         }
         public IActionResult AjaxTestAction()
         {

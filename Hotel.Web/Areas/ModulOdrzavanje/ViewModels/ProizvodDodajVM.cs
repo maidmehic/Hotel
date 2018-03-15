@@ -7,6 +7,8 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.ViewModels
 {
     public class ProizvodDodajVM
     {
+        
+        public int ID { set; get; }
         public string Naziv { set; get; }
         public string Vrsta { set; get; }
         public float Cijena { set; get; }
