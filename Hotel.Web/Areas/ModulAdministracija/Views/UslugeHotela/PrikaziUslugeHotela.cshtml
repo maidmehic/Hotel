@@ -1,0 +1,47 @@
+﻿@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazUslugeHotelaVM
+@using Hotel.Data.Models;
+@using Hotel.Web.Areas.ModulAdministracija.ViewModels;
+@{
+    ViewData["Title"] = "PrikaziUslugeHotela";
+}
+<br />
+<form action="/ModulAdministracija/UslugeHotela/PrikaziUslugeHotela">
+    <table>
+        <tr>
+            <td>
+                @Html.TextBoxFor(x => x.PretragaNaziv, new { @class = "form-control" })
+            </td>
+            <td>@Html.DropDownListFor(x=>x.PretragaAktivnostId,Model.StavkePretragaAktivnost)</td>
+            <td><input type="submit" value="Traži" class="btn btn-primary" /></td>
+            <td>
+                <a href="/ModulAdministracija/UslugeHotela/DodajUsluguHotela" class="btn btn-success">Nova usluga hotela</a>
+            </td>
+        </tr>
+    </table>
+</form>
+<br /><br />
+<table class="table table-striped">
+    <tr>
+        <th>Naziv</th>
+        <th>Datum početka</th>
+        <th>Datum završetka</th>
+        <th>Opis</th>
+        <th>Cijena</th>
+        <th>Status</th>
+        <th>Akcija</th>
+    </tr>
+    @foreach(PrikazUslugeHotelaVM.Rows u in Model.uslugeHotela)
+    {
+        <tr>
+            <td>@u.usluga.Naziv</td>
+            <td>@u.usluga.DatumPocetka.ToString("dd-MM-yyyy h:mm")</td>
+            <td>@u.usluga.DatumZavrsetka.ToString("dd-MM-yyyy h:mm")</td>
+            <td>@u.usluga.Opis</td>
+            <td>@u.usluga.Cijena KM</td>
+            @if (u.Aktivna) { <td>Aktivna</td>}
+            @if (!u.Aktivna) { <td>Istekla</td>}
+            <td><a href="/ModulAdministracija/UslugeHotela/Uredi?id=@u.usluga.Id" class="btn btn-primary">Uredi</a></td>
+        </tr>
+    }
+</table>
+

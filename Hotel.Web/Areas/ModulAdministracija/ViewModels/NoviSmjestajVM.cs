@@ -1,11 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Hotel.Data.Models
+namespace Hotel.Web.Areas.ModulAdministracija.ViewModels
 {
-    public class Smjestaj
+    public class NoviSmjestajVM
     {
         public int Id { set; get; }
         public int BrojSmjestaja { set; get; }
@@ -13,12 +14,8 @@ namespace Hotel.Data.Models
         public int BrojKreveta { set; get; }
         public int Kvadratura { set; get; }
         public bool Zauzeto { set; get; }
-        public double Cijena { set; get; }
-
-        //jedna vrsta smjestaja
         public int VrstaSmjestajaId { get; set; }
-        [ForeignKey(nameof(VrstaSmjestajaId))]
-        public virtual VrstaSmjestaja VrstaSmjestaja { get; set; }
-
+        public double Cijena { get; set; }
+        public IEnumerable<SelectListItem> _vrstaStavke { set; get; }
     }
 }

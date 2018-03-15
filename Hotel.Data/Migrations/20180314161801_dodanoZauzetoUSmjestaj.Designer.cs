@@ -11,9 +11,10 @@ using System;
 namespace Hotel.Data.Migrations
 {
     [DbContext(typeof(MojContext))]
-    partial class MojContextModelSnapshot : ModelSnapshot
+    [Migration("20180314161801_dodanoZauzetoUSmjestaj")]
+    partial class dodanoZauzetoUSmjestaj
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,6 +230,8 @@ namespace Hotel.Data.Migrations
 
                     b.Property<int>("CheckINId");
 
+                    b.Property<DateTime>("Datumrezervacije");
+
                     b.Property<int>("UslugeHotelaId");
 
                     b.HasKey("Id");
@@ -247,11 +250,15 @@ namespace Hotel.Data.Migrations
 
                     b.Property<int>("CheckINId");
 
+                    b.Property<int>("GostId");
+
                     b.Property<int>("SmjestajId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CheckINId");
+
+                    b.HasIndex("GostId");
 
                     b.HasIndex("SmjestajId");
 
@@ -266,8 +273,6 @@ namespace Hotel.Data.Migrations
                     b.Property<int>("BrojKreveta");
 
                     b.Property<int>("BrojSmjestaja");
-
-                    b.Property<double>("Cijena");
 
                     b.Property<int>("Kvadratura");
 
@@ -308,8 +313,6 @@ namespace Hotel.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<float>("Cijena");
 
                     b.Property<string>("Naziv");
 
@@ -536,6 +539,11 @@ namespace Hotel.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CheckINId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Hotel.Data.Models.Gost", "Gost")
+                        .WithMany()
+                        .HasForeignKey("GostId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Hotel.Data.Models.Smjestaj", "Smjestaj")
                         .WithMany()
