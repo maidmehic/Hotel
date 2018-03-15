@@ -1,0 +1,49 @@
+﻿@model Hotel.Web.Areas.ModulAdministracija.ViewModels.NoviSmjestajVM
+@{
+    ViewData["Title"] = "Uredi";
+}
+
+<h2>Uredi</h2>
+
+<form action="/ModulAdministracija/Smjestaj/Snimi">
+    <table>
+       <tr>
+           <td>
+               @Html.HiddenFor(x=>x.Id)
+           </td>
+       </tr>
+        <tr>
+            <td>Broj smještaja</td>
+            <td>@Html.TextBoxFor(x => x.BrojSmjestaja, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>Sprat</td>
+            <td>@Html.TextBoxFor(x => x.Sprat, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>Kvadratura</td>
+            <td>@Html.TextBoxFor(x => x.Kvadratura, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>Broj kreveta</td>
+            <td>@Html.TextBoxFor(x => x.BrojKreveta, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>Vrsta smještaja</td>
+            <td>@Html.DropDownListFor(x => x.VrstaSmjestajaId, Model._vrstaStavke, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>Cijena noćenja</td>
+            <td>@Html.TextBoxFor(x => x.Cijena,new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>Zauzeto</td>
+            <td>
+                @Html.CheckBoxFor(x => x.Zauzeto, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Sašuvaj" class="btn btn-success" /></td>
+        </tr>
+    </table>
+</form>

@@ -210,7 +210,7 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
                          (x.isKuhar == true && Tip == 4) ||
                          (!Tip.HasValue))).ToList();
             return View(Model);
-        }     // testni komentar
+        }     // 
 
     }
 }

@@ -1,0 +1,41 @@
+﻿@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazSmjestajaVM
+@using Hotel.Data.Models;
+@{
+    ViewData["Title"] = "PrikaziSmjestaj";
+}
+<br />
+<form action="/ModulAdministracija/Smjestaj/PrikaziSmjestaj">
+    @Html.TextBoxFor(x=>x.BrojPretraga)
+    <input type="submit" value="Traži" />
+    <a href="/ModulAdministracija/Smjestaj/DodajSmjestaj" class="btn btn-success">Novi smještaj</a>
+</form>
+<br />
+<br />
+<table class="table table-striped">
+    <tr>
+        <th>Broj</th>
+        <th>Sprat</th>
+        <th>Veličina</th>
+        <th>Broj kreveta</th>
+        <th>Vrsta</th>
+        <th>Cijena noćenja</th>
+        <th>Zauzeto</th>
+        <th>Akcija</th>
+    </tr>
+    @foreach(Smjestaj s in Model.Smjestaji)
+    {
+        <tr>
+            <td>@s.BrojSmjestaja</td>
+            <td>@s.Sprat</td>
+            <td>@s.Kvadratura m2</td>
+            <td>@s.BrojKreveta</td>
+            <td>@s.VrstaSmjestaja.Naziv</td>
+            <td>@s.Cijena KM</td>
+            @if (s.Zauzeto) { <td>DA</td>}
+            @if (!s.Zauzeto) { <td>NE</td>}
+            <td><a href="/ModulAdministracija/Smjestaj/Uredi?id=@s.Id" class="btn btn-primary">Uredi</a></td>
+        </tr>
+
+    }
+</table>
+
