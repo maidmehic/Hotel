@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Dodaj";
+}
+<h2>Dodaj</h2>
+<form asp-action="Dodaj" asp-controller="TipUsluge" method="post">
+
+    <div>
+        <label>Naziv:</label>
+        <input asp-for="Ime" class="form-control" />
+
+    </div>
+
+    <div>
+        <label>Cijena:</label>
+        <input asp-for="Prezime" class="form-control" />
+
+    </div>
+
+    <input type="submit" value="Snimi" class="btn btn-primary" />
+
+
+</form>
