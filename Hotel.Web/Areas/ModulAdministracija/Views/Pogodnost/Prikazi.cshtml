@@ -1,0 +1,26 @@
+﻿@using Hotel.Data.Models;
+@{
+    ViewData["Title"] = "Prikazi";
+    List<Pogodnost> pogodnosti = (List<Pogodnost>) ViewData["pogodnosti"];
+}
+
+<h2>Prikazi</h2>
+<a href="/ModulAdministracija/Pogodnost/Dodaj" class="btn btn-success">Dodaj</a><br /><br />
+<table class="table table-striped">
+    <tr>
+        <th>Opis</th>
+        <th>Akcija</th>
+    </tr>
+    @foreach(Pogodnost p in pogodnosti)
+    {
+        <tr>
+            <td>
+                @p.Opis
+            </td>
+            <td><a href="/ModulAdministracija/Pogodnost/Obrisi?id=@p.Id" class="btn btn-primary">Obriši</a>
+                <a href="/ModulAdministracija/Pogodnost/Uredi?id=@p.Id" class="btn btn-primary">Uredi</a>
+            </td>
+        </tr>
+    }
+</table>
+

@@ -84,7 +84,6 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
             return View(Model);
         }   //
 
-
         public IActionResult SnimiZaposlenika(NoviZaposlenikVM zaposlenik) //
         {
             Zaposlenik z;
@@ -200,15 +199,15 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
             return View(Model);
         }  //
 
-        public IActionResult PrikaziZaposlenike(int ? Tip)
+        public IActionResult PrikaziZaposlenike(int ? Tip, string ImePrezimePretraga)
         {
             PrikazZaposlenikaVM Model = new PrikazZaposlenikaVM();
             Model.Zaposlenici = db.Zaposlenik.
-                Where(x=>((x.isAdministrator == true && Tip == 1) ||
-                         (x.isCistacica==true && Tip == 2)||
-                         (x.isRecepcioner == true && Tip == 3) ||
-                         (x.isKuhar == true && Tip == 4) ||
-                         (!Tip.HasValue))).ToList();
+                Where(x=>((x.isAdministrator == true && Tip == 1) && (ImePrezimePretraga==x.Ime+" "+x.Prezime || ImePrezimePretraga==null)||
+                         (x.isCistacica==true && Tip == 2) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
+                         (x.isRecepcioner == true && Tip == 3) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
+                         (x.isKuhar == true && Tip == 4) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
+                         (!Tip.HasValue) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null))).ToList();
             return View(Model);
         }     // 
 

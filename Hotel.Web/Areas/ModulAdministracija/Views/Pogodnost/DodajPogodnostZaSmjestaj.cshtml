@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "DodajPogodnostZaSmjestaj";
+    int smjestajID = (int)ViewData["smjestajID"];
+    IEnumerable<SelectListItem> PogodnostiStavke = (IEnumerable<SelectListItem>)ViewData["PogodnostiStavke"];
+}
+
+<h2>DodajPogodnostZaSmjestaj</h2>
+<form action="/ModulAdministracija/Pogodnost/SnimiPogodnostZaSmjestaj">
+    <table>
+        <tr>
+            <td>@Html.Hidden("smjestajID", smjestajID)</td>
+        </tr>
+        <tr>
+            <td>Odaberite pogodnost</td>
+            <td>@Html.DropDownList("StavkaPogodnosti",PogodnostiStavke,new {@class="form-control" })</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Spremi" class="btn btn-success" />  </td>
+        </tr>
+    </table>
+</form>

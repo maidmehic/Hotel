@@ -9,7 +9,7 @@
     <table>
         <tr>
             <td>
-                @Html.TextBoxFor(x => x.PretragaNaziv, new { @class = "form-control" })
+                @Html.TextBoxFor(x => x.PretragaNaziv, new { @class = "form-control",placeholder="Naziv" })
             </td>
             <td>@Html.DropDownListFor(x=>x.PretragaAktivnostId,Model.StavkePretragaAktivnost)</td>
             <td><input type="submit" value="Traži" class="btn btn-primary" /></td>

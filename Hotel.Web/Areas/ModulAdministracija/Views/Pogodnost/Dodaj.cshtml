@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<h2>Dodaj</h2>
+<form action="/ModulAdministracija/Pogodnost/Snimi">
+    <table>
+        <tr>
+            <td>
+                Opis
+                @Html.TextBox("Opis")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit"value="Sačuvaj" class="btn btn-success" />
+            </td>
+        </tr>
+    </table>
+</form>
+

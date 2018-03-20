@@ -6,6 +6,7 @@
     <br /><br />
 <form action="/ModulAdministracija/Zaposlenik/PrikaziZaposlenike">
     @Html.DropDownListFor(x => x.Tip, Model.tipoviStavke)
+    @Html.TextBoxFor(x => x.ImePrezimePretraga, new { placeholder = "Ime i prezime"})
     <input type="submit" value="Pretraži" class="btn btn-success" />
     <a href="/ModulAdministracija/Zaposlenik/DodajZaposlenika" class="btn btn-success">Novi zaposlenik</a>
 </form>

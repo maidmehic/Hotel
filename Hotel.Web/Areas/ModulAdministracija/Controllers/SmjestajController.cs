@@ -20,11 +20,17 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
         }
 
 
-        public IActionResult PrikaziSmjestaj( int ? BrojPretraga)
+        public IActionResult PrikaziSmjestaj( int ? BrojPretraga, int ? StatusPretraga)
         {
             PrikazSmjestajaVM Model = new PrikazSmjestajaVM();
             Model.Smjestaji = db.Smjestaj.Include(x=>x.VrstaSmjestaja).
-                Where(x=>(x.BrojSmjestaja== BrojPretraga) || (!BrojPretraga.HasValue)).ToList();
+                Where(x=>((x.BrojSmjestaja == BrojPretraga) && ((x.Zauzeto == true && StatusPretraga == 2)||!StatusPretraga.HasValue))||
+                ((x.BrojSmjestaja == BrojPretraga) && ((x.Zauzeto == false && StatusPretraga == 1) || !StatusPretraga.HasValue)) ||
+                (!BrojPretraga.HasValue)&& (x.Zauzeto == false && StatusPretraga == 1)||
+                (!BrojPretraga.HasValue) && (x.Zauzeto == true && StatusPretraga == 2) ||
+                (!BrojPretraga.HasValue) && (!StatusPretraga.HasValue))
+                .ToList();
+            Model.BrojPretraga = null;
             return View(Model);
         }
         public IActionResult DodajSmjestaj()

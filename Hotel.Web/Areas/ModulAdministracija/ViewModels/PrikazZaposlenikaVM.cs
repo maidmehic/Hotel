@@ -11,6 +11,7 @@ namespace Hotel.Web.Areas.ModulAdministracija.ViewModels
     {
         public List<Zaposlenik> Zaposlenici { set; get; }
         public int Tip { set; get; }
+        public string ImePrezimePretraga { set; get; }
         public IEnumerable<SelectListItem> tipoviStavke { get
             {
                 List<SelectListItem> _stavke = new List<SelectListItem>();
@@ -23,6 +24,6 @@ namespace Hotel.Web.Areas.ModulAdministracija.ViewModels
                 return _stavke;
             }
                 
-                }
+        }
     }
 }

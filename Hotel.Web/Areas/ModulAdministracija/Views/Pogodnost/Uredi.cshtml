@@ -1,0 +1,29 @@
+﻿@using Hotel.Data.Models;
+@{
+    ViewData["Title"] = "Uredi";
+    Pogodnost p = (Pogodnost)ViewData["p"];
+}
+
+<h2>Uredi</h2>
+
+<form action="/ModulAdministracija/Pogodnost/Snimi">
+    <table>
+        <tr>
+            <td>
+                @Html.Hidden("id",p.Id)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Opis
+                @Html.TextBox("Opis",p.Opis)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Sačuvaj" class="btn btn-success" />
+            </td>
+        </tr>
+    </table>
+</form>
+

@@ -5,7 +5,8 @@
 }
 <br />
 <form action="/ModulAdministracija/Smjestaj/PrikaziSmjestaj">
-    @Html.TextBoxFor(x=>x.BrojPretraga)
+    @Html.TextBoxFor(x=>x.BrojPretraga, new {placeholder="Broj" })
+    @Html.DropDownListFor(x=>x.StatusPretraga,Model.PretragaPoStatusu)
     <input type="submit" value="Traži" />
     <a href="/ModulAdministracija/Smjestaj/DodajSmjestaj" class="btn btn-success">Novi smještaj</a>
 </form>
@@ -19,7 +20,7 @@
         <th>Broj kreveta</th>
         <th>Vrsta</th>
         <th>Cijena noćenja</th>
-        <th>Zauzeto</th>
+        <th>Stanje</th>
         <th>Akcija</th>
     </tr>
     @foreach(Smjestaj s in Model.Smjestaji)
@@ -31,9 +32,11 @@
             <td>@s.BrojKreveta</td>
             <td>@s.VrstaSmjestaja.Naziv</td>
             <td>@s.Cijena KM</td>
-            @if (s.Zauzeto) { <td>DA</td>}
-            @if (!s.Zauzeto) { <td>NE</td>}
-            <td><a href="/ModulAdministracija/Smjestaj/Uredi?id=@s.Id" class="btn btn-primary">Uredi</a></td>
+            @if (s.Zauzeto) { <td>Zauzeto</td>}
+            @if (!s.Zauzeto) { <td>Slobodno</td>}
+            <td><a href="/ModulAdministracija/Smjestaj/Uredi?id=@s.Id" class="btn btn-primary">Uredi</a>
+                <a href="/ModulAdministracija/Pogodnost/PrikaziPogodnostiZaSmjestaj?id=@s.Id" class="btn btn-primary">Pogodnosti</a>
+            </td>
         </tr>
 
     }
