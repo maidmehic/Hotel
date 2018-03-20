@@ -114,4 +114,5 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
             return RedirectToAction("PrikaziPogodnostiZaSmjestaj",new {id=smjestajID });
         }
     }
+    //
 }
