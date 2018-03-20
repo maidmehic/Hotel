@@ -1,11 +1,11 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Hotel.Data.Models
+namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
 {
-    public class TipUsluge
+    public class TipUslugeDodajVM
     {
         public int Id { set; get; }
         public string Naziv { set; get; }

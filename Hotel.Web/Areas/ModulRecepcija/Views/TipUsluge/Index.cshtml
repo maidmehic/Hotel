@@ -1,0 +1,39 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.TipUslugeIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>Index</h2>
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Cijena</th>
+            <th>Akcija</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+        @foreach (var i in Model.TipoviUsluga)
+        {
+            <tr>
+
+                <td>@i.Naziv</td>
+                <td>@i.Cijena</td>
+
+                <td>
+
+                    @Html.ActionLink("Uredi", "Uredi", "Gost", new { GostID = i.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Obrisi", "Obrisi", "Gost", new { GostID = i.Id }, new { @class = "btn btn-danger" })
+
+                </td>
+
+
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Dodaj", "Dodaj", "TipUsluge", new { }, new { @class = "btn btn-primary" })

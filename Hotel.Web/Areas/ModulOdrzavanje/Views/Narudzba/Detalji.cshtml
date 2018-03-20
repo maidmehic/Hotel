@@ -1,0 +1,64 @@
+﻿@model Hotel.Web.Areas.ModulOdrzavanje.ViewModels.PrikaziNarudzbeVM.Row
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+
+}
+
+<form class="form-horizontal">
+
+    <div class="form-group">
+
+
+        <label>Datum kreiranja:</label>
+        <input type="text" readonly value="  @Model.DatumKreiranja" class="form-control" />
+
+    </div>
+
+    <div class="form-group">
+
+
+        <label>Zaposlenik:</label>
+        <input type="text" readonly value="  @Model.ImeZaposlenika" class="form-control" />
+
+
+    </div>
+
+    <div class="form-group">
+
+
+        <label>Hitnost:</label>
+        <input type="text" readonly value=" @Model.Hitnost" class="form-control" />
+
+
+    </div>
+
+    <div class="form-group">
+
+
+        <label>Opis:</label>
+        <input type="text" readonly value=" @Model.Opis" class="form-control" />
+
+    </div>
+
+    <div class="form-group" id="ajaxDiv"> </div>
+    <a asp-action="Index" asp-controller="Stavke" asp-route-IdNarudzbe="@Model.Id" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn"></a>
+
+    <div>
+        @Html.ActionLink("Dodaj Stavku", "Dodaj", "Stavke", new { NarudzbaId = Model.Id }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Dodaj Proizvod", "Dodaj", "Proizvod", new { }, new { @class = "btn btn-success" })
+
+    </div>
+    
+    
+
+
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#jbtn").click();
+    });
+</script>
+
+

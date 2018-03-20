@@ -1,0 +1,60 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.GostIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Grad</th>
+            <th>Broj Pasosa</th>
+            <th>Drzavljanstvo </th>
+            <th>Datum Rodenja </th>
+            <th>Telefon </th>
+            <th>Email </th>
+            <th>Spol </th>
+
+        </tr>
+
+
+
+    </thead>
+
+
+
+    <tbody>
+        @foreach (var i in Model.Gosti)
+        {
+        <tr>
+
+            <td>@i.Ime</td>
+            <td>@i.Prezime</td>
+            <td>@i.Grad</td>
+            <td>@i.BrojPasosa</td>
+            <td>@i.Drzavljanstvo</td>
+            <td>@i.DatumRodenja</td>
+            <td>@i.Telefon</td>
+            <td>@i.Email</td>
+            <td>@i.Spol</td>
+
+
+            <td>
+              
+                @Html.ActionLink("Uredi", "Uredi", "Gost", new { GostID = i.Id }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Obrisi", "Obrisi", "Gost", new { GostID = i.Id }, new { @class = "btn btn-danger" })
+
+            </td>
+
+
+
+
+        </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Dodaj", "Dodaj", "Gost", new { }, new { @class = "btn btn-primary" })

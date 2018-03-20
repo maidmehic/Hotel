@@ -1,0 +1,49 @@
+﻿@model Hotel.Web.Areas.ModulOdrzavanje.ViewModels.UrediNarudzbuVM
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "Uredi Narudzbu";
+}
+<h2>Uredi Narudzbu</h2>
+
+<form asp-action="UrediNarudzbu" asp-controller="Narudzba" method="post">
+
+    <div>
+        <label>Opis:</label>
+        <input asp-for="Opis" class="form-control" />
+
+    </div>
+   
+
+
+    <div>
+        <label>DatumKreiranja:</label>
+        <input asp-for="DatumKreiranja" class="form-control" />
+
+    </div>
+
+
+
+   
+
+    <div>
+        @*<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>*@
+        <label>Hitnost:</label>
+        <input asp-for="Hitnost" class="form-control" />
+
+    </div>
+
+    <div>
+
+        @Html.DropDownListFor(x=>x.zaposlenik.Id,Model.Zaposlenici,new { @class="form-control"})
+
+    </div>
+
+    <div>
+        <input type="submit" value="Snimi" class="btn btn-default" />
+    </div>
+
+</form>
