@@ -1,0 +1,37 @@
+﻿@model Hotel.Data.Models.CheckIN
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "Detalji";
+}
+<h2>Detalji CheckIna</h2>
+
+
+<div class="form-group">
+    <label>Broj djece</label>
+    <input asp-for="BrojDjece" hidden />
+</div>
+
+<div class="form-group">
+    <label>Broj odraslih</label>
+    <input asp-for="BrojOdraslih" />
+</div>
+<div class="form-group">
+    <label>Datum dolaska</label>
+    <input asp-for="DatumDolaska" />
+</div>
+<div class="form-group">
+    <label>Datum odlaska</label>
+    <input asp-for="DatumOdlaska" />
+</div>
+<div class="form-group">
+    <label>Depozit</label>
+    <input asp-for="Depozit" />
+</div>
+<div class="form-group">
+    <label>Detalji gosta</label>
+
+</div>
+<label>Detalji zaposlenika</label>
+
+

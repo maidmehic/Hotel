@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h2>Index</h2>
-
-@Html.ActionLink("Prikazi Goste", "Index", "Gost", new { }, new { @class="btn btn-primary"})
+<h2>HomePage Recepcije</h2>
+@Html.ActionLink("Prikazi Goste", "Index", "Gost", new { }, new { @class = "btn btn-primary" })
+@Html.ActionLink("Prikazi Rezervisane Usluge", "Index", "RezervisanaUsluga", new { }, new { @class = "btn btn-primary" })
+@Html.ActionLink("Prikazi Check Ine", "Index", "CheckIN", new { }, new { @class = "btn btn-primary" })

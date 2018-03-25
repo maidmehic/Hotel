@@ -1,0 +1,58 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.GostIndexVM.Row
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "Detalji";
+}
+
+<h2>Detalji</h2>
+
+<div>
+    <label>Ime:</label>
+    <input asp-for="Ime" class="form-control" />
+    <span asp-validation-for="Ime" class="text-danger"></span>
+</div>
+
+<div>
+    <label>Prezime:</label>
+    <input asp-for="Prezime" class="form-control" />
+    <span asp-validation-for="Prezime" class="text-danger"></span>
+</div>
+<div>
+    <label>Grad:</label>
+    <input asp-for="Grad" class="form-control" />
+
+</div>
+<div>
+    <label>Broj Pasosa:</label>
+    <input asp-for="BrojPasosa" class="form-control" />
+    <span asp-validation-for="BrojPasosa" class="text-danger"></span>
+</div>
+<div>
+    <label>Drzavljanstvo:</label>
+    <input asp-for="Drzavljanstvo" class="form-control" />
+    <span asp-validation-for="Drzavljanstvo" class="text-danger"></span>
+</div>
+<div>
+    <label>Datum Rodenja:</label>
+    <input asp-for="DatumRodenja" class="form-control" />
+
+</div>
+
+<div>
+    <label>Telefon:</label>
+    <input asp-for="Telefon" class="form-control" />
+    <span asp-validation-for="Telefon" class="text-danger"></span>
+</div>
+<div>
+    <label>Email:</label>
+    <input asp-for="Email" class="form-control" />
+    <span asp-validation-for="Email" class="text-danger"></span>
+</div>
+<div>
+    <label>Spol:</label>
+    <input asp-for="Spol" class="form-control" />
+
+</div>
+
+@Html.ActionLink("Nazad", "Index", "CheckIN", new { @class = "btn btn-success" })

@@ -1,0 +1,17 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.FeedbackDodajVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "Dodaj";
+}
+<h2>Dodaj</h2>
+<form asp-action="Dodaj" asp-controller="Feedback" method="post">
+    <input asp-for="CheckINId" hidden />
+   
+   dodat podatke o gostu
+    <div class="form-group">
+        <label>Sadrzaj</label>
+        <input asp-for="Sadrzaj" />
+    </div>
+    <input type="submit" value="Snimi"/>
+</form>

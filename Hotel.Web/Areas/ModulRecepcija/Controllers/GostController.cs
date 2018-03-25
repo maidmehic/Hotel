@@ -6,6 +6,7 @@ using Hotel.Data.Models;
 using Hotel.Web.Areas.ModulRecepcija.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 {
@@ -18,36 +19,55 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         {
             GostIndexVM model = new GostIndexVM();
 
-            model.Gosti = db.Gost.Select(x => new GostIndexVM.Row {
-                Id=x.Id,
+            model.Gosti = db.Gost.Select(x => new GostIndexVM.Row
+            {
+                Id = x.Id,
                 BrojPasosa = x.BrojPasosa,
                 Ime = x.Ime,
                 Prezime = x.Prezime,
                 Drzavljanstvo = x.Drzavljanstvo,
                 DatumRodenja = x.DatumRodenja,
                 Telefon = x.Telefon,
-                Email=x.Email,
-                Grad=x.Grad.Naziv,
-                Spol=x.Spol
-                
-                
-    }).ToList();
+                Email = x.Email,
+                Grad = x.Grad.Naziv,
+                Spol = x.Spol
 
-           
-            
+
+            }).ToList();
+
+
+
+
+            return View(model);
+        }
+        public IActionResult Detalji(int GostId)
+        {
+            GostIndexVM.Row model = new GostIndexVM.Row();
+            Gost x = db.Gost.Include(c=>c.Grad).Where(c => c.Id == GostId).FirstOrDefault();
+            model.Id = x.Id;
+            model.BrojPasosa = x.BrojPasosa;
+            model.Ime = x.Ime;
+            model.Prezime = x.Prezime;
+            model.Drzavljanstvo = x.Drzavljanstvo;
+            model.DatumRodenja = x.DatumRodenja;
+            model.Telefon = x.Telefon;
+            model.Email = x.Email;
+            model.Grad = x.Grad.Naziv;
+            model.Spol = x.Spol;
+
 
             return View(model);
         }
         public void PripremiStavkeModela(GostDodajVM model)
         {
-            model.Gradovi = new SelectList(db.Grad, "Id", "Naziv","--Odaberite Grad--");
+            model.Gradovi = new SelectList(db.Grad, "Id", "Naziv", "--Odaberite Grad--");
         }
         public IActionResult Dodaj()
         {
             GostDodajVM model = new GostDodajVM();
             PripremiStavkeModela(model);
 
-           
+
 
             return View(model);
         }
@@ -55,7 +75,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         public IActionResult Dodaj(GostDodajVM model)
         {
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 PripremiStavkeModela(model);
                 return View("Dodaj", model);
@@ -74,7 +94,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             {
                 g = db.Gost.Find(model.Id);
             }
-            
+
 
 
 
@@ -89,7 +109,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             g.GradId = model.Grad.Id;
 
 
-           
+
             db.SaveChanges();
 
 
@@ -98,7 +118,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         }
         public IActionResult Uredi(int GostID)
         {
-            
+
             Gost g1 = db.Gost.Where(x => x.Id == GostID).FirstOrDefault();
 
             GostDodajVM g = new GostDodajVM();

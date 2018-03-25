@@ -1,0 +1,12 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@model Hotel.Web.Areas.ModulRecepcija.ViewModels.CheckINCheckOutVM
+@{
+    ViewData["Title"] = "CheckOut";
+}
+<h2>Check Out</h2>
+<div class="form-group">
+    <label>Iznos za platit</label>
+    <input asp-for="Iznos" />
+</div>
+<input asp-action="Dodaj" asp-controller="Racun" asp-route-CheckInId="@Model.CheckInId" asp-route-suma="@Model.Iznos"class="btn-default" value="Plati racun" />

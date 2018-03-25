@@ -1,0 +1,50 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.FeedbackIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>Index</h2>
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>CheckIN</th>
+            <th>Gost</th>
+            <th>Sadrzaj</th>
+            <th>Akcija</th>
+           
+
+        </tr>
+
+
+
+    </thead>
+
+
+
+    <tbody>
+        @foreach (var i in Model.feedbaci)
+        {
+            <tr>
+
+                <td>@i.CheckIN</td>
+                <td>@i.Gost</td>
+                <td>@i.Sadrzaj</td>
+             
+
+                <td>
+
+                    @Html.ActionLink("Uredi", "Uredi", "Gost", new { GostID = i.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Obrisi", "Obrisi", "Gost", new { GostID = i.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Na CheckIN","Detalji", "CheckIN",new {id=i.CheckINId }, new { @class = "btn btn-success" })
+                   
+                </td>
+
+
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
