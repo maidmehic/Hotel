@@ -56,6 +56,7 @@ namespace Hotel.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Cijena = table.Column<float>(nullable: false),
                     Naziv = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -121,9 +122,11 @@ namespace Hotel.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BrojKreveta = table.Column<int>(nullable: false),
                     BrojSmjestaja = table.Column<int>(nullable: false),
+                    Cijena = table.Column<double>(nullable: false),
                     Kvadratura = table.Column<int>(nullable: false),
                     Sprat = table.Column<int>(nullable: false),
-                    VrstaSmjestajaId = table.Column<int>(nullable: false)
+                    VrstaSmjestajaId = table.Column<int>(nullable: false),
+                    Zauzeto = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -376,7 +379,6 @@ namespace Hotel.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CheckINId = table.Column<int>(nullable: false),
-                    Datumrezervacije = table.Column<DateTime>(nullable: false),
                     UslugeHotelaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -403,7 +405,6 @@ namespace Hotel.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CheckINId = table.Column<int>(nullable: false),
-                    GostId = table.Column<int>(nullable: false),
                     SmjestajId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -415,12 +416,6 @@ namespace Hotel.Data.Migrations
                         principalTable: "CheckIN",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RezervisanSmjestaj_Gost_GostId",
-                        column: x => x.GostId,
-                        principalTable: "Gost",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_RezervisanSmjestaj_Smjestaj_SmjestajId",
                         column: x => x.SmjestajId,
@@ -551,11 +546,6 @@ namespace Hotel.Data.Migrations
                 name: "IX_RezervisanSmjestaj_CheckINId",
                 table: "RezervisanSmjestaj",
                 column: "CheckINId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RezervisanSmjestaj_GostId",
-                table: "RezervisanSmjestaj",
-                column: "GostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RezervisanSmjestaj_SmjestajId",
