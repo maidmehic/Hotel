@@ -1,0 +1,100 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.CheckINIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>Check ini</h2>
+
+
+    @using (Html.BeginForm("Index", "CheckIN", FormMethod.Get))
+    {
+        <div class="container">
+            <h3>Pretrazi po</h3>
+            <div class="form-row">
+                <div class="col-sm-1">
+                    <label>Imenu Gosta</label>
+                    @Html.RadioButton("PretraziPo", "Ime")
+
+                </div>
+               
+                <div class="col-sm-1">
+                    <label>Broj pasosa</label><br />
+                    @Html.RadioButton("PretraziPo", "BrojPasosa")
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col">
+            @Html.TextBox("pretraga") <input type="submit" value="Trazi" />
+        </div>
+    }
+
+
+
+
+    <table class="table table-striped">
+
+        <thead>
+            <tr>
+                <th>Gost</th>
+                <th>BrojDjece</th>
+                <th>BrojOdraslih</th>
+                <th>Datum dolaska </th>
+                <th>Datum odlaska </th>
+                <th>Depozit </th>
+                <th>Tip usluge </th>
+                <th>Napomena </th>
+                <th>Zaposlenik </th>
+                <th>Akcija </th>
+
+
+            </tr>
+
+
+
+        </thead>
+
+        @if (Model.Brojac == 0)
+        {
+            <tbody>
+                <tr>
+                    <td colspan="10">Nijedan zapis ne odgovara kriteriju pretrage</td>
+                </tr>
+            </tbody>
+        }
+        else
+        {
+            <tbody>
+                @foreach (var i in Model.CheckINI)
+                {
+                    <tr>
+
+                        <td>@i.Gost</td>
+                        <td>@i.BrojDjece</td>
+                        <td>@i.BrojOdraslih</td>
+                        <td>@i.DatumDolaska</td>
+                        <td>@i.DatumOdlaska</td>
+                        <td>@i.Depozit</td>
+                        <td>@i.TipUsluge</td>
+                        <td>@i.Napomena</td>
+                        <td>@i.Zaposlenik</td>
+
+
+                        <td>
+
+                            @Html.ActionLink("Unesi feedback", "Dodaj", "Feedback", new { CheckINId = i.Id }, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Detalji gosta ", "Detalji", "Gost", new { GostId = i.GostId }, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Check-Out", "CheckOut", "CheckIN", new { Id = i.Id }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Obrisi", "Obrisi", "CheckIN", new { Id = i.Id }, new { @class = "btn btn-danger" })
+
+                        </td>
+
+
+
+
+                    </tr>
+                }
+            </tbody>
+        }
+    </table>
+

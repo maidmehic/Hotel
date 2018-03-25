@@ -1,0 +1,54 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.CheckINDodajVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "Dodaj";
+}
+<h2>Dodaj</h2>
+<form asp-action="Dodaj" asp-controller="CheckIN" method="post">
+
+    <div>
+        <label>Datum dolaska:</label>
+        <input asp-for="DatumDolaska" class="form-control" />
+    </div>
+
+    <div>
+        <label>Datum odlaska:</label>
+        <input asp-for="DatumOdlaska" class="form-control" />
+    </div>
+
+    <div>
+        <label>Broj djece:</label>
+        <input asp-for="BrojDjece" class="form-control" />
+    </div>
+
+    <div>
+        <label>Broj odraslih:</label>
+        <input asp-for="BrojOdraslih" class="form-control" />
+    </div>
+
+    <div>
+        <label>Depozit:</label>
+        <input asp-for="Depozit" class="form-control" />
+    </div>
+
+    <div>
+        <label>Napomena:</label>
+        <input asp-for="Napomena" class="form-control" />
+    </div>
+
+
+    <div>
+        <label>Gost:</label>
+        @Html.DropDownListFor(x => x.Gost.Id, Model.Gosti, "Odaberite gosta", new { @class = "form-control" })
+    </div>
+
+    <div>
+        <label>Tip usluge</label>
+        @Html.DropDownListFor(x => x.TipUsluge.Id, Model.TipoviUsluga, "Odaberite Tip Usluge", new { @class = "form-control" })
+    </div>
+
+
+    <input type="submit" value="Snimi" />
+</form>
+
