@@ -23,6 +23,12 @@ namespace Hotel.Data.Models
         public bool isRecepcioner { set; get; }
         public bool isCistacica { set; get; }
         public bool isKuhar { set; get; }
+
+
+        public string username { set; get; }
+        public string password { set; get; }
+
+
         //jedan grad
         public int GradId { get; set; }
         [ForeignKey(nameof(GradId))]
