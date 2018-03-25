@@ -11,8 +11,8 @@ using System;
 namespace Hotel.Data.Migrations
 {
     [DbContext(typeof(MojContext))]
-    [Migration("20180320202156_pocetna")]
-    partial class pocetna
+    [Migration("20180315155219_NovePromjene")]
+    partial class NovePromjene
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -268,15 +268,11 @@ namespace Hotel.Data.Migrations
 
                     b.Property<int>("BrojSmjestaja");
 
-                    b.Property<double>("Cijena");
-
                     b.Property<int>("Kvadratura");
 
                     b.Property<int>("Sprat");
 
                     b.Property<int>("VrstaSmjestajaId");
-
-                    b.Property<bool>("Zauzeto");
 
                     b.HasKey("Id");
 
