@@ -84,7 +84,7 @@
 
                             @Html.ActionLink("Unesi feedback", "Dodaj", "Feedback", new { CheckINId = i.Id }, new { @class = "btn btn-success" })
                             @Html.ActionLink("Detalji gosta ", "Detalji", "Gost", new { GostId = i.GostId }, new { @class = "btn btn-success" })
-                            @Html.ActionLink("Check-Out", "CheckOut", "CheckIN", new { Id = i.Id }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Check-Out", "CheckOut", "CheckIN", new { GostId = i.GostId }, new { @class = "btn btn-primary" })
                             @Html.ActionLink("Obrisi", "Obrisi", "CheckIN", new { Id = i.Id }, new { @class = "btn btn-danger" })
 
                         </td>

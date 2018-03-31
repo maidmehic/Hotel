@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hotel.Data.Models;
+using Hotel.Web.Helper;
 using Hotel.Web.Areas.ModulRecepcija.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -118,7 +119,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             c.GostId = model.Gost.Id;
             c.TipUslugeId = model.TipUsluge.Id;
-            c.ZaposlenikId = 1;// PREUZIMATI IZ SESIJE
+            c.ZaposlenikId = HttpContext.GetLogiraniKorisnik().Id;// PREUZIMATI IZ SESIJE
             c.BrojDjece = model.BrojDjece;
             c.BrojOdraslih = model.BrojOdraslih;
             c.DatumDolaska = model.DatumDolaska;
