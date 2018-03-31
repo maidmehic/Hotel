@@ -38,6 +38,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
            .Select(s => new
            {
                Id = s.Id,
+               
                Polje = string.Format("Gost: {0} Datum Dolaska {1} Datum Odlaska: {2} /// Broj djece:{3} Broj odraslih: {4}", s.Gost.Ime + s.Gost.Prezime, s.DatumDolaska, s.DatumOdlaska, s.BrojDjece, s.BrojOdraslih)
            })
     .ToList();

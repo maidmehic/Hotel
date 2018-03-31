@@ -9,4 +9,5 @@
     <label>Iznos za platit</label>
     <input asp-for="Iznos" />
 </div>
-<input asp-action="Dodaj" asp-controller="Racun" asp-route-CheckInId="@Model.CheckInId" asp-route-suma="@Model.Iznos"class="btn-default" value="Plati racun" />
+
+@Html.ActionLink("Plati racun", "Dodaj", "Racun", new { CheckInId =Model.CheckInId,suma=Model.Iznos},new { @class="btn-default" })

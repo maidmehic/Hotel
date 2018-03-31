@@ -16,7 +16,10 @@ namespace Hotel.Data.Models
         public int CheckINId { get; set; }
         [ForeignKey(nameof(CheckINId))]
         public virtual CheckIN CheckIN { get; set; }
-       
-       
+        public int GostId { get; set; }
+        [ForeignKey(nameof(GostId))]
+        public virtual Gost Gost { get; set; }
+
+
     }
 }
