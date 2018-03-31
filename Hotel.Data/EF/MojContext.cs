@@ -40,7 +40,6 @@ namespace Hotel.Data.Models
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
             modelBuilder.Entity<Feedback>().HasOne(a => a.Gost).WithMany().HasForeignKey(a => a.GostId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Racun>().HasOne(a => a.Gost).WithMany().HasForeignKey(a => a.GostId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<CheckIN>().HasOne(a => a.Zaposlenik).WithMany().HasForeignKey(a => a.ZaposlenikId).OnDelete(DeleteBehavior.Restrict);
