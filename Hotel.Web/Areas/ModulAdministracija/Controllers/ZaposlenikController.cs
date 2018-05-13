@@ -19,29 +19,22 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
             return View();
         }
         //
-        public IActionResult DodajZaposlenika()
-        {
-            NoviZaposlenikVM Model = new NoviZaposlenikVM();
-            List<Grad> Gradovi = db.Grad.ToList();
-            Model.Aktivan = true;
-            Model.isAdministrator = false;
-            Model.isCistacica = false;
-            Model.isKuhar = false;
-            Model.isRecepcioner = false;
 
+        public void PripremiCmb(NoviZaposlenikVM zaposlenik)
+        {
             List<SelectListItem> _grStavke = new List<SelectListItem>();
             _grStavke.Add(new SelectListItem()
             {
                 Value = null,
                 Text = "Odaberite grad"
             });
-            _grStavke.AddRange(Gradovi.Select(x => new SelectListItem()
+            _grStavke.AddRange(db.Grad.Select(x => new SelectListItem()
             {
                 Value = x.Id.ToString(),
                 Text = x.Naziv
             }));
 
-            Model.gradoviStavke = _grStavke;
+            zaposlenik.gradoviStavke = _grStavke;
 
             List<SelectListItem> _spStavke = new List<SelectListItem>();
             _spStavke.Add(new SelectListItem()
@@ -60,7 +53,7 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
                 Text = "Ženski"
             });
 
-            Model.spoloviStavke = _spStavke;
+            zaposlenik.spoloviStavke = _spStavke;
 
             List<SelectListItem> _brStavke = new List<SelectListItem>();
             _brStavke.Add(new SelectListItem()
@@ -79,13 +72,69 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
                 Text = "Udata"
             });
 
-            Model.brakStavke = _brStavke;
+            zaposlenik.brakStavke = _brStavke;
+        }
+
+        public IActionResult ProvjeriBracniStatus(string BracniStatus)
+        {
+            if (BracniStatus == "Odaberite bračni status")
+                return Json("Odaberite bračni status!");
+
+            return Json(true);
+        }
+
+        public IActionResult ProvjeriSpol(string Spol)
+        {
+            if (Spol == "Odaberite spol")
+                return Json("Odaberite spol!");
+
+            return Json(true);
+        }
+
+        public IActionResult ProvjeriGrad(int ? GradId)
+        {
+            if (GradId == null)
+                return Json("Odaberite grad!");
+            return Json(true);
+        }
+
+
+
+        public IActionResult DodajZaposlenika()
+        {
+            NoviZaposlenikVM Model = new NoviZaposlenikVM();
+            Model.Aktivan = true;
+            Model.isAdministrator = false;
+            Model.isCistacica = false;
+            Model.isKuhar = false;
+            Model.isRecepcioner = false;
+
+            PripremiCmb(Model);
 
             return View(Model);
         }   //
 
+        public IActionResult PrikaziZaposlenike(int? Tip, string ImePrezimePretraga)
+        {
+            PrikazZaposlenikaVM Model = new PrikazZaposlenikaVM();
+            Model.Zaposlenici = db.Zaposlenik.
+                Where(x => ((x.isAdministrator == true && Tip == 1) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
+                         (x.isCistacica == true && Tip == 2) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
+                         (x.isRecepcioner == true && Tip == 3) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
+                         (x.isKuhar == true && Tip == 4) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
+                         (!Tip.HasValue) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null))).ToList();
+            return View(Model);
+        }
+        
         public IActionResult SnimiZaposlenika(NoviZaposlenikVM zaposlenik) //
         {
+
+            if (!ModelState.IsValid)
+            {
+                PripremiCmb(zaposlenik);
+                return View("DodajZaposlenika", zaposlenik);
+            }
+
             Zaposlenik z;
             if (zaposlenik.Id == 0)
             {
@@ -199,17 +248,7 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
             return View(Model);
         }  //
 
-        public IActionResult PrikaziZaposlenike(int ? Tip, string ImePrezimePretraga)
-        {
-            PrikazZaposlenikaVM Model = new PrikazZaposlenikaVM();
-            Model.Zaposlenici = db.Zaposlenik.
-                Where(x=>((x.isAdministrator == true && Tip == 1) && (ImePrezimePretraga==x.Ime+" "+x.Prezime || ImePrezimePretraga==null)||
-                         (x.isCistacica==true && Tip == 2) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
-                         (x.isRecepcioner == true && Tip == 3) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
-                         (x.isKuhar == true && Tip == 4) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
-                         (!Tip.HasValue) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null))).ToList();
-            return View(Model);
-        }     // 
+         // 
 
     }
 }

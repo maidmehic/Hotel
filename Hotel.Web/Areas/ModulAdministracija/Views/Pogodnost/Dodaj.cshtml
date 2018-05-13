@@ -1,15 +1,15 @@
 ﻿
 @{
+    Layout = "LayoutBezFootera";
     ViewData["Title"] = "Dodaj";
 }
-
-<h2>Dodaj</h2>
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.NovaPogodnostVM
 <form action="/ModulAdministracija/Pogodnost/Snimi">
     <table>
         <tr>
-            <td>
-                Opis
-            <td>@Html.TextBox("Opis", null, new { @class = "form-control" })</td>
+            <td>Opis</td>
+            <td>@Html.TextBoxFor(x=>x.Opis , new{ @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Opis)</span></td>
         </tr>
         <tr>
             <td>

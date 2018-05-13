@@ -1,0 +1,55 @@
+﻿@using Hotel.Data.Models;
+@{
+    ViewData["Title"] = "PrikaziDetaljeZaCheckIN";
+}
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazDetaljaZaCheckINVM
+
+<h2>Prijavljeni gosti na odabrani CheckIN</h2>     
+<table class="table table-striped">
+    <tr>
+        <th>Gost</th>
+        <th>Email</th>
+        <th>Telefon</th>
+        <th>Državljanstvo</th>
+        <th>Datum rođenja</th>
+        <th>Broj smještaja</th>
+        <th>Vrsta smještaja</th>
+    </tr>
+    
+    @foreach (RezervisanSmjestaj s in Model.RezervisanSmjestaj)
+    {
+        <tr>
+            <td>@s.Gost.Ime @s.Gost.Prezime</td>
+            <td>@s.Gost.Email</td>
+            <td>@s.Gost.Telefon</td>
+            <td>@s.Gost.Drzavljanstvo</td>
+            <td>@s.Gost.DatumRodenja.ToString("dd.MM.yyyy")</td>
+            <td>@s.Smjestaj.BrojSmjestaja</td>
+            <td>@s.Smjestaj.VrstaSmjestaja.Naziv</td>
+        </tr>
+    }
+    <tr>
+        <th>Broj gostiju</th>
+        <td style="color:red">@Model.BrojGostiju</td>
+    </tr>
+</table>
+<h2>Rezervisane usluge</h2>
+<table class="table table-striped">
+    <tr>
+        <th>Naziv</th>
+        <th>Opis</th>
+        <th>Datum početka</th>
+        <th>Datum završetka</th>
+    </tr>
+    @foreach (RezervisanaUsluga u in Model.RezervisaneUsluge)
+    {
+        <tr>
+            <td>@u.UslugeHotela.Naziv</td>
+            <td>@u.UslugeHotela.Opis</td>
+            <td>@u.UslugeHotela.DatumPocetka.ToString("dd.MM.yyyy HH:mm")</td>
+            <td>@u.UslugeHotela.DatumZavrsetka.ToString("dd.MM.yyyy HH:mm")</td>
+        </tr>
+    }
+</table>
+
+

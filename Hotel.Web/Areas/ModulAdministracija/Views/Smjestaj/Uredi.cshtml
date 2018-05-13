@@ -3,6 +3,9 @@
     ViewData["Title"] = "Uredi";
 }
 
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+
 <h2>Uredi</h2>
 
 <form action="/ModulAdministracija/Smjestaj/Snimi">
@@ -14,27 +17,37 @@
        </tr>
         <tr>
             <td>Broj smještaja</td>
-            <td>@Html.TextBoxFor(x => x.BrojSmjestaja, new { @class = "form-control" })</td>
+            @*<td>@Html.TextBoxFor(x => x.BrojSmjestaja, new { @class = "form-control" })</td>*@
+            <td><input asp-for="BrojSmjestaja" class="form-control" /></td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.BrojSmjestaja)</span></td>
         </tr>
         <tr>
             <td>Sprat</td>
-            <td>@Html.TextBoxFor(x => x.Sprat, new { @class = "form-control" })</td>
+            <td><input asp-for="Sprat" class="form-control" /></td>
+            @*<td>@Html.TextBoxFor(x => x.Sprat, new { @class = "form-control" })</td>*@
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Sprat)</span></td>
         </tr>
         <tr>
             <td>Kvadratura</td>
-            <td>@Html.TextBoxFor(x => x.Kvadratura, new { @class = "form-control" })</td>
+            <td><input asp-for="Kvadratura" class="form-control" /></td>
+            @*<td>@Html.TextBoxFor(x => x.Kvadratura, new { @class = "form-control" })</td>*@
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Kvadratura)</span></td>
         </tr>
         <tr>
             <td>Broj kreveta</td>
-            <td>@Html.TextBoxFor(x => x.BrojKreveta, new { @class = "form-control" })</td>
+            <td><input asp-for="BrojKreveta" class="form-control" /></td>
+            @*<td>@Html.TextBoxFor(x => x.BrojKreveta, new { @class = "form-control" })</td>*@
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.BrojKreveta)</span></td>
         </tr>
         <tr>
             <td>Vrsta smještaja</td>
             <td>@Html.DropDownListFor(x => x.VrstaSmjestajaId, Model._vrstaStavke, new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.VrstaSmjestajaId)</span></td>
         </tr>
         <tr>
             <td>Cijena noćenja</td>
             <td>@Html.TextBoxFor(x => x.Cijena,new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Cijena)</span></td>
         </tr>
         <tr>
             <td>Zauzeto</td>

@@ -1,0 +1,54 @@
+﻿@using Hotel.Data.Models;
+@{
+    ViewData["Title"] = "PrikaziGoste";
+    int brojac = 0;
+}
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazGostijuVM
+
+<h2>PrikaziGoste</h2>
+
+<form action="/ModulAdministracija/Gost/PrikaziGoste">
+   
+   <b>Ime i prezime:</b>
+   @Html.TextBoxFor(m => m.ImePrezimePretraga, new { placeholder = "Ime i prezime" })
+   @Html.DropDownListFor(x=>x.PretragaGrad,Model.GradoviStavke)
+       
+   <input type="submit" class="btn btn-success" value="Pretraži" />
+   
+</form>
+
+<br /><br />
+    <table class="table table-striped">
+        <tr>
+            <th>R.br.</th>
+            <th>Ime i prezime</th>
+            <th>Datum rođenja</th>
+            <th>Broj pasoša</th>
+            <th>Email</th>
+            <th>Telefon</th>
+            <th>Državljanstvo</th>
+            <th>Spol</th>
+            <th>Grad</th>
+            <th>Država</th>
+            <th>Akcija</th>
+        </tr>
+        
+        @foreach (Gost g in Model.Gosti)
+        {
+            <tr>
+                <td>@(++brojac)</td>
+                <td>@g.Ime @g.Prezime</td>
+                <td>@g.DatumRodenja.ToString("dd.MM.yyyy")</td>
+                <td>@g.BrojPasosa</td>
+                <td>@g.Email</td>
+                <td>@g.Telefon</td>
+                <td>@g.Drzavljanstvo</td>
+                <td>@g.Spol</td>
+                <td>@g.Grad.Naziv</td>
+                <td>@g.Grad.Drzava.Naziv</td>
+                <td><a href="/ModulAdministracija/Gost/PrikaziDetaljeGosta?gostId=@g.Id" class="btn btn-success">Info</a></td>
+            </tr>
+        }
+    </table>
+
+

@@ -1,0 +1,66 @@
+﻿@using Hotel.Data.Models;
+@{
+    ViewData["Title"] = "HistorijaIzdavanja";
+}
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.HistorijaIzdavanjaVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+<h2>Pregle historije gostiju na smjestaju</h2>
+
+
+<form>
+    <table>
+        <tr>
+            <td>@Html.HiddenFor(x => x.id)</td>
+        </tr>
+        <tr>
+            <td>Period CheckIn-a</td>
+            <td>
+                <input asp-for="CheckInDatum" class="form-control" />
+            </td>
+            <td><input type="submit" value="Traži" class="btn btn-primary" /></td>
+        </tr>
+            @*<tr>
+                <td>Period CheckOut-a</td>
+                <td>
+                    <input asp-for="CheckOutDatum" class="form-control" />
+                </td>
+                <td><input type="submit" value="Traži" class="btn btn-primary" /></td>
+            </tr>*@
+            
+    </table>
+
+
+    <table class="table table-striped">
+        
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Grad</th>
+            <th>Državljanstvo</th>
+            <th>Pasoš</th>
+            <th>Email</th>
+            <th>Datum CheckIn-a</th>
+            <th>Datum odjave</th>
+            <th>CheckIn prijavio</th>
+        </tr>
+        @foreach (RezervisanSmjestaj s in Model.RezervacijeZaSmjestaj)
+        {
+            <tr>
+                <td>@s.Gost.Ime</td>
+                <td>@s.Gost.Prezime</td>
+                <td>@s.Gost.Grad.Naziv</td>
+                <td>@s.Gost.Drzavljanstvo</td>
+                <td>@s.Gost.BrojPasosa</td>
+                <td>@s.Gost.Email</td>
+                <td>@s.CheckIN.DatumDolaska.ToString("dd-MM-yyyy h:mm")</td>
+                <td>@s.CheckIN.DatumOdlaska.ToString("dd-MM-yyyy h:mm")</td>
+                <td>@s.CheckIN.Gost.Ime @s.CheckIN.Gost.Prezime</td>
+            </tr>
+        }
+    </table>
+</form>
+
+
+
+

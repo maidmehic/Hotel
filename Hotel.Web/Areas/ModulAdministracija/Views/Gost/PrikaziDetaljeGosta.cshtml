@@ -1,0 +1,38 @@
+﻿@using Hotel.Data.Models;
+@{
+    ViewData["Title"] = "PrikaziDetaljeGosta";
+}
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazDetaljaZaGostaVM
+
+<h2>PrikaziDetaljeGosta</h2>
+
+
+<table class="table table-striped">
+
+    <tr>
+        <th>Datum prijave</th>
+        <th>Datum odjave</th>
+        <th>Check in prijavio</th>
+        <th>Tip</th>
+        <th>Zaposlenik</th>
+        <th>Broj smještaja</th>
+        <th>Vrsta</th>
+    </tr>
+
+    @foreach (RezervisanSmjestaj s in Model.RezervisaniSmjestaji)
+    {
+        <tr>
+            <td>@s.CheckIN.DatumDolaska</td>
+            <td>@s.CheckIN.DatumOdlaska</td>
+            <td>@s.CheckIN.Gost.Ime @s.CheckIN.Gost.Prezime</td>
+            <td>@s.CheckIN.TipUsluge.Naziv</td>
+            <td>@s.CheckIN.Zaposlenik.Ime @s.CheckIN.Zaposlenik.Prezime</td>
+            <td>@s.Smjestaj.BrojSmjestaja</td>
+            <td>@s.Smjestaj.VrstaSmjestaja.Naziv</td>
+        </tr>
+    }
+
+</table>
+
+
+
