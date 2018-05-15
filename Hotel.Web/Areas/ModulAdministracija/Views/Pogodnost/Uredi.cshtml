@@ -1,8 +1,8 @@
 ﻿@using Hotel.Data.Models;
 @{
     ViewData["Title"] = "Uredi";
-    Pogodnost p = (Pogodnost)ViewData["p"];
 }
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.NovaPogodnostVM
 
 <h2>Uredi</h2>
 
@@ -10,13 +10,13 @@
     <table>
         <tr>
             <td>
-                @Html.Hidden("id",p.Id)
+                @Html.HiddenFor(x=>x.Id)
             </td>
         </tr>
         <tr>
-            <td>
-                Opis
-            <td>@Html.TextBox("Opis", p.Opis, new { @class = "form-control" })</td>
+            <td>Opis</td>
+            <td>@Html.TextBoxFor(x=>x.Opis,new {@class= "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x=>x.Opis)</span></td>
         </tr>
         <tr>
             <td>

@@ -37,6 +37,12 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
         {
             NoviSmjestajVM Model = new NoviSmjestajVM();
             Model.Zauzeto = false;
+            NapuniCmb(Model);
+            return View(Model);
+        }
+
+        void NapuniCmb(NoviSmjestajVM s)
+        {
             List<SelectListItem> _stavke = new List<SelectListItem>();
             _stavke.Add(new SelectListItem
             {
@@ -48,11 +54,33 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
                 Value = x.Id.ToString(),
                 Text = x.Naziv
             }));
-            Model._vrstaStavke = _stavke;
-            return View(Model);
+
+            s._vrstaStavke = _stavke;
         }
+        public IActionResult ProvjeriBroj(int BrojSmjestaja,int Id)
+        {
+            if (db.Smjestaj.Any(x => x.BrojSmjestaja == BrojSmjestaja && x.Id!=Id))
+                return Json("Broj smještaja je već upotrebljen.");
+            return Json(true);
+        }
+
+        public IActionResult ProvjeriVrstu(int? VrstaSmjestajaId)
+        {
+            if (VrstaSmjestajaId == null)
+                return Json("Odaberite vrstu!");
+            return Json(true);
+        }
+
+
         public IActionResult Snimi(NoviSmjestajVM s)
         {
+
+            if (!ModelState.IsValid)
+            {
+                NapuniCmb(s);
+                return View("DodajSmjestaj", s);
+            }
+
             Smjestaj temp;
             if (s.Id == 0)
             {
@@ -63,13 +91,13 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
             {
                 temp = db.Smjestaj.Find(s.Id);
             }
-
-            temp.BrojSmjestaja = s.BrojSmjestaja;
-            temp.Sprat = s.Sprat;
-            temp.BrojKreveta = s.BrojKreveta;
-            temp.Kvadratura = s.Kvadratura;
+            
+            temp.BrojSmjestaja = s.BrojSmjestaja??0;//Ovako radimo da bi nam izbacilo 0 sa viewa
+            temp.Sprat = s.Sprat??0;
+            temp.BrojKreveta = s.BrojKreveta??0;
+            temp.Kvadratura = s.Kvadratura ?? 0;
             temp.Zauzeto = s.Zauzeto;
-            temp.Cijena = s.Cijena;
+            temp.Cijena = s.Cijena ?? 0;
             temp.VrstaSmjestajaId = s.VrstaSmjestajaId;
             db.SaveChanges();
             return RedirectToAction("PrikaziSmjestaj");
@@ -99,6 +127,28 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
                 Text = x.Naziv
             }));
             Model._vrstaStavke = _stavke;
+            return View(Model);
+        }
+
+
+        //Rezervisan smjestaj
+
+        public IActionResult HistorijaIzdavanja(int id, DateTime CheckInDatum)
+        {
+            
+            HistorijaIzdavanjaVM Model = new HistorijaIzdavanjaVM();
+            Model.RezervacijeZaSmjestaj = db.RezervisanSmjestaj.
+                Include(x => x.Smjestaj).
+                Include(x => x.CheckIN).
+                Include(x=>x.CheckIN.Gost).
+                Include(x => x.Gost).
+                Include(x => x.Gost.Grad).
+                Where(x => (x.SmjestajId == id && CheckInDatum <= x.CheckIN.DatumDolaska)).ToList();
+            Model.id = id;
+
+            //Model.FeedbaciZaSmjestaj = db.Feedback.
+            //    Include(x => x.CheckIN).                Vidjeti ovo oko feedbackova
+            //    Include(x => x.Gost).ToList();
             return View(Model);
         }
     }

@@ -1,21 +1,23 @@
 ﻿@{
+    Layout = "LayoutBezFootera";
     ViewData["Title"] = "DodajPogodnostZaSmjestaj";
-    int smjestajID = (int)ViewData["smjestajID"];
-    IEnumerable<SelectListItem> PogodnostiStavke = (IEnumerable<SelectListItem>)ViewData["PogodnostiStavke"];
 }
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.NovaPogodnostZaSmjestajVM
 
-<h2>DodajPogodnostZaSmjestaj</h2>
 <form action="/ModulAdministracija/Pogodnost/SnimiPogodnostZaSmjestaj">
     <table>
         <tr>
-            <td>@Html.Hidden("smjestajID", smjestajID)</td>
+            <td>@Html.HiddenFor(x=>x.smjestajID)</td>
         </tr>
         <tr>
             <td>Odaberite pogodnost</td>
-            <td>@Html.DropDownList("StavkaPogodnosti",PogodnostiStavke,new {@class="form-control" })</td>
+            <td>@Html.DropDownListFor(x=>x.StavkaPogodnosti,Model._stavke, new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.StavkaPogodnosti)</span></td>
         </tr>
         <tr>
+            <td></td>
             <td><input type="submit" value="Spremi" class="btn btn-success" />  </td>
+
         </tr>
     </table>
 </form>

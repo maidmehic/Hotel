@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Hotel.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Hotel.Web.Areas.ModulAdministracija.ViewModels;
 
 namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 {
@@ -28,10 +29,17 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
         }
         public IActionResult Dodaj()
         {
-            return View();
+            NovaPogodnostVM Model = new NovaPogodnostVM();
+            return View(Model);
         }
-        public IActionResult Snimi(Pogodnost temp)
+        public IActionResult Snimi(NovaPogodnostVM temp)
         {
+            if (!ModelState.IsValid)
+            {
+                //return View("Uredi", temp.Id);
+
+                return View("Dodaj", temp);
+            }
             Pogodnost p;
             if (temp.Id == 0)
             {
@@ -57,12 +65,21 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
         }
         public IActionResult Uredi(int id)
         {
+            NovaPogodnostVM Model = new NovaPogodnostVM();
             Pogodnost p = new Pogodnost();
             p = db.Pogodnost.Find(id);
-            ViewData["p"] = p;
-            return View();
-        }
 
+            Model.Id = p.Id;
+            Model.Opis = p.Opis;
+            return View(Model);
+        }
+        
+        public IActionResult ProvjeriDuplikate(string Opis, int Id)
+        {
+            if (db.Pogodnost.Any(x => x.Opis == Opis && x.Id != Id))
+                return Json("Pogodnost je već dodana!");
+            return Json(true);
+        }
 
 
         //tabela "PogodnostiSmjestaja"
@@ -88,7 +105,15 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
         }
         public IActionResult DodajPogodnostZaSmjestaj(int smjestajID)
         {
-            ViewData["smjestajID"] = smjestajID;
+            NovaPogodnostZaSmjestajVM Model = new NovaPogodnostZaSmjestajVM();
+            
+            Model.smjestajID = smjestajID;
+            NapuniCmb(Model);
+            
+            return View(Model);
+        }
+        void NapuniCmb(NovaPogodnostZaSmjestajVM p)
+        {
             List<SelectListItem> _stavke = new List<SelectListItem>();
             _stavke.Add(new SelectListItem()
             {
@@ -100,18 +125,35 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
                 Value = x.Id.ToString(),
                 Text = x.Opis
             }));
-            IEnumerable<SelectListItem> PogodnostiStavke=_stavke;
-            ViewData["PogodnostiStavke"] = PogodnostiStavke;
-            return View();
+            p._stavke = _stavke;
+
         }
-        public IActionResult SnimiPogodnostZaSmjestaj(int smjestajID, int StavkaPogodnosti)
+        public IActionResult ProvjeriStavkuPogodnosti(int? StavkaPogodnosti, int smjestajID)
         {
+            if (StavkaPogodnosti == null)
+                return Json("Odaberite pogodnost!");
+
+            if(db.PogodnostiSmjestaja.Any(x=>x.SmjestajId==smjestajID && x.PogodnostId==StavkaPogodnosti))
+                return Json("Pogodnost je već odabrana!");
+
+            return Json(true);
+        }
+        
+
+        public IActionResult SnimiPogodnostZaSmjestaj(NovaPogodnostZaSmjestajVM p)
+        {
+            if (!ModelState.IsValid)
+            {
+                NapuniCmb(p);
+                return View("DodajPogodnostZaSmjestaj", p);
+            }
+
             PogodnostiSmjestaja ps = new PogodnostiSmjestaja();
-            ps.PogodnostId = StavkaPogodnosti;
-            ps.SmjestajId = smjestajID;
+            ps.PogodnostId = p.StavkaPogodnosti;
+            ps.SmjestajId = p.smjestajID;
             db.PogodnostiSmjestaja.Add(ps);
             db.SaveChanges();
-            return RedirectToAction("PrikaziPogodnostiZaSmjestaj",new {id=smjestajID });
+            return RedirectToAction("PrikaziPogodnostiZaSmjestaj",new {id=p.smjestajID });
         }
     }
     //

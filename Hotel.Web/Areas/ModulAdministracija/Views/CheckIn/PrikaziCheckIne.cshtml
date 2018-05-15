@@ -1,0 +1,62 @@
+﻿@using Hotel.Data.Models;
+@{
+    ViewData["Title"] = "PrikaziCheckIne";
+}
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazCheckInaVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+<h2>PrikaziCheckIne</h2>
+
+<form action="/ModulAdministracija/CheckIn/PrikaziCheckIne">
+    <table>
+        <tr>
+            <td>Period od::</td>
+            <td><input asp-for="Od" class="form-control"/></td>
+        </tr>
+
+        <tr>
+            <td>Period do::</td>
+            <td><input asp-for="Do" class="form-control"/></td>
+        </tr>
+        <tr>
+            <td>@Html.DropDownListFor(x=>x.StatusPretraga,Model.statusRezervacije)</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" class="btn btn-success" value="Traži"/> </td>
+        </tr>
+    </table>
+</form>
+
+
+    <table class="table table-striped">
+        <tr>
+            <td>Datum prijave</td>
+            <td>Datum odjave</td>
+            <td>Broj odraslih</td>
+            <td>Broj djece</td>
+            <td>Depozit</td>
+            <td>CheckIN prijavio</td>
+            <td>Tip</td>
+            <td>Napomena</td>
+            <td>Zaposlenik</td>
+            <td>Akcija</td>
+        </tr>
+        @foreach (CheckIN c in Model.CheckINi)
+        {
+            <tr>
+                <td>@c.DatumDolaska.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>@c.DatumOdlaska.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>@c.BrojOdraslih</td>
+                <td>@c.BrojDjece</td>
+                <td>@c.Depozit</td>
+                <td>@c.Gost.Ime @c.Gost.Prezime</td>
+                <td>@c.TipUsluge.Naziv</td>
+                <td>@c.Napomena</td>
+                <td>@c.Zaposlenik.Ime @c.Zaposlenik.Prezime</td>
+                <td><a href="/ModulAdministracija/CheckIn/PrikaziDetaljeZaCheckIN?id=@c.Id" class="btn btn-success">Detalji</a></td>
+            </tr>
+        }
+    </table>
+
+

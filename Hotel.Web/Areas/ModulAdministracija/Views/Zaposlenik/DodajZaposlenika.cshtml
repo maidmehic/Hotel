@@ -3,53 +3,73 @@
     ViewData["Title"] = "Dodaj";
 }
 
+@*@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers*@
+
 <h2>Novi zaposlenik</h2>
 
+<script>
+    $(document).ready(function(){
+        $(".form-control datepicker").datepicker();
+    });
+
+</script>
 <form action="/ModulAdministracija/Zaposlenik/SnimiZaposlenika">
     <table>
         <tr>
             <td><b>Ime</b></td>
             <td>@Html.TextBoxFor(x => x.Ime, new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x=>x.Ime)</span></td>
         </tr>
         <tr>
             <td><b>Prezime</b></td>
             <td>@Html.TextBoxFor(x => x.Prezime, new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Prezime)</span></td>
         </tr>
         <tr>
             <td><b>Datum rođenja</b></td>
-            <td>@Html.TextBoxFor(x => x.DatumRodjenja, new { @class = "form-control" })</td>
+            <td class="date">@Html.TextBoxFor(x => x.DatumRodjenja, "{0:dd/MM/yyyy}", new { @class = "form-control"})</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.DatumRodjenja)</span></td>
         </tr>
         <tr>
             <td><b>Telefon</b></td>
             <td>@Html.TextBoxFor(x => x.Telefon, new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Telefon)</span></td>
         </tr>
         <tr>
             <td><b>Email</b></td>
             <td>@Html.TextBoxFor(x => x.Email, new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Email)</span></td>
         </tr>
         <tr>
             <td><b>Broj ugovora</b></td>
             <td>@Html.TextBoxFor(x => x.BrojUgovora, new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.BrojUgovora)</span></td>
         </tr>
         <tr>
             <td><b>Datum zaposlenja</b></td>
-            <td>@Html.TextBoxFor(x => x.DatumZaposljenja, new { @class = "form-control" })</td>
+            <td>@Html.TextBoxFor(x => x.DatumZaposljenja, "{0:dd/MM/yyyy}", new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.DatumZaposljenja)</span></td>
         </tr>
         <tr>
             <td><b>JBMG</b></td>
             <td>@Html.TextBoxFor(x => x.JMBG, new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.JMBG)</span></td>
         </tr>
         <tr>
             <td><b>Spol</b></td>
             <td>@Html.DropDownListFor(x => x.Spol, Model.spoloviStavke, new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Spol)</span></td>
         </tr>
         <tr>
             <td><b>Bračni status</b></td>
             <td>@Html.DropDownListFor(x => x.BracniStatus, Model.brakStavke, new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.BracniStatus)</span></td>
         </tr>
         <tr>
             <td><b>Grad</b></td>
             <td>@Html.DropDownListFor(x => x.GradId, Model.gradoviStavke, new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.GradId)</span></td>
         </tr>
         <tr>
             <td><b>Aktivan</b></td>
@@ -79,4 +99,5 @@
         </tr>
     </table>
 </form>
+
 

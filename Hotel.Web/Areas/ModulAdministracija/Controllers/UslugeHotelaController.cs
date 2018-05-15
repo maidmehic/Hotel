@@ -70,8 +70,28 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
                 return false;
         }
 
+        public IActionResult ProvjeraDatuma(DateTime DatumZavrsetka, DateTime DatumPocetka)
+        {
+            if (DatumZavrsetka < DatumPocetka)
+                return Json("Datum završetka mora biti veći od datuma početka.");
+
+            if (DatumZavrsetka == DatumPocetka)
+                return Json("Datum završetka ne smije biti isti kao datum početka.");
+
+            return Json(true);
+        }
+
+       
+
         public IActionResult Snimi(NovaUslugaHotelaVM u)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return View("DodajUsluguHotela", u);
+            }
+
+
             UslugeHotela t;
 
             if (u.Id == 0)
