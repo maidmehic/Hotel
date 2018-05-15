@@ -25,7 +25,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
 
             public string Zaposlenik { get; set; }
 
-
+            public string BrojPasosa { get; set; }
             public string Gost { get; set; }
             public int GostId { get; set; }
 

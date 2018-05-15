@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h2>Index</h2>
+<h2>Utisci o boravku (Feedbacks)</h2>
 <table class="table table-striped">
 
     <thead>
@@ -33,9 +33,8 @@
 
                 <td>
 
-                    @Html.ActionLink("Uredi", "Uredi", "Gost", new { GostID = i.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Obrisi", "Obrisi", "Gost", new { GostID = i.Id }, new { @class = "btn btn-danger" })
-                    @Html.ActionLink("Na CheckIN","Detalji", "CheckIN",new {id=i.CheckINId }, new { @class = "btn btn-success" })
+                  
+                    @Html.ActionLink("Na CheckIN","Detalji", "CheckIN",new {Id=i.CheckINId }, new { @class = "btn btn-success" })
                    
                 </td>
 

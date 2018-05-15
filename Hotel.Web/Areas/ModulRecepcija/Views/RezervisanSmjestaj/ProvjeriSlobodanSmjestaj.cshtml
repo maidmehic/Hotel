@@ -1,0 +1,32 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.RezervisanSmjestajProvjeriSlobodanSmjestajVM
+@{
+   
+        ViewData["Title"] = "ProvjeriSlobodanSmjestaj";
+    
+        }
+    <h2>Slobodan smjestaj</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Vrsta smjestaja</th>
+                <th>Opis</th>
+                <th>Cijena</th>
+          
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.lista)
+            {
+                <tr>
+                    <td>@item.VrstaSmjestaja</td>
+                    <td>@item.Opis</td>
+                    <td>@item.Cijena</td>
+                   
+
+                </tr>
+            }
+
+
+        </tbody>
+    </table>

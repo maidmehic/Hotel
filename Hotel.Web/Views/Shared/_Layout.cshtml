@@ -1,11 +1,22 @@
-﻿<!DOCTYPE html>
+﻿@using static Hotel.Web.Helper.Autentifikacija
+@using Hotel.Data.Models
+
+@{
+    Zaposlenik zaposlenik;
+
+
+    zaposlenik = Context.GetLogiraniKorisnik();
+
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"] - Hotel.Web</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Hotel.Web</title>
 
-        @*<environment include="Development">
+    @*<environment include="Development">
             <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
             <link rel="stylesheet" href="~/css/site.css" />
         </environment>
@@ -34,6 +45,8 @@
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -49,11 +62,11 @@
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
-       
+
     </environment>
     @RenderSection("Scripts", required: false)
     <script src="/JFIT.js"></script>
-   
+
 </head>
 
 <body>
@@ -70,7 +83,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a asp-area="" asp-controller="Autentifikacija" asp-action="Logout">LogOut</a></li>
+                    <li><a asp-area="" asp-controller="Autentifikacija" asp-action="Logout"> @zaposlenik?.username   logout</a></li>
+
                 </ul>
             </div>
         </div>
@@ -83,7 +97,7 @@
             <p>&copy; 2017 - Maid Mehić, Faruk Kardović</p>
         </footer>
     </div>
-    
+
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

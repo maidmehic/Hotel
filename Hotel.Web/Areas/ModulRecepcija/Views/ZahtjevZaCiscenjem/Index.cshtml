@@ -1,0 +1,52 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.ZahtjevZaCiscenjemIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>Zahtjevi za čišćenjem</h2>
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>Zaposlenik</th>
+            <th>DatumZahtjeva</th>
+            <th>Opis</th>
+            <th>Prioritet</th>
+            <th>Smjestaj </th>
+            <th> Obavljen </th>
+            <th>Akcija </th>
+           
+        </tr>
+
+
+
+    </thead>
+
+
+
+    <tbody>
+        @foreach (var i in Model.zahtjevi)
+        {
+            <tr>
+
+                <td>@i.Zaposlenik</td>
+                <td>@i.DatumZahtjeva</td>
+                <td>@i.Opis</td>
+                <td>@i.Prioritet</td>
+                <td>@i.Smjestaj</td>
+                <td>@i.Obavljen</td>
+              
+
+
+                <td>
+
+                    @Html.ActionLink("Oznaci Obavljenim", "OznaciObavljenim", "ZahtjevZaCiscenjem", new { ZahtjevId=i.Id, CistacicaId = 2 }, new { @class = "btn btn-success" })
+                  
+                </td>
+
+
+
+
+            </tr>
+        }
+    </tbody>
+</table>

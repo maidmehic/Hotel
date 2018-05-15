@@ -1,0 +1,40 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.ZahtjevZaCiscenjemDodajVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+
+@{
+    ViewData["Title"] = "Dodaj";
+}
+
+<h2>Dodaj Zahtjev</h2>
+
+<form asp-action="Dodaj" asp-controller="ZahtjevZaCiscenjem" method="post">
+
+    <div>
+        <label>Datum Zahtjeva:</label>
+        <input asp-for="DatumZahtjeva" class="form-control" />
+    </div>
+    <div>
+        <label>Prioritet:</label>
+        <select asp-for="Prioritet" class="form-control">
+
+            <option value="Visok">Visok</option>
+            <option value="Srednji">Srednji</option>
+            <option value="Nizak">Nizak</option>
+
+
+        </select>
+    </div>
+
+    <div>
+        <label>Opis:</label>
+        <input asp-for="Opis" class="form-control" />
+    </div>
+
+    <div>
+        <label>Gost:</label>
+        @Html.DropDownListFor(x => x.Smjestaj.Id, Model.Smjestaji, "Odaberite Smjestaj", new { @class = "form-control" })
+    </div>
+
+    <input type="submit" value="Spasi" />
+</form>

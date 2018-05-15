@@ -17,6 +17,15 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         MojContext db = new MojContext();
         public IActionResult Index(string PretraziPo,string pretraga)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k==null || k.isRecepcioner == false)
+            {
+                TempData["error_poruka"] = "nemate pravo pristupa/TREBA RECEPCIJA";
+                return RedirectToAction("Index", "Autentifikacija",new { area=" "});
+
+            }
+
+
             CheckINIndexVM model = new CheckINIndexVM();
             model.Brojac = 0;
             if (PretraziPo == "Ime")
@@ -34,7 +43,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                     Gost = x.Gost.Ime + " " + x.Gost.Prezime,
                     GostId=x.GostId,
                     Zaposlenik = x.Zaposlenik.Ime + " " + x.Zaposlenik.Prezime,
-                   
+                   BrojPasosa = x.Gost.BrojPasosa,
                     TipUsluge = x.TipUsluge.Naziv + " " + x.TipUsluge.Cijena + "KM"
                     
 
@@ -57,8 +66,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                     Gost = x.Gost.Ime + " " + x.Gost.Prezime,
                     GostId = x.GostId,
                     Zaposlenik = x.Zaposlenik.Ime + " " + x.Zaposlenik.Prezime,
-                    TipUsluge = x.TipUsluge.Naziv + " " + x.TipUsluge.Cijena + "KM"
-
+                    TipUsluge = x.TipUsluge.Naziv + " " + x.TipUsluge.Cijena + "KM",
+                      BrojPasosa = x.Gost.BrojPasosa,
 
 
                 }).ToList();
@@ -76,6 +85,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                     Napomena = x.Napomena,
                     Gost = x.Gost.Ime + " " + x.Gost.Prezime,
                     GostId = x.GostId,
+                    BrojPasosa = x.Gost.BrojPasosa,
                     Zaposlenik = x.Zaposlenik.Ime + " " + x.Zaposlenik.Prezime,
                     TipUsluge = x.TipUsluge.Naziv + " " + x.TipUsluge.Cijena + "KM"
 
@@ -89,10 +99,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                 model.Brojac = 0;
             return View(model);
         }
-        public IActionResult Dodaj()
+        public void PripremiStavkeModela(CheckINDodajVM model)
         {
-            CheckINDodajVM model = new CheckINDodajVM();
-
             var gosti = db.Gost.Select(x => new
             {
                 x.Id,
@@ -101,13 +109,18 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             var Usluge = db.TipUsluge.Select(s => new
             {
-            s.Id,
-            Polje = string.Format("Naziv: {0} Cijena: {1}  ", s.Naziv, s.Cijena)
-             }).ToList();
+                s.Id,
+                Polje = string.Format("Naziv: {0} Cijena: {1}  ", s.Naziv, s.Cijena)
+            }).ToList();
 
             model.Gosti = new SelectList(gosti, "Id", "Opis");
             model.TipoviUsluga = new SelectList(Usluge, "Id", "Polje");
+        }
+        public IActionResult Dodaj()
+        {
+            CheckINDodajVM model = new CheckINDodajVM();
 
+            PripremiStavkeModela(model);
 
 
             return View(model);
@@ -115,6 +128,14 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         [HttpPost]
         public IActionResult Dodaj(CheckINDodajVM model)
         {
+
+
+            if (!ModelState.IsValid)
+            {
+                PripremiStavkeModela(model);
+                return View("Dodaj", model);
+            }
+
             CheckIN c = new CheckIN();
 
             c.GostId = model.Gost.Id;
@@ -163,15 +184,14 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             }
 
             model.Iznos = suma;
+           
 
-            //
-
-            //return RedirectToAction("Dodaj", "Feedback", new { c.GostId, c.Id });
-            return View(model);
+           
+            return PartialView(model);
         }
-        public IActionResult Detalji(int id)
+        public IActionResult Detalji(int Id)
         {
-            CheckIN c = db.CheckIN.Where(x => x.Id == id).FirstOrDefault();
+            CheckIN c = db.CheckIN.Where(x => x.Id == Id).FirstOrDefault();
 
             
 
@@ -179,7 +199,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         }
         public IActionResult Obrisi(int Id)
         {
-
+            // obrisi implementirat mozda
 
            return RedirectToAction("Index");
         }

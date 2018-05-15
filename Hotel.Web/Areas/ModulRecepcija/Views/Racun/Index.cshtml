@@ -1,7 +1,31 @@
-﻿
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.RacunIndexVM
 @{
     ViewData["Title"] = "Index";
 }
+<h2>Racuni</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Datum Izdavanja</th>
+            <th>Podaci o gostu</th>
+            <th>Podaci o rezervaciji</th>
+            <th>Suma</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model.racuni)
+        {
+            <tr>
+                <td>@i.DatumIzdavanja</td>
+                <td>@i.Gost</td>
+                <td>@i.CheckIN</td>
+                <td>@i.Suma</td>
 
-<h2>Index</h2>
+            </tr>
 
+        }
+
+    </tbody>
+
+</table>
+@Html.Raw(TempData["msg"])

@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
-
 namespace Hotel.Data.Migrations
 {
     public partial class DodanaCijenaUSmjestaj : Migration

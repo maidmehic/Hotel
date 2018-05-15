@@ -40,7 +40,12 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         [HttpPost]
         public IActionResult Dodaj(TipUslugeDodajVM model)
         {
+            if(!ModelState.IsValid)
+            {
+                return View("Dodaj", model);
+            }
             TipUsluge t = new TipUsluge();
+
 
             t.Naziv = model.Naziv;
             t.Cijena = model.Cijena;

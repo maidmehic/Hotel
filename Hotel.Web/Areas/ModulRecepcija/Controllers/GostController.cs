@@ -40,8 +40,9 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             return View(model);
         }
-        public IActionResult Detalji(int GostId)
+        public IActionResult Detalji(int GostId,string ImeKontrolera,string ImeAkcije,int? IdPozivatelja)
         {
+
             GostIndexVM.Row model = new GostIndexVM.Row();
             Gost x = db.Gost.Include(c=>c.Grad).Where(c => c.Id == GostId).FirstOrDefault();
             model.Id = x.Id;
@@ -54,19 +55,46 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             model.Email = x.Email;
             model.Grad = x.Grad.Naziv;
             model.Spol = x.Spol;
+            model.ImeAkcije = ImeAkcije;
+            model.ImeKontrolera = ImeKontrolera;
+            model.IdPozivatelja = IdPozivatelja!=null ? IdPozivatelja.Value : 0;
+            return PartialView(model);
+        }
+        [HttpPost]
+        public IActionResult Detalji(GostIndexVM.Row model)
+        {
 
-
-            return View(model);
+            //string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            if (model.IdPozivatelja == 0)
+                return RedirectToAction(model.ImeAkcije, model.ImeKontrolera);
+            else
+                return RedirectToAction(model.ImeAkcije, model.ImeKontrolera, new { Id = model.IdPozivatelja });
         }
         public void PripremiStavkeModela(GostDodajVM model)
         {
             model.Gradovi = new SelectList(db.Grad, "Id", "Naziv", "--Odaberite Grad--");
         }
+        public IActionResult DetaljiZaposlenika(int ZaposlenikId)
+        {
+            GostDetaljiZaposlenikaVM z = new GostDetaljiZaposlenikaVM();
+
+            z = db.Zaposlenik.Include(x=>x.Grad).Where(x => x.Id == ZaposlenikId).Select(x=>new GostDetaljiZaposlenikaVM {
+                ImePrezime= x.Ime +" "+ x.Prezime,
+                Telefon= x.Telefon,
+                DatumRodjenja=x.DatumRodjenja.ToShortDateString(),                          
+                Email=x.Email,                
+                Spol=x.Spol,             
+                Grad=x.Grad.Naziv
+
+
+            }).FirstOrDefault();
+
+            return PartialView(z);
+        }
         public IActionResult Dodaj()
         {
             GostDodajVM model = new GostDodajVM();
             PripremiStavkeModela(model);
-
 
 
             return View(model);
@@ -94,8 +122,6 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             {
                 g = db.Gost.Find(model.Id);
             }
-
-
 
 
             g.BrojPasosa = model.BrojPasosa;

@@ -1,0 +1,48 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.GostDetaljiZaposlenikaVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "DetaljiZaposlenika";
+}
+<h2>Detalji zaposlenika</h2>
+<form>
+
+
+    <div class="form-group">
+        <label>Ime prezime: </label>
+        <input asp-for="ImePrezime" class="form-control" readonly />
+
+    </div>
+
+    <div class="form-group">
+        <label>Datum rodjenja: </label>
+        <input asp-for="DatumRodjenja" class="form-control" readonly />
+
+    </div>
+
+
+    <div class="form-group">
+        <label>Telefon: </label>
+        <input asp-for="Telefon" class="form-control" readonly />
+
+    </div>
+
+
+    <div class="form-group">
+        <label>Email: </label>
+        <input asp-for="Email" class="form-control" readonly />
+
+    </div>
+    <div class="form-group">
+        <label>Grad:</label>
+        <input asp-for="Grad" class="form-control" readonly />
+
+    </div>
+    <div class="form-group">
+        <label>Spol:</label>
+        <input asp-for="Spol" class="form-control" readonly />
+
+    </div>
+
+
+</form>

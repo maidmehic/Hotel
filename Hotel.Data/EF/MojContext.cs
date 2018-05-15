@@ -1,14 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace Hotel.Data.Models
 {
     public class MojContext : DbContext
     {
 
-        
         public DbSet<CheckIN> CheckIN { set; get; }
         public DbSet<Pogodnost> Pogodnost { set; get; }
         public DbSet<Racun> Racun { set; get; }
@@ -29,6 +26,7 @@ namespace Hotel.Data.Models
         public DbSet<Feedback> Feedback { set; get; }
         public DbSet<Grad> Grad { set; get; }
         public DbSet<Drzava> Drzava { set; get; }
+        public DbSet<Dostava> Dostava { set; get; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

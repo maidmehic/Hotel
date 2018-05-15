@@ -4,14 +4,15 @@
 @{
     ViewData["Title"] = "Dodaj";
 }
-<h2>Dodaj</h2>
+<h2>Dodaj Feedback</h2>
 <form asp-action="Dodaj" asp-controller="Feedback" method="post">
     <input asp-for="CheckINId" hidden />
-   
-   dodat podatke o gostu
+    <input asp-for="GostId" hidden />
+
     <div class="form-group">
         <label>Sadrzaj</label>
         <input asp-for="Sadrzaj" />
+        <span asp-validation-for="Sadrzaj" class="text-danger"></span>
     </div>
-    <input type="submit" value="Snimi"/>
+    <input type="submit" value="Snimi" />
 </form>
