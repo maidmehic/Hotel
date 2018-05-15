@@ -9,5 +9,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
     {
         public int CheckInId { get; set; }
         public double Iznos { get; set; }
+        public string Prioritet { get; set; }
+        public string Opis { get; set; }
     }
 }

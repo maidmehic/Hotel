@@ -4,34 +4,41 @@
 @{
     ViewData["Title"] = "Detalji";
 }
-<h2>Detalji CheckIna</h2>
+<h2>Detalji Check-Ina</h2>
+
+<form class="form form-horizontal">
+    <div class="form-group">
+
+        <input asp-for="BrojDjece" hidden />
+    </div>
+
+    <div class="form-group">
+        <label>Broj odraslih</label>
+        <input asp-for="BrojOdraslih" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Datum dolaska</label>
+        <input asp-for="DatumDolaska" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Datum odlaska</label>
+        <input asp-for="DatumOdlaska" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Depozit</label>
+        <input asp-for="Depozit" class="form-control" />
+    </div>
 
 
-<div class="form-group">
-    <label>Broj djece</label>
-    <input asp-for="BrojDjece" hidden />
-</div>
-
-<div class="form-group">
-    <label>Broj odraslih</label>
-    <input asp-for="BrojOdraslih" />
-</div>
-<div class="form-group">
-    <label>Datum dolaska</label>
-    <input asp-for="DatumDolaska" />
-</div>
-<div class="form-group">
-    <label>Datum odlaska</label>
-    <input asp-for="DatumOdlaska" />
-</div>
-<div class="form-group">
-    <label>Depozit</label>
-    <input asp-for="Depozit" />
-</div>
-<div class="form-group">
-    <label>Detalji gosta</label>
-
-</div>
-<label>Detalji zaposlenika</label>
 
 
+
+</form>
+
+<a asp-action="Detalji" asp-controller="Gost" asp-route-GostId="@Model.GostId" asp-route-ImeKontrolera="CheckIn" asp-route-ImeAkcije="Detalji" asp-route-IdPozivatelja="@Model.Id" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn" class="btn btn-success">Detalji gosta nosioca check ina</a>
+<a asp-action="DetaljiZaposlenika" asp-controller="Gost" asp-route-ZaposlenikId="@Model.ZaposlenikId" asp-route-ImeKontrolera="CheckIn" asp-route-ImeAkcije="Detalji" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn" class="btn btn-success">Detalji zaposlenika koji je unio check in</a>
+
+
+
+
+<div class="form-group" id="ajaxDiv"> </div>

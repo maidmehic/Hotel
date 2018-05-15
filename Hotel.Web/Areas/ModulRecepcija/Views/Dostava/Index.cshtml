@@ -1,0 +1,34 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.DostavaIndexVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Dostave</h2>
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Gost</th>
+            <th>Cijena</th>
+            <th>Kolicina</th>
+        </tr>
+    </thead>
+
+        <tbody>
+            @foreach (var item in Model.dostave)
+    {
+            <tr>
+                <td>@item.Naziv</td>
+                <td>@item.Gost</td>
+                <td>@item.Cijena</td>
+                <td>@item.Kolicina</td>
+
+            </tr>
+}
+
+
+        </tbody>
+
+</table>

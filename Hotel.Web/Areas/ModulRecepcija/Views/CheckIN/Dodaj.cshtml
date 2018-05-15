@@ -4,48 +4,56 @@
 @{
     ViewData["Title"] = "Dodaj";
 }
-<h2>Dodaj</h2>
+<h2>Dodaj Check In</h2>
 <form asp-action="Dodaj" asp-controller="CheckIN" method="post">
 
     <div>
         <label>Datum dolaska:</label>
         <input asp-for="DatumDolaska" class="form-control" />
+        <span asp-validation-for="DatumDolaska" class="text-danger"></span>
     </div>
 
     <div>
         <label>Datum odlaska:</label>
         <input asp-for="DatumOdlaska" class="form-control" />
+        <span asp-validation-for="DatumOdlaska" class="text-danger"></span>
     </div>
 
     <div>
         <label>Broj djece:</label>
         <input asp-for="BrojDjece" class="form-control" />
+        <span asp-validation-for="BrojDjece" class="text-danger"></span>
     </div>
 
     <div>
         <label>Broj odraslih:</label>
         <input asp-for="BrojOdraslih" class="form-control" />
+        <span asp-validation-for="BrojOdraslih" class="text-danger"></span>
     </div>
 
     <div>
         <label>Depozit:</label>
         <input asp-for="Depozit" class="form-control" />
+        <span asp-validation-for="Depozit" class="text-danger"></span>
     </div>
 
     <div>
         <label>Napomena:</label>
         <input asp-for="Napomena" class="form-control" />
+     
     </div>
 
 
     <div>
         <label>Gost:</label>
         @Html.DropDownListFor(x => x.Gost.Id, Model.Gosti, "Odaberite gosta", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Gost.Id, "Odaberite gosta", new { @class = "text-danger" })
     </div>
 
     <div>
         <label>Tip usluge</label>
-        @Html.DropDownListFor(x => x.TipUsluge.Id, Model.TipoviUsluga, "Odaberite Tip Usluge", new { @class = "form-control" })
+        @Html.DropDownListFor(x => x.TipUsluge.Id, Model.TipoviUsluga, "Odaberite tip usluge", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.TipUsluge.Id, "Odaberite tip usluge", new { @class = "text-danger" })
     </div>
 
 

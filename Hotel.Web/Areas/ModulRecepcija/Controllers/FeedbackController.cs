@@ -26,30 +26,39 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             }).ToList();
             return View(model);
         }
-        public IActionResult Dodaj(int CheckINId)
+
+        
+
+        public IActionResult Dodaj(int CheckINId,int GostID)
         {
             FeedbackDodajVM model = new FeedbackDodajVM();
 
             model.CheckINId = CheckINId;
-      
+            model.GostId = GostID;
 
 
-            return View(model);
+            return PartialView(model);
         }
         [HttpPost]
         public IActionResult Dodaj(FeedbackDodajVM model)
         {
+
+            if(!ModelState.IsValid)
+            {
+                return View("Dodaj", model);
+            }
             Feedback f = new Feedback();
 
 
+
             f.CheckINId = model.CheckINId;
-            f.GostId = db.CheckIN.Where(x => x.Id == model.CheckINId).Select(x => x.GostId).First();
+            f.GostId = model.GostId;
 
             f.Sadrzaj = model.Sadrzaj;
 
             db.Feedback.Add(f);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","CheckIN");
         }
 
     }

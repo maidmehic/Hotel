@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hotel.Data.Models;
+using Hotel.Web.Areas.ModulRecepcija.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 {
@@ -13,7 +16,18 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         MojContext db = new MojContext(); 
         public IActionResult Index()
         {
-            return View();
+            RacunIndexVM model = new RacunIndexVM();
+            model.racuni = db.Racun.Select(x => new RacunIndexVM.Row
+            {
+                CheckIN = x.CheckIN.BrojDjece + "--" + x.CheckIN.BrojOdraslih + "  /" + x.CheckIN.DatumDolaska.ToShortDateString() + "-" + x.CheckIN.DatumOdlaska.ToShortDateString(),
+                DatumIzdavanja = x.DatumIzdavanja,
+                Suma = x.Suma,
+                Gost = x.Gost.Ime +" "+ x.Gost.Prezime
+
+            }).ToList();
+
+
+            return View(model);
         }
         public IActionResult Dodaj(int CheckInId,double suma)
         {
@@ -31,13 +45,12 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             db.Racun.Add(r);
             db.SaveChanges();
 
-            //PosaljiZahtjevZaCiscenjem(c);
+
+
+            //TempData["msg"] = "<script>alert('Change succesfully');</script>";
 
             return RedirectToAction("Index");
         }
-        //public IActionResult PosaljiZahtjevZaCiscenjem(CheckIN c)
-        //{
-        //    //return RedirectToAction(Dodaj"" zahtjev za ciscenjem itd)
-        //}
+      
     }
 }

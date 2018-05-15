@@ -1,0 +1,43 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.RezervisanSmjestajIndexVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "Index";
+}
+<h2>Rezervisani Smjestaji</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Podaci o rezervaciji</th>
+            <th>Podaci o gostu</th>
+            <th>Podaci o smještaju</th>
+            <th>Akcije</th>
+
+        </tr>
+
+    </thead>
+    <tbody>
+
+        @foreach (var i in Model.smjestaji)
+        {
+            <tr>
+                <td>@i.CheckIN</td>
+                <td>@i.Gost</td>
+                <td>@i.Smjestaj</td>
+                <td>
+                    @Html.ActionLink("Obrisi", "Obrisi", "RezervisanSmjestaj", new { ID = i.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Dostava", "Dodaj", "Dostava", new { RezervisanSmjestajId = i.Id }, new { @class = "btn btn-success" })
+                    <a asp-action="Dodaj" asp-controller="Feedback" asp-route-CheckINId="@i.CheckINID" asp-route-GostId="@i.GostId" ajax-poziv="da" ajax-rezultat="ajaxDiv" class="btn btn-success">Unesi feedback</a>
+
+
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+@Html.ActionLink("Dodaj novi Rezervisani Smjestaj", "Dodaj", "RezervisanSmjestaj", new { }, new { @class = "btn btn-success" })
+@Html.ActionLink("Provjeri slobodan Smjestaj", "ProvjeriSlobodanSmjestaj", "RezervisanSmjestaj", new { }, new { @class = "btn btn-success" })
+
+
+<div class="form-group" id="ajaxDiv"> </div>

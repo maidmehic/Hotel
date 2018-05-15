@@ -14,6 +14,7 @@ namespace Hotel.Web.Controllers
         {
             return View();
         }
+        
 
     }
 }
