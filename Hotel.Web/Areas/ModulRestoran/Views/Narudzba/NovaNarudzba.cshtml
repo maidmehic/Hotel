@@ -1,0 +1,33 @@
+﻿@using Hotel.Data.Models;
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "NovaNarudzba";
+}
+@model Hotel.Web.Areas.ModulRestoran.ViewModels.DodajNarudzbuVM
+
+<h2>NovaNarudzba</h2>
+
+<form action="/ModulRestoran/Narudzba/Snimi">
+    <table >
+        <tr>
+            <td><b>Opis</b></td>
+            <td>@Html.TextAreaFor(m=>m.Opis, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Hitnost</b></td>
+            <td>@Html.DropDownListFor(m=>m.Hitnost,Model.HitnostStavke, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><b>Datum kreiranja</b></td>
+            <td>@Html.TextBoxFor(m => m.DatumKreiranja, new { @class = "form-control", @readonly = "readonly" })</td>
+        </tr>
+        <tr>
+            <td>@Html.HiddenFor(m=>m.ZaposlenikId)</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Dodajte proizvode" class="btn btn-primary" /></td>
+        </tr>
+    </table>
+</form>
+
+

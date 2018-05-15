@@ -11,9 +11,10 @@ using System;
 namespace Hotel.Data.Migrations
 {
     [DbContext(typeof(MojContext))]
-    partial class MojContextModelSnapshot : ModelSnapshot
+    [Migration("20180513110850_DodanaKolicinaIMjernaJedinicaUProizvod")]
+    partial class DodanaKolicinaIMjernaJedinicaUProizvod
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,26 +53,6 @@ namespace Hotel.Data.Migrations
                     b.HasIndex("ZaposlenikId");
 
                     b.ToTable("CheckIN");
-                });
-
-            modelBuilder.Entity("Hotel.Data.Models.Dostava", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<float>("Cijena");
-
-                    b.Property<int>("Kolicina");
-
-                    b.Property<string>("Naziv");
-
-                    b.Property<int>("RezervisanSmjestajId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RezervisanSmjestajId");
-
-                    b.ToTable("Dostava");
                 });
 
             modelBuilder.Entity("Hotel.Data.Models.Drzava", b =>
@@ -403,15 +384,13 @@ namespace Hotel.Data.Migrations
 
                     b.Property<DateTime>("DatumZahtjeva");
 
-                    b.Property<bool>("Obavljen");
-
                     b.Property<string>("Opis");
 
                     b.Property<string>("Prioritet");
 
                     b.Property<int>("SmjestajId");
 
-                    b.Property<int?>("ZaposlenikId");
+                    b.Property<int>("ZaposlenikId");
 
                     b.HasKey("Id");
 
@@ -486,14 +465,6 @@ namespace Hotel.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ZaposlenikId")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Hotel.Data.Models.Dostava", b =>
-                {
-                    b.HasOne("Hotel.Data.Models.RezervisanSmjestaj", "RezervisanSmjestaj")
-                        .WithMany()
-                        .HasForeignKey("RezervisanSmjestajId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Hotel.Data.Models.Feedback", b =>
@@ -628,7 +599,8 @@ namespace Hotel.Data.Migrations
 
                     b.HasOne("Hotel.Data.Models.Zaposlenik", "Zaposlenik")
                         .WithMany()
-                        .HasForeignKey("ZaposlenikId");
+                        .HasForeignKey("ZaposlenikId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Hotel.Data.Models.Zaposlenik", b =>

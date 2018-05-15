@@ -10,5 +10,7 @@ namespace Hotel.Data.Models
         public string Naziv { set; get; }
         public string Vrsta { set; get; }
         public float Cijena { set; get; }
+        public float Kolicina { set; get; }
+        public string MjernaJedinica { set; get; }
     }
 }

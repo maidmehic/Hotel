@@ -123,7 +123,7 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
                          (x.isRecepcioner == true && Tip == 3) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
                          (x.isKuhar == true && Tip == 4) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
                          (!Tip.HasValue) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null))).ToList();
-            return View(Model);
+            return View(Model);//dodati grad
         }
         
         public IActionResult SnimiZaposlenika(NoviZaposlenikVM zaposlenik) //

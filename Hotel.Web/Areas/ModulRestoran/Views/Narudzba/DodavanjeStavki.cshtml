@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "DodavanjeStavki";
+}
+@model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziNarudzbuDodajProizvodeVM
+
+<h2>DodavanjeStavki</h2>
+<form action="/ModulRestoran/Narudzba/SnimiStavku" ajax-poziv="da" ajax-rezultat="ajaxDiv">
+
+    <table>
+        <tr>@Html.HiddenFor(m => m.NarudzbaId)</tr>
+        <tr>
+            <td><b>Opis</b></td>
+            <td>@Html.TextAreaFor(m => m.Narudzba.Opis, new { @class = "form-control", @readonly = "readonly" })</td>
+        </tr>
+        <tr>
+            <td><b>Hitnost</b></td>
+            <td>@Html.TextBoxFor(m => m.Narudzba.Hitnost, new { @class = "form-control", @readonly = "readonly" })</td>
+        </tr>
+        <tr>
+            <td><b>Datum kreiranja</b></td>
+            <td>@Html.TextBoxFor(m => m.Narudzba.DatumKreiranja, new { @class = "form-control", @readonly = "readonly" })</td>
+        </tr>
+        <tr>
+            <td><b>Narudžbu kreirao</b></td>
+            <td>@Html.TextBoxFor(m => m.Narudzba.Zaposlenik.Ime, new { @class = "form-control", @readonly = "readonly" })</td>
+        </tr>
+        <tr>
+            <td>@Html.DropDownListFor(m => m.ProizvodId, Model.ProizvodiStavke, new { @class = "form-control" })</td>
+            <td>@Html.TextBoxFor(m => m.Kolicina, new { @class = "form-control", @placeholder = "Unesite količinu" })</td>
+            <td><input type="submit" value="Dodaj" class="btn btn-success" ajax-poziv="da" ajax-rezultat="ajaxDiv" /></td>
+        </tr>
+    </table>
+</form>
+<div class="form-group" id="ajaxDiv"></div>
