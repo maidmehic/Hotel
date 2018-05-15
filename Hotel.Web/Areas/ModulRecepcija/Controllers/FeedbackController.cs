@@ -21,7 +21,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                 Sadrzaj=x.Sadrzaj,
                 Gost=x.CheckIN.Gost.Ime + x.CheckIN.Gost.Prezime,
                 CheckINId=x.CheckINId,
-                CheckIN="Boravio u:"+x.CheckIN.TipUsluge.Naziv +" "+x.CheckIN.TipUsluge.Cijena + "KM// OD:"+x.CheckIN.DatumDolaska +"-DO:"+ x.CheckIN.DatumOdlaska
+                CheckIN="Boravio u:"+x.CheckIN.TipUsluge.Naziv +" "+x.CheckIN.TipUsluge.Cijena + "KM// OD:"+x.CheckIN.DatumDolaska.ToShortDateString() +"-DO:"+ x.CheckIN.DatumOdlaska.ToShortDateString()
                 
             }).ToList();
             return View(model);

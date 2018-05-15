@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hotel.Data.Models;
-using Hotel.Web.Areas.ModulOdrzavanje.ViewModels;
+using Hotel.Web.Areas.ModulRecepcija.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using static Hotel.Web.Areas.ModulOdrzavanje.ViewModels.PrikaziNarudzbeVM;
+using static Hotel.Web.Areas.ModulRecepcija.ViewModels.PrikaziNarudzbeVM;
 
 namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
 {

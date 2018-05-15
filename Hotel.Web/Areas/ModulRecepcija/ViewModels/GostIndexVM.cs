@@ -21,7 +21,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
             public string Prezime { get; set; }
             public string BrojPasosa { get; set; }
             public string Drzavljanstvo { get; set; }
-            public DateTime DatumRodenja { get; set; }
+            public string DatumRodenja { get; set; }
             public string Telefon { get; set; }
             public string Email { get; set; }
             public string Spol { get; set; }

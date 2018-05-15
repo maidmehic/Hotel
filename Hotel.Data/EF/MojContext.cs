@@ -32,7 +32,7 @@ namespace Hotel.Data.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer("Server=p1714.app.fit.ba;Database=p1714Hotel;Trusted_Connection=false;MultipleActiveResultSets=true;User ID=p1714;Password=vToz76@3");
-            optionsBuilder.UseSqlServer("Server=DESKTOP-0IJ5R4J;Database=Hotel;Trusted_Connection=true;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer("Server=localhost;Database=Hotel;Trusted_Connection=true;MultipleActiveResultSets=true");
             //optionsBuilder.UseSqlServer("Server=localhost;Database=Hotel;Trusted_Connection=true;MultipleActiveResultSets=true");
 
         }

@@ -26,7 +26,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                 Ime = x.Ime,
                 Prezime = x.Prezime,
                 Drzavljanstvo = x.Drzavljanstvo,
-                DatumRodenja = x.DatumRodenja,
+                DatumRodenja = x.DatumRodenja.ToShortDateString(),
                 Telefon = x.Telefon,
                 Email = x.Email,
                 Grad = x.Grad.Naziv,
@@ -50,7 +50,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             model.Ime = x.Ime;
             model.Prezime = x.Prezime;
             model.Drzavljanstvo = x.Drzavljanstvo;
-            model.DatumRodenja = x.DatumRodenja;
+            model.DatumRodenja = x.DatumRodenja.ToShortDateString();
             model.Telefon = x.Telefon;
             model.Email = x.Email;
             model.Grad = x.Grad.Naziv;

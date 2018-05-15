@@ -1,0 +1,23 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.ZahtjevZaCiscenjemOznaciObavljenimVM
+@{
+    ViewData["Title"] = "OznaciObavljenim";
+}
+
+<h2>OznaciObavljenim</h2>
+
+<form>
+
+    <select asp-for="@Model.CistacicaID">
+
+        @foreach (var i in Model.lista)
+        {
+            <option value="@i.Id">@i.Ime +""+@i.Prezime</option>
+        }
+
+    </select>
+
+    <input asp-for="@Model.ZahtjevID" hidden/>
+
+   <input type="submit" value="Snimi"/>
+
+</form>

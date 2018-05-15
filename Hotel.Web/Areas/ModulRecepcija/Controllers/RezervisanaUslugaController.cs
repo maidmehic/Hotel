@@ -20,7 +20,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             model.usluge = db.RezervisanaUsluga.Select(x => new RezervisanaUslugaIndexVM.Row{
                 Id=x.Id,
                 UslugeHotela = x.UslugeHotela.Naziv +"/"+ x.UslugeHotela.Opis + "/" +x.UslugeHotela.Cijena,
-                CheckIN= x.CheckIN.Gost.Ime+"/"+x.CheckIN.Gost.Prezime +"("+ x.CheckIN.DatumDolaska.ToShortDateString() +"-" + x.CheckIN.DatumOdlaska.ToShortDateString()
+                CheckIN= x.CheckIN.Gost.Ime+" "+x.CheckIN.Gost.Prezime +"("+ x.CheckIN.DatumDolaska.ToShortDateString() +"-" + x.CheckIN.DatumOdlaska.ToShortDateString() + ")"
 
 
 
