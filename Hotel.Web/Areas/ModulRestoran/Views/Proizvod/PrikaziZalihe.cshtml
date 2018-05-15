@@ -1,0 +1,47 @@
+﻿@using Hotel.Data.Models;
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "PrikaziZalihe";
+    int brojac = 1;
+}
+@model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziZaliheVM
+<h2>PrikaziZalihe</h2>
+
+
+<form action="/ModulRestoran/Proizvod/PrikaziZalihe">
+    <table>
+        <tr>
+            <td>
+                @Html.TextBoxFor(x => x.NazivPretraga, new { @class = "form-control", placeholder = "Unesite naziv" })
+            </td>
+            <td>
+                @Html.DropDownListFor(x=>x.VrstaOdabir,Model.vrstaStavke,new {@class="form-control"})
+            </td>
+            <td><input type="submit" value="Pretraži" class="btn btn-success" /></td>
+        </tr> 
+    </table>
+</form><br />
+<a href="/ModulRestoran/Narudzba/NovaNarudzba" class="btn btn-primary" >Napravi narudžbu</a><br /><br />
+
+
+<table class="table table-striped">
+    <tr>
+        <th>R.br.</th>
+        <th>Naziv</th>
+        <th>Vrsta</th>
+        <th>Cijena</th>
+        <th>Količina</th>
+        <th>Mjerna jedinica</th>
+    </tr>
+    @foreach (Proizvodi p in Model.Proizvodi)
+    {
+        <tr>
+            <td>@(brojac++)</td>
+            <td>@p.Naziv</td>
+            <td>@p.Vrsta</td>
+            <td>@p.Cijena</td>
+            <td>@p.Kolicina</td>
+            <td>@p.MjernaJedinica</td>
+        </tr>
+    }
+</table>

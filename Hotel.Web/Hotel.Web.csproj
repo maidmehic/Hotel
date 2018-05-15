@@ -27,10 +27,7 @@
     <Folder Include="Areas\ModulAdministracija\Data\" />
     <Folder Include="Areas\ModulOdrzavanje\Data\" />
     <Folder Include="Areas\ModulRecepcija\Data\" />
-    <Folder Include="Areas\ModulRestoran\Controllers\" />
     <Folder Include="Areas\ModulRestoran\Data\" />
-    <Folder Include="Areas\ModulRestoran\ViewModels\" />
-    <Folder Include="Areas\ModulRestoran\Views\" />
   </ItemGroup>
 
 </Project>

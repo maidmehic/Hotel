@@ -1,0 +1,31 @@
+﻿@using Hotel.Data.Models;
+
+@model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziStavkeVM
+@{
+    Layout = "LayoutBezFootera";
+    ViewData["Title"] = "PrikaziStavke";
+    int NarudzbaId = Model.Stavke.FirstOrDefault().NarudzbaId;
+}
+<h2>Stavke</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>Proizvod</th>
+        <th>Vrsta</th>
+        <th>Količina</th>
+        <th>Mjerna jedinica</th>
+    </tr>
+    @foreach (Stavke s in Model.Stavke)
+    {
+        <tr>
+            <td>@s.Proizvodi.Naziv</td>
+            <td>@s.Proizvodi.Vrsta</td>
+            <td>@s.Kolicina</td>
+            <td>@s.Proizvodi.MjernaJedinica</td>
+        </tr>
+    }
+    <tr>
+    <td><a href="/ModulRestoran/Narudzba/FinalizirajNarudzbu/?NarudzbaId=@NarudzbaId" class="btn btn-danger">Finaliziraj narudžbu</a></td>
+    </tr>
+</table>
+
