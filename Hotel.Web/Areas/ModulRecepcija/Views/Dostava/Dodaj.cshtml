@@ -2,26 +2,30 @@
 @{
     ViewData["Title"] = "NovaDostava";
 }
-
 <h2>Nova dostava</h2>
-
 <form asp-action="Dodaj" asp-controller="Dostava" method="post">
+    <input asp-for="DostavaId" value="@Model.DostavaId" hidden />
+    <input asp-for="RezervisanSmjestajId" value="@Model.RezervisanSmjestajId" hidden />
+    <div class="form-group">
+        <label>Datum</label>
+        <input class="form-control" asp-for="Datum" readonly />
 
-    <input asp-for="RezervisanSmjestajId" hidden />
+    </div>
 
-    <div class="form-group">
-        <label>Naziv: </label>
-        <input asp-for="Naziv" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Kolicina: </label>
-        <input asp-for="Kolicina" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Cijena: </label>
-        <input asp-for="Cijena" class="form-control" />
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Spasi" class="btn btn-success"/>
-    </div>
+    <a asp-action="DodajStavku" asp-controller="Dostava" asp-route-DostavaId="@Model.DostavaId" asp-route-RezervisanSmjestajId="@Model.RezervisanSmjestajId" ajax-poziv="da" ajax-rezultat="ajaxDiv" class="btn btn-warning">Dodaj stavku</a>
+
+    <a id="Pozovi" asp-action="DostaveNaSmjestaj" asp-controller="Dostava" asp-route-IdSmjestaja="@Model.IdSmjestaja" ajax-poziv="da" ajax-rezultat="ajaxDiv"></a>
+    <br /><br />
+    <div class="form-group" id="ajaxDiv"></div>
+    <input type="submit" value="Snimi" class="btn btn-danger" />
+
 </form>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Pozovi").click()
+    });
+
+</script>

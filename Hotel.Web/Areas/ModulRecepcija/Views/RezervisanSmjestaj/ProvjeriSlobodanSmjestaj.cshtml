@@ -1,32 +1,86 @@
 ﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.RezervisanSmjestajProvjeriSlobodanSmjestajVM
 @{
-   
-        ViewData["Title"] = "ProvjeriSlobodanSmjestaj";
-    
+
+    ViewData["Title"] = "ProvjeriSlobodanSmjestaj";
+
+}
+<h2>Smjestaj</h2>
+<br /><br />
+<div class="wrapper center-block">
+
+    @for (int i = 0; i < Model.lista.Count; i++)
+    {
+
+        if (Model.lista[i].Zauzeto == false)
+        {
+            <div class="box">
+                <div class="form-group">
+                    <label> Broj sobe/vrsta</label>
+                    <input asp-for="@Model.lista[i].OpisSobe" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label> Soba slobodna</label>
+                </div>
+            </div>
         }
-    <h2>Slobodan smjestaj</h2>
+        else
+              
+        {
+            <div class="box">
+                <div class="form-group">
+                    <label> Broj sobe/vrsta</label>
+                    <input asp-for="@Model.lista[i].OpisSobe" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label>Rezervisana: </label>
+                    <input asp-for="@Model.lista[i].Rezervisao" class="form-control" readonly />
+                </div>
+                <div class="form-group">
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Vrsta smjestaja</th>
-                <th>Opis</th>
-                <th>Cijena</th>
-          
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.lista)
-            {
-                <tr>
-                    <td>@item.VrstaSmjestaja</td>
-                    <td>@item.Opis</td>
-                    <td>@item.Cijena</td>
-                   
-
-                </tr>
-            }
+                    <input asp-for="@Model.lista[i].BoraviOdDo" class="form-control" readonly />
+                </div>
+                <div class="form-group">
+                    <label>Gost: </label>
+                    <input asp-for="@Model.lista[i].Gost" class="form-control" readonly />
+                </div>
+                <a class="btn btn-primary dugme" asp-action="Dodaj" asp-controller="Dostava" asp-route-RezervisanSmjestajId="@Model.lista[i].RezervisanSmjestajId">Dostava u sobu</a><br />
+                <a class="btn btn-primary dugme" asp-action="Dodaj" asp-controller="RezervisanaUsluga" asp-route-RezervisanSmjestajID="@Model.lista[i].RezervisanSmjestajId">Dodaj uslugu</a>
 
 
-        </tbody>
-    </table>
+            </div>
+        }
+    }
+
+</div>
+
+<style type="text/css">
+    body {
+        margin: 40px;
+    }
+    .dugme {
+        margin-top:5px;
+        width:125px;
+    }
+    .box {
+        background-color: #444;
+        color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+        margin: 0 auto;
+        font-size: 150%;
+    }
+
+        .box:nth-child(even) {
+            background-color: #ccc;
+            color: #000;
+        }
+
+    .wrapper {
+        width: auto;
+        display: grid;
+        margin: 0 auto;
+        text-align: center;
+        grid-gap: 10px;
+        grid-template-columns: repeat(5,200px);
+    }
+</style>

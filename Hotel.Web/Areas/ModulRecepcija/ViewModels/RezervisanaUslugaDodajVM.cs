@@ -10,13 +10,19 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
     public class RezervisanaUslugaDodajVM
     {
         public int Id { set; get; }
-       
+
+        public string Rezervacija { get; set; }
+        public string Datum { get; set; }
+        public string Gost { get; set; }
+        
+        public int CheckINId { get; set; }
+
+
+
         public UslugeHotela Usluga{ get; set; }
      
         public SelectList UslugeHotela { get; set; }
       
-        public CheckIN CheckIN { get; set; }
-      
-        public SelectList Checkini { get; set; }
+       
     }
 }

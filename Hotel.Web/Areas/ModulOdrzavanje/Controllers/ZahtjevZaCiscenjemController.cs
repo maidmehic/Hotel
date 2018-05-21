@@ -97,8 +97,9 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             //IActionResult akcija = ra.Dodaj(model.CheckInId,model.Iznos);
             ra.Dodaj(model.CheckInId, model.Iznos);
             ZahtjevZaCiscenjem m = new ZahtjevZaCiscenjem();
-            RezervisanSmjestaj r = new RezervisanSmjestaj();
-            r = db.RezervisanSmjestaj.Where(x => x.CheckINId == model.CheckInId).FirstOrDefault();
+
+            RezervisanSmjestaj r = db.RezervisanSmjestaj.Where(x => x.CheckINId == model.CheckInId).FirstOrDefault();
+
             m.Opis = model.Opis;
             m.SmjestajId = r.SmjestajId;
             m.DatumZahtjeva = DateTime.Now.Date;
@@ -109,7 +110,7 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             db.SaveChanges();
 
 
-            return RedirectToAction("Index","CheckIN");
+            return RedirectToAction("Index","CheckIN",new { area="ModulRecepcija"});
         }
     }
 }

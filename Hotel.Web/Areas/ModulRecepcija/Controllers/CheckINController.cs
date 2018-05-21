@@ -38,7 +38,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                     BrojOdraslih = x.BrojOdraslih,
                     DatumDolaska = x.DatumDolaska,
                     DatumOdlaska = x.DatumOdlaska,
-                    Depozit = x.Depozit,
+                  
                     Napomena = x.Napomena,
                     Gost = x.Gost.Ime + " " + x.Gost.Prezime,
                     GostId=x.GostId,
@@ -61,13 +61,34 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                     BrojOdraslih = x.BrojOdraslih,
                     DatumDolaska = x.DatumDolaska,
                     DatumOdlaska = x.DatumOdlaska,
-                    Depozit = x.Depozit,
+                   
                     Napomena = x.Napomena,
                     Gost = x.Gost.Ime + " " + x.Gost.Prezime,
                     GostId = x.GostId,
                     Zaposlenik = x.Zaposlenik.Ime + " " + x.Zaposlenik.Prezime,
                     TipUsluge = x.TipUsluge.Naziv + " " + x.TipUsluge.Cijena + "KM",
                       BrojPasosa = x.Gost.BrojPasosa,
+
+
+                }).ToList();
+            }
+            if (PretraziPo == "Sve")
+            {
+                model.CheckINI = db.CheckIN.Select(x => new CheckINIndexVM.Row
+                {
+                    Id = x.Id,
+                    BrojDjece = x.BrojDjece,
+                    BrojOdraslih = x.BrojOdraslih,
+                    DatumDolaska = x.DatumDolaska,
+                    DatumOdlaska = x.DatumOdlaska,
+
+                    Napomena = x.Napomena,
+                    Gost = x.Gost.Ime + " " + x.Gost.Prezime,
+                    GostId = x.GostId,
+                    BrojPasosa = x.Gost.BrojPasosa,
+                    Zaposlenik = x.Zaposlenik.Ime + " " + x.Zaposlenik.Prezime,
+                    TipUsluge = x.TipUsluge.Naziv + " " + x.TipUsluge.Cijena + "KM"
+
 
 
                 }).ToList();
@@ -81,7 +102,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                     BrojOdraslih = x.BrojOdraslih,
                     DatumDolaska = x.DatumDolaska,
                     DatumOdlaska = x.DatumOdlaska,
-                    Depozit = x.Depozit,
+                 
                     Napomena = x.Napomena,
                     Gost = x.Gost.Ime + " " + x.Gost.Prezime,
                     GostId = x.GostId,
@@ -101,25 +122,28 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         }
         public void PripremiStavkeModela(CheckINDodajVM model)
         {
-            var gosti = db.Gost.Select(x => new
-            {
-                x.Id,
-                Opis = "Ime i prezime: " + x.Ime + " " + x.Prezime + " Telefon: " + x.Telefon
-            }).ToList();
 
+            model.GostId = model.GostId;
             var Usluge = db.TipUsluge.Select(s => new
             {
                 s.Id,
                 Polje = string.Format("Naziv: {0} Cijena: {1}  ", s.Naziv, s.Cijena)
             }).ToList();
 
-            model.Gosti = new SelectList(gosti, "Id", "Opis");
+           
             model.TipoviUsluga = new SelectList(Usluge, "Id", "Polje");
         }
-        public IActionResult Dodaj()
+        public IActionResult OdaberiteGosta()
+        {          
+            return RedirectToAction("Index","Gost");
+        }
+        
+
+
+        public IActionResult Dodaj(int GostId)
         {
             CheckINDodajVM model = new CheckINDodajVM();
-
+            model.GostId = GostId;
             PripremiStavkeModela(model);
 
 
@@ -138,21 +162,22 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             CheckIN c = new CheckIN();
 
-            c.GostId = model.Gost.Id;
+           
             c.TipUslugeId = model.TipUsluge.Id;
             c.ZaposlenikId = HttpContext.GetLogiraniKorisnik().Id;// PREUZIMATI IZ SESIJE
             c.BrojDjece = model.BrojDjece;
             c.BrojOdraslih = model.BrojOdraslih;
             c.DatumDolaska = model.DatumDolaska;
             c.DatumOdlaska = model.DatumOdlaska;
-            c.Depozit = model.Depozit;
+           
             c.Napomena = model.Napomena;
+            c.GostId = model.GostId;
 
             db.CheckIN.Add(c);
             db.SaveChanges();
 
 
-            return RedirectToAction("Index");
+            return RedirectToAction("OdaberiSmjestaj","RezervisanSmjestaj",new { CheckInId =c.Id});
         }
         public IActionResult CheckOut(int GostId)
         {
@@ -191,10 +216,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         }
         public IActionResult Detalji(int Id)
         {
-            CheckIN c = db.CheckIN.Where(x => x.Id == Id).FirstOrDefault();
-
-            
-
+            CheckIN c = db.CheckIN.Include(x=>x.TipUsluge).Where(x => x.Id == Id).FirstOrDefault();
+        
             return View(c);
         }
         public IActionResult Obrisi(int Id)

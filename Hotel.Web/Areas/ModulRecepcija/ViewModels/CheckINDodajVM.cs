@@ -26,10 +26,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
         [Required]
         public int ZaposlenikId { get; set; }
 
-
-        public Gost Gost { get; set; }
-    
-        public SelectList Gosti { get; set; }
+        public int GostId { get; set; }
+       
        
         public TipUsluge TipUsluge { get; set; }
       

@@ -3,7 +3,18 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Gosti</h2>
+<h2>Odaberite Gosta</h2>
+
+<form asp-action="Index" asp-controller="Gost" method="get">
+
+    <div class="form-group">
+        <label>Pretraga po imenu i/ili prezimenu :</label>
+        @Html.TextBox("ImePrezimePretraga", "",new {@class="form-control" })
+    </div>
+
+    <input type="submit" class="btn btn-success" value="Pretraži" />
+
+</form>
 
 <table class="table table-striped">
 
@@ -30,31 +41,36 @@
     <tbody>
         @foreach (var i in Model.Gosti)
         {
-        <tr>
+        <a asp-action="Dodaj" asp-controller="CheckIN" asp-route-GostId="@i.Id">
+            <tr>
 
-            <td>@i.Ime</td>
-            <td>@i.Prezime</td>
-            <td>@i.Grad</td>
-            <td>@i.BrojPasosa</td>
-            <td>@i.Drzavljanstvo</td>
-            <td>@i.DatumRodenja</td>
-            <td>@i.Telefon</td>
-            <td>@i.Email</td>
-            <td>@i.Spol</td>
-
-
-            <td>
-              
-                @Html.ActionLink("Uredi", "Uredi", "Gost", new { GostID = i.Id }, new { @class = "btn btn-success" })
-                @Html.ActionLink("Obrisi", "Obrisi", "Gost", new { GostID = i.Id }, new { @class = "btn btn-danger" })
-
-            </td>
+                <td>@i.Ime</td>
+                <td>@i.Prezime</td>
+                <td>@i.Grad</td>
+                <td>@i.BrojPasosa</td>
+                <td>@i.Drzavljanstvo</td>
+                <td>@i.DatumRodenja</td>
+                <td>@i.Telefon</td>
+                <td>@i.Email</td>
+                <td>@i.Spol</td>
 
 
+                <td>
+                    @*<a asp-controller="Gost" asp-action="Uredi" asp-route-GostID="@i.Id " ajax-poziv="da" ajax-rezultat="ajaxDiv" class = "btn btn-success">Uredi</a>*@
+                    @Html.ActionLink("Nastavi na CheckIn", "Dodaj", "CheckIN", new { GostId = i.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Uredi", "Uredi", "Gost", new { GostID = i.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Obrisi", "Obrisi", "Gost", new { GostID = i.Id }, new { @class = "btn btn-danger" })
+
+                </td>
 
 
-        </tr>
+
+
+            </tr>
+        </a>
         }
     </tbody>
 </table>
-@Html.ActionLink("Dodaj", "Dodaj", "Gost", new { }, new { @class = "btn btn-primary" })
+@Html.ActionLink("Dodaj novog gosta", "Dodaj", "Gost", new { }, new { @class = "btn btn-primary" })
+
+<div id="ajaxDiv"></div>

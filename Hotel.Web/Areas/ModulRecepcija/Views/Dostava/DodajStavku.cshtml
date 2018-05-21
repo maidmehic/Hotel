@@ -1,0 +1,35 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.DostavaDodajStavkuVM
+
+@{
+    ViewData["Title"] = "DodajStavku";
+}
+<h2>Dodaj stavku</h2>
+
+<form asp-action="DodajStavku" asp-controller="Dostava" method="post">
+
+    <input type="text" value="@Model.DostavaId" asp-for="DostavaId" hidden />
+    <input type="text" value="@Model.RezervisanSmjestajId" asp-for="RezervisanSmjestajId" hidden />
+
+
+
+    <div class="form-group">
+        <label>Kolicina</label>
+        <select asp-for="ProizvodId" class="form-control">
+            @foreach (var i in Model.Proizvodi)
+            {
+                <option value="@i.Id">@i.Naziv</option>
+            }
+
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label>Kolicina</label>
+        <input class="form-control" type="text" asp-for="Kolicina" />
+    </div>
+
+
+    <input type="submit" value="Spasi stavku" />
+
+</form>

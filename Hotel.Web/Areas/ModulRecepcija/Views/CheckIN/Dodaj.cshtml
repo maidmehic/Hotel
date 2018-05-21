@@ -6,7 +6,7 @@
 }
 <h2>Dodaj Check In</h2>
 <form asp-action="Dodaj" asp-controller="CheckIN" method="post">
-
+    <input asp-for="GostId" value="@Model.GostId" hidden/>
     <div>
         <label>Datum dolaska:</label>
         <input asp-for="DatumDolaska" class="form-control" />
@@ -21,21 +21,17 @@
 
     <div>
         <label>Broj djece:</label>
-        <input asp-for="BrojDjece" class="form-control" />
+        <input asp-for="BrojDjece" class="form-control" min="0"/>
         <span asp-validation-for="BrojDjece" class="text-danger"></span>
     </div>
 
     <div>
         <label>Broj odraslih:</label>
-        <input asp-for="BrojOdraslih" class="form-control" />
+        <input asp-for="BrojOdraslih" class="form-control" min="0" />
         <span asp-validation-for="BrojOdraslih" class="text-danger"></span>
     </div>
 
-    <div>
-        <label>Depozit:</label>
-        <input asp-for="Depozit" class="form-control" />
-        <span asp-validation-for="Depozit" class="text-danger"></span>
-    </div>
+   
 
     <div>
         <label>Napomena:</label>
@@ -44,11 +40,7 @@
     </div>
 
 
-    <div>
-        <label>Gost:</label>
-        @Html.DropDownListFor(x => x.Gost.Id, Model.Gosti, "Odaberite gosta", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Gost.Id, "Odaberite gosta", new { @class = "text-danger" })
-    </div>
+   
 
     <div>
         <label>Tip usluge</label>

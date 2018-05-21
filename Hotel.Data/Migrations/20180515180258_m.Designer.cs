@@ -11,9 +11,10 @@ using System;
 namespace Hotel.Data.Migrations
 {
     [DbContext(typeof(MojContext))]
-    partial class MojContextModelSnapshot : ModelSnapshot
+    [Migration("20180515180258_m")]
+    partial class m
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,6 +33,8 @@ namespace Hotel.Data.Migrations
                     b.Property<DateTime>("DatumDolaska");
 
                     b.Property<DateTime>("DatumOdlaska");
+
+                    b.Property<float>("Depozit");
 
                     b.Property<int>("GostId");
 
@@ -362,6 +365,24 @@ namespace Hotel.Data.Migrations
                     b.ToTable("TipUsluge");
                 });
 
+            modelBuilder.Entity("Hotel.Data.Models.Uplata", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CheckINId");
+
+                    b.Property<DateTime>("DatumUplate");
+
+                    b.Property<double>("Iznos");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CheckINId");
+
+                    b.ToTable("Uplata");
+                });
+
             modelBuilder.Entity("Hotel.Data.Models.UslugeHotela", b =>
                 {
                     b.Property<int>("Id")
@@ -619,6 +640,14 @@ namespace Hotel.Data.Migrations
                     b.HasOne("Hotel.Data.Models.Proizvodi", "Proizvodi")
                         .WithMany()
                         .HasForeignKey("ProizvodId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Hotel.Data.Models.Uplata", b =>
+                {
+                    b.HasOne("Hotel.Data.Models.CheckIN", "CheckIN")
+                        .WithMany()
+                        .HasForeignKey("CheckINId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

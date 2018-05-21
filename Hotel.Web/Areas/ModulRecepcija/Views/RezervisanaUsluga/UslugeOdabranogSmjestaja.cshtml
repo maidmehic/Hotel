@@ -1,0 +1,36 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.RezervisanaUslugaUslugeOdabranogSmjestajaVM
+@{
+    ViewData["Title"] = "UslugeOdabranogSmjestaja";
+}
+<h2>Usluge odabranog smještaja</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Datum pocetka</th>
+            <th>Datum zavrsetka</th>
+            <th>Cijena</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+        @foreach (var i in Model.lista)
+        {
+            <tr>
+                <td>@i.UslugeHotela.Naziv </td>
+                <td> @i.UslugeHotela.DatumPocetka.ToShortDateString()</td>
+                <td>
+                    @i.UslugeHotela.DatumZavrsetka.ToShortDateString()
+                </td>
+                <td>@i.UslugeHotela.Cijena</td>
+
+
+
+            </tr>
+        }
+
+    </tbody>
+</table>
+@Html.ActionLink("Nazad","Index", "RezervisanSmjestaj", new { }, new { @class="btn btn-warning"})

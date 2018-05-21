@@ -12,7 +12,7 @@ namespace Hotel.Data.Models
         public DateTime DatumOdlaska { get; set; }
         public int BrojDjece { get; set; }
         public int BrojOdraslih { get; set; }
-        public float Depozit { get; set; }
+       
         public string Napomena { get; set; }
         // jednog zaposlenika
         public int ZaposlenikId { get; set; }

@@ -21,8 +21,10 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
             public int CheckINID { get; set; }
 
             public string Smjestaj { get; set; }
+            public int SmjestajId { get; set; }
 
-            
+
+
         }
 
     }

@@ -14,7 +14,7 @@ namespace Hotel.Data.Models
         public DbSet<Smjestaj> Smjestaj { set; get; }
         public DbSet<Stavke> Stavke { set; get; }
         public DbSet<TipUsluge> TipUsluge { set; get; }
-        public DbSet<Uplata> Uplata { set; get; }
+      
         public DbSet<UslugeHotela> UslugeHotela { set; get; }
         public DbSet<VrstaSmjestaja> VrstaSmjestaja { set; get; }
         public DbSet<ZahtjevZaCiscenjem> ZahtjevZaCiscenjem { set; get; }
@@ -26,8 +26,9 @@ namespace Hotel.Data.Models
         public DbSet<Feedback> Feedback { set; get; }
         public DbSet<Grad> Grad { set; get; }
         public DbSet<Drzava> Drzava { set; get; }
+        public DbSet<DostavaStavke> DostavaStavke { set; get; }
         public DbSet<Dostava> Dostava { set; get; }
-
+       
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

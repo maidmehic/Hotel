@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 
 namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
 {
-    public class DostavaIndexVM
+    public class DostavaDostaveNaSmjestajVM
     {
-
         public List<Row> dostave { get; set; }
+        public string RezervisanSmjestaj { get; set; }
         public class Row
         {
             public string Datum { get; set; }
-            public bool Zavrsena { get; set; }           
-            public string RezervisanSmjestaj { get; set; }
+            public bool Zavrsena { get; set; }
+          
 
         }
     }

@@ -4,36 +4,43 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h2>Check ini</h2>
+<h1>Check ini</h1>
 
 
 @using (Html.BeginForm("Index", "CheckIN", FormMethod.Get))
 {
     <div class="container">
-        <h3>Pretrazi po</h3>
+        <h3>Pretrazi po: </h3>
         <div class="form-row">
             <div class="col-sm-1">
-                <label>Imenu Gosta</label>
+                <label>Imenu</label><br />
                 @Html.RadioButton("PretraziPo", "Ime")
 
             </div>
 
             <div class="col-sm-1">
-                <label>Broj pasosa</label><br />
+                <label>Pasošu</label><br />
                 @Html.RadioButton("PretraziPo", "BrojPasosa")
+
+            </div>
+
+            <div class="col-sm-1">
+                <label>Sve</label><br />
+                @Html.RadioButton("PretraziPo", "Sve")
 
             </div>
 
         </div>
     </div>
-    <div class="col">
-        @Html.TextBox("pretraga") <input type="submit" value="Trazi" />
+    <div class="form-inline">
+        @Html.TextBox("pretraga","",new { @class="form form-control pretrag"}) <input type="submit" value="Trazi" class="btn btn-default"/>
     </div>
+    
 }
 
 
 
-
+<br /><br />
 <table class="table table-striped">
 
     <thead>
@@ -43,8 +50,7 @@
             <th>BrojDjece</th>
             <th>BrojOdraslih</th>
             <th>Datum dolaska </th>
-            <th>Datum odlaska </th>
-            <th>Depozit </th>
+            <th>Datum odlaska </th>            
             <th>Tip usluge </th>
             <th>Napomena </th>
             <th>Zaposlenik </th>
@@ -77,20 +83,19 @@
                 <td>@i.BrojDjece</td>
                 <td>@i.BrojOdraslih</td>
                 <td>@i.DatumDolaska</td>
-                <td>@i.DatumOdlaska</td>
-                <td>@i.Depozit</td>
+                <td>@i.DatumOdlaska</td>              
                 <td>@i.TipUsluge</td>
                 <td>@i.Napomena</td>
                 <td>@i.Zaposlenik</td>
 
 
-                <td>
-                    <a asp-action="Detalji" asp-controller="Gost" asp-route-GostId="@i.GostId" asp-route-ImeKontrolera="CheckIn" asp-route-ImeAkcije="Index" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn" class="btn btn-success">Detalji gosta</a><br />
-                    <a asp-action="Dodaj" asp-controller="Feedback" asp-route-CheckINId="@i.Id" asp-route-GostId="@i.GostId" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn" class=" btn btn-success">Feedback</a>
+                <td >
+                    <a asp-action="Detalji" asp-controller="Gost" asp-route-GostId="@i.GostId" asp-route-ImeKontrolera="CheckIn" asp-route-ImeAkcije="Index" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn" class="btn btn-success dugmad">Detalji gosta</a><br />
+                    <a asp-action="Dodaj" asp-controller="Feedback" asp-route-CheckINId="@i.Id" asp-route-GostId="@i.GostId" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn" class=" btn btn-success dugmad">Feedback</a>
                 </td>
                     <td>
-                    <a asp-action="CheckOut" asp-controller="CheckIN" asp-route-GostId="@i.GostId" class="  btn btn-primary" data-toggle="modal" data-target="#exampleModal">Check-Out</a><br />
-                    @Html.ActionLink("Obrisi", "Obrisi", "CheckIN", new { Id = i.Id }, new { @class = "  btn btn-danger" })
+                    <a asp-action="CheckOut" asp-controller="CheckIN" asp-route-GostId="@i.GostId" class="  btn btn-primary dugmad" data-toggle="modal" data-target="#exampleModal">Check-Out</a><br />
+                    @Html.ActionLink("Obrisi", "Obrisi", "CheckIN", new { Id = i.Id }, new { @class = "  btn btn-danger dugmad" })
                 </td>
 
 
@@ -99,7 +104,7 @@
         </tbody>
     }
 </table>
-@Html.ActionLink("Dodaj","Dodaj","CheckIN",new  { },new { @class="btn btn-success"})
+@Html.ActionLink("Dodaj", "OdaberiteGosta", "CheckIN",new  { },new { @class="btn btn-success"})
 
 <div class="form-group" id="ajaxDiv"> </div>
 
@@ -123,3 +128,15 @@
     </div>
 </div>
 
+<style type="text/css">
+    .dugmad {
+       width:92px;
+       text-align:center;
+        margin-top: 5px;
+        padding:5px;
+    }
+    .pretrag{
+        width:25%;
+    }
+
+</style>
