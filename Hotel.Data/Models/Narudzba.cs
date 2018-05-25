@@ -15,5 +15,7 @@ namespace Hotel.Data.Models
         public int ZaposlenikId { get; set; }
         [ForeignKey(nameof(ZaposlenikId))]
         public virtual Zaposlenik Zaposlenik { get; set; }
+        public bool Zavrsena { set; get; }
+        public bool Otkazana { set; get; }
     }
 }

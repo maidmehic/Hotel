@@ -24,35 +24,66 @@ namespace Hotel.Web.Areas.ModulRestoran.Controllers
         {
             DodajNarudzbuVM Model = new DodajNarudzbuVM();
             Model.DatumKreiranja = DateTime.Now;
+            Model.Zavrsena = false;
+            Model.Otkazana = false;
             Model.ZaposlenikId = HttpContext.GetLogiraniKorisnik().Id;
 
             return View(Model);
         }
-        public IActionResult Snimi(DodajNarudzbuVM n)
+        public IActionResult Snimi(DodajNarudzbuVM n)//Snima novu narudzbu
         {
-            Narudzba temp;
-            if (n.Id == 0)
+            if (!ModelState.IsValid)
             {
-                temp = new Narudzba();
-                db.Narudzba.Add(temp);
+                return View("NovaNarudzba", n);
             }
-            else
-            {
-                temp = db.Narudzba.Find(n.Id);
-            }
+
+            Narudzba temp= new Narudzba();
             temp.Hitnost = n.Hitnost;
             temp.Opis = n.Opis;
             temp.ZaposlenikId = n.ZaposlenikId;
             temp.DatumKreiranja = n.DatumKreiranja;
-            db.SaveChanges();
-            return RedirectToAction("DodavanjeStavki");
-        }
-        public IActionResult DodavanjeStavki()
-        {
-            PrikaziNarudzbuDodajProizvodeVM Model = new PrikaziNarudzbuDodajProizvodeVM();
+            temp.Zavrsena = n.Zavrsena;
+            temp.Otkazana = n.Otkazana;
 
-            Model.Narudzba = db.Narudzba.Include(x=>x.Zaposlenik).Last();
-            Model.NarudzbaId = db.Narudzba.Include(x=>x.Zaposlenik).Last().Id;
+            db.Narudzba.Add(temp);
+            db.SaveChanges();
+            return RedirectToAction("DodavanjeStavki","Stavke");
+        }
+
+        public IActionResult SnimiNarudzbuPoslijeEdita(UrediNarudzbuIStavkeVM n)//Snima editovanu narudzbu
+        {
+            Narudzba temp = new Narudzba();
+            temp = db.Narudzba.Find(n.Id);
+            temp.Hitnost = n.Hitnost;
+            temp.DatumKreiranja = n.DatumKreiranja;
+            temp.Opis = n.Opis;
+            temp.ZaposlenikId = n.ZaposlenikId;
+            temp.Zavrsena = n.Zavrsena;
+            temp.Otkazana = n.Otkazana;
+
+            db.SaveChanges();
+            return RedirectToAction("PrikaziZalihe", "Proizvod");
+        }
+
+
+        public IActionResult Uredi(int Id)
+        {
+            UrediNarudzbuIStavkeVM Model = new UrediNarudzbuIStavkeVM();
+            Narudzba n = new Narudzba();
+            n = db.Narudzba.Find(Id);
+
+            Model.Id = n.Id;
+            Model.DatumKreiranja = n.DatumKreiranja;
+            Model.Opis = n.Opis;
+            Model.Hitnost = n.Hitnost;
+            Model.ZaposlenikId = n.ZaposlenikId;
+            Model.Zavrsena = n.Zavrsena;
+            Model.Otkazana = n.Otkazana;
+            // Model.StavkeNarudzbe.Stavke = db.Stavke.Include(x => x.Proizvodi).Include(x => x.Narudzba).Where(x => x.NarudzbaId == n.Id).ToList();
+            Model.StavkeNarudzbe = new PrikaziStavkeVM();
+            Model.StavkeNarudzbe.Stavke = db.Stavke.Include(x => x.Proizvodi).Include(x => x.Narudzba).Where(x => x.NarudzbaId == n.Id).ToList();
+            Model.StavkeNarudzbe.NarudzbaId = n.Id;
+
 
             List<SelectListItem> _stavke = new List<SelectListItem>();
             _stavke.Add(new SelectListItem()
@@ -66,53 +97,92 @@ namespace Hotel.Web.Areas.ModulRestoran.Controllers
                 Value = x.Id.ToString(),
                 Text = x.Naziv
             }));
-            Model.ProizvodiStavke = _stavke;
+            Model.StavkeNarudzbe.ProizvodiStavke = _stavke;
             
+
             return View(Model);
         }
 
-        public IActionResult SnimiStavku(PrikaziNarudzbuDodajProizvodeVM s)
+        public IActionResult SnimiStavku(PrikaziStavkeVM s)
         {
-            Stavke temp;
 
-            if (s.Id == 0)
+            if (!ModelState.IsValid)
             {
-                temp = new Stavke();
-                db.Stavke.Add(temp);
-            }
-            else
-            {
-                temp = db.Stavke.Find(s.Id);
+                return RedirectToAction("Uredi", new { Id = s.NarudzbaId });
             }
 
-            temp.Kolicina = s.Kolicina ??0;
+            if (db.Stavke.Where(x => (x.NarudzbaId == s.NarudzbaId) && (x.ProizvodId == s.ProizvodId)).Any())
+            {
+                return RedirectToAction("Uredi", new { Id = s.NarudzbaId });
+            }
+
+
+
+            Stavke temp= new Stavke();
+
+            temp.Kolicina = s.Kolicina ?? 0;
             temp.NarudzbaId = s.NarudzbaId;
             temp.ProizvodId = s.ProizvodId;
+
+            db.Stavke.Add(temp);
             db.SaveChanges();
-            return RedirectToAction("PrikaziStavke",new { id=temp.NarudzbaId });
+            return RedirectToAction("Uredi", new { Id = temp.NarudzbaId });
+           
         }
 
-        public IActionResult PrikaziStavke(int id)
-        {
-            PrikaziStavkeVM Model = new PrikaziStavkeVM();
-            Model.Stavke = db.Stavke.Include(x => x.Narudzba).Include(x => x.Proizvodi).Where(x => x.NarudzbaId == id).ToList();
 
+        public IActionResult ObrisiStavku(int Id)//Brise stavke narudzbe (prilikom edita)
+        {
+            Stavke s = db.Stavke.Find(Id);
+            db.Stavke.Remove(s);
+            db.SaveChanges();
+            return RedirectToAction("Uredi", new { Id = s.NarudzbaId });
+        }
+
+        public IActionResult ProvjeriHitnost(string Hitnost)
+        {
+            if (Hitnost == "Odaberite hitnost")
+                return Json("Odaberite hitnost.");
+            return Json(true);
+        }
+
+        public IActionResult PrikaziNarudzbe(int ? StanjeOdabir)
+        {
+            PrikaziNarudzbeVM Model = new PrikaziNarudzbeVM();
+
+            if (StanjeOdabir == null)
+                Model.Narudzbe = db.Narudzba.Include(x => x.Zaposlenik).OrderByDescending(x => x.DatumKreiranja).ToList();
+            
+            if (StanjeOdabir == 1)
+                Model.Narudzbe = db.Narudzba.Where(x=>x.Zavrsena==false).Include(x => x.Zaposlenik).OrderByDescending(x => x.DatumKreiranja).ToList();
+            
+            if (StanjeOdabir == 2)
+                Model.Narudzbe = db.Narudzba.Where(x => x.Zavrsena == true).Include(x => x.Zaposlenik).OrderByDescending(x => x.DatumKreiranja).ToList();
+
+            if (StanjeOdabir == 3)
+                Model.Narudzbe = db.Narudzba.Where(x => x.Otkazana == true).Include(x => x.Zaposlenik).OrderByDescending(x => x.DatumKreiranja).ToList();
+
+            Model.zaposlenikId =HttpContext.GetLogiraniKorisnik().Id;
             return View(Model);
         }
-        public IActionResult FinalizirajNarudzbu(int NarudzbaId)
+
+        
+
+        public IActionResult PrikaziStavkeNarudzbe(int Id)
         {
-            foreach (Proizvodi p in db.Proizvod.ToList())
-            {
-                foreach (Stavke s in db.Stavke.Where(x=>x.NarudzbaId==NarudzbaId).ToList())
-                {
-                    if (p.Id == s.ProizvodId)
-                    {
-                        p.Kolicina = p.Kolicina + s.Kolicina;
-                    }
-                }
-            }
+            PrikaziStavkeVM Model = new PrikaziStavkeVM();
+            Model.Stavke = db.Stavke.Where(x => x.NarudzbaId == Id).Include(x=>x.Proizvodi).ToList();
+            return View(Model);
+        }
+
+        public IActionResult OtkaziNarudzbu(int Id)
+        {
+            Narudzba temp = new Narudzba();
+            temp = db.Narudzba.Find(Id);
+            temp.Otkazana = true;
             db.SaveChanges();
-            return RedirectToAction("PrikaziZalihe", "Proizvod");
+
+            return RedirectToAction("PrikaziNarudzbe");
         }
     }
 }

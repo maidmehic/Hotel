@@ -1,0 +1,48 @@
+﻿@using Hotel.Data.Models;
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Uredi";
+}
+@model Hotel.Web.Areas.ModulRestoran.ViewModels.UrediNarudzbuIStavkeVM
+<h2>Uredi</h2>
+
+<form action="/ModulRestoran/Narudzba/SnimiNarudzbuPoslijeEdita" >
+    <table>
+        <tr>
+            <td>@Html.HiddenFor(x => x.Id)</td>
+        </tr>
+        <tr>
+            <td>@Html.HiddenFor(x => x.ZaposlenikId)</td>
+        </tr>
+        <tr>
+            <td>@Html.HiddenFor(x => x.Zavrsena)</td>
+        </tr>
+        <tr>
+            <th>Opis</th>
+            <td>@Html.TextAreaFor(x => x.Opis, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <th>Hitnost</th>
+            <td>@Html.DropDownListFor(x => x.Hitnost, Model.HitnostStavke, new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Hitnost)</span></td>
+        </tr>
+        <tr>
+            <th>Datum kreiranja</th>
+            <td>@Html.TextBoxFor(x => x.DatumKreiranja, new { @class = "form-control", @readonly = "readonly" })</td>
+        </tr>
+    </table>
+  
+    <br />  <br />
+    <a href="/ModulRestoran/Narudzba/OtkaziNarudzbu?Id=@Model.Id" class="btn btn-danger">Otkaži narudžbu</a>
+    <input type="submit" value="Spremi" class="btn btn-success" />
+    
+</form>
+<div class="form-group" id="ajaxdiv">
+    @Html.Partial("../Narudzba/PrikaziDodajStavke", Model.StavkeNarudzbe)
+</div>
+
+
+
+
+
+

@@ -1,0 +1,47 @@
+﻿@using Hotel.Data.Models;
+@model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziStavkeVM
+@{
+    Layout = "LayoutBezFootera";
+    ViewData["Title"] = "PrikaziDodajStavke";
+
+}
+<h2>Stavke</h2>
+
+<form action="/ModulRestoran/Narudzba/SnimiStavku">
+    <table>
+        <tr>
+            <td>@Html.HiddenFor(x=>x.NarudzbaId)</td>
+        </tr>
+        <tr>
+            <td>@Html.DropDownListFor(x => x.ProizvodId, Model.ProizvodiStavke, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>@Html.TextBoxFor(x => x.Kolicina, new { @class = "form-control", @placeholder = "Unesite količinu" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Kolicina)</span></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Dodaj" class="btn btn-success" /></td>
+        </tr>
+    </table>
+</form>
+<br /><br />
+
+<table class="table table-striped">
+    <tr>
+        <th>Proizvod</th>
+        <th>Vrsta</th>
+        <th>Količina</th>
+        <th>Mjerna jedinica</th>
+        <th>Akcija</th>
+    </tr>
+    @foreach (Stavke s in Model.Stavke)
+    {
+        <tr>
+            <td>@s.Proizvodi.Naziv</td>
+            <td>@s.Proizvodi.Vrsta</td>
+            <td>@s.Kolicina</td>
+            <td>@s.Proizvodi.MjernaJedinica</td>
+            <td><a href="/ModulRestoran/Narudzba/ObrisiStavku?Id=@s.Id" class="btn btn-danger">Obriši</a></td>
+        </tr>
+    }
+</table>
