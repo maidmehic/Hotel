@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
+﻿namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
 {
     public class DostavaDodajVM
     {
       
-        public int Kolicina { get; set; }
-        public float Cijena { get; set; }
-        public string Naziv { get; set; }
+       
+      
+        public string Datum { get; set; }
 
         public int RezervisanSmjestajId { get; set; }
-      
-
+        public int DostavaId { get; set; }
+        public int IdSmjestaja { get; set; }
 
 
     }

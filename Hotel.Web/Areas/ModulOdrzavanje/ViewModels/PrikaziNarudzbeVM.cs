@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Hotel.Web.Areas.ModulOdrzavanje.ViewModels
+namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
 {
     public class PrikaziNarudzbeVM
     {

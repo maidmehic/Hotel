@@ -9,10 +9,10 @@
 
     <thead>
         <tr>
-            <th>Naziv</th>
-            <th>Gost</th>
-            <th>Cijena</th>
-            <th>Kolicina</th>
+            <th>Datum</th>
+            <th>Zavrsena</th>
+            <th>Rezervisan smjestaj</th>
+           
         </tr>
     </thead>
 
@@ -20,10 +20,10 @@
             @foreach (var item in Model.dostave)
     {
             <tr>
-                <td>@item.Naziv</td>
-                <td>@item.Gost</td>
-                <td>@item.Cijena</td>
-                <td>@item.Kolicina</td>
+                <td>@item.Datum</td>
+                <td>@(item.Zavrsena ?"Da":"Ne")</td>
+                <td>@item.RezervisanSmjestaj</td>
+              
 
             </tr>
 }
@@ -32,3 +32,4 @@
         </tbody>
 
 </table>
+

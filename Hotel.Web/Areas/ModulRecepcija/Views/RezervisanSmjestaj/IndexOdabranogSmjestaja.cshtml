@@ -1,0 +1,50 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.RezervisanSmjestajIndexOdabranogSmjestajaVM
+@{
+    ViewData["Title"] = "IndexOdabranogSmjestaja";
+}
+<h2>Odabrani smještaj</h2>
+
+<form>
+    @if (ViewBag.Poruka != null)
+    {
+        <div class="alert alert-danger">
+            <span>@ViewBag.Poruka</span>
+        </div>
+    }
+    <div class="form-group">
+        <label>Gost nosioc: </label>
+        <input asp-for="GostNosioc" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Datum dolaska: </label>
+        <input asp-for="DatumDolaska" readonly class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Datum odlaska: </label>
+        <input asp-for="DatumOdlaska" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Podaci o smjestaju: </label>
+        <input asp-for="PodaciOSmjestaju" readonly class="form-control" />
+    </div>
+
+    <a asp-action="DodajGostaSobi" asp-controller="RezervisanSmjestaj" asp-route-SmjestajId="@Model.SmjestajId" asp-route-CheckInId="@Model.CheckINId" ajax-poziv="da" ajax-rezultat="ajaxDiv" class="btn btn-info">Dodaj gosta sobi</a>
+    <a id="Pozovi" asp-action="UcitajGosteNaSmjestaju" asp-controller="RezervisanSmjestaj" asp-route-SmjestajId="@Model.SmjestajId" ajax-poziv="da" ajax-rezultat="ajaxDiv"></a>
+    <a asp-action="Index" asp-controller="RezervisanSmjestaj" class="btn btn-warning"><span class="glyphicons glyphicons-arrow-right"></span> Na smjestaje</a>
+    <a asp-action="Index" asp-controller="CheckIN" class="btn btn-info"><span class="glyphicons glyphicons-arrow-left"></span>Na checkine</a>
+
+</form>
+
+<div id="ajaxDiv">
+   
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Pozovi").click()
+    });
+    
+</script>
+
+

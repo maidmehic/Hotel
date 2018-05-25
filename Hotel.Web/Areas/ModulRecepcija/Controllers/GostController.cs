@@ -15,18 +15,18 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
     {
         MojContext db = new MojContext();
 
-        public IActionResult Index()
+        public IActionResult Index(string ImePrezimePretraga)
         {
             GostIndexVM model = new GostIndexVM();
 
-            model.Gosti = db.Gost.Select(x => new GostIndexVM.Row
+            model.Gosti = db.Gost.Where(x=>x.Ime.StartsWith(ImePrezimePretraga) || x.Prezime.StartsWith(ImePrezimePretraga) || ImePrezimePretraga==null).Select(x => new GostIndexVM.Row
             {
                 Id = x.Id,
                 BrojPasosa = x.BrojPasosa,
                 Ime = x.Ime,
                 Prezime = x.Prezime,
                 Drzavljanstvo = x.Drzavljanstvo,
-                DatumRodenja = x.DatumRodenja,
+                DatumRodenja = x.DatumRodenja.ToShortDateString(),
                 Telefon = x.Telefon,
                 Email = x.Email,
                 Grad = x.Grad.Naziv,
@@ -50,7 +50,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             model.Ime = x.Ime;
             model.Prezime = x.Prezime;
             model.Drzavljanstvo = x.Drzavljanstvo;
-            model.DatumRodenja = x.DatumRodenja;
+            model.DatumRodenja = x.DatumRodenja.ToShortDateString();
             model.Telefon = x.Telefon;
             model.Email = x.Email;
             model.Grad = x.Grad.Naziv;
@@ -70,6 +70,13 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             else
                 return RedirectToAction(model.ImeAkcije, model.ImeKontrolera, new { Id = model.IdPozivatelja });
         }
+
+
+
+      
+
+
+
         public void PripremiStavkeModela(GostDodajVM model)
         {
             model.Gradovi = new SelectList(db.Grad, "Id", "Naziv", "--Odaberite Grad--");
@@ -91,6 +98,9 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             return PartialView(z);
         }
+
+
+        
         public IActionResult Dodaj()
         {
             GostDodajVM model = new GostDodajVM();

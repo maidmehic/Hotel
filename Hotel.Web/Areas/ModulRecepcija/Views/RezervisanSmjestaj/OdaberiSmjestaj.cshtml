@@ -1,0 +1,27 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.RezervisanSmjestajOdaberiSmjestajVM
+@{
+    ViewData["Title"] = "OdaberiSmjestaj";
+}
+<h2>Odaberi Smjestaj</h2>
+Dugme dodaj goste
+
+<div class="form-group">
+    <label></label>
+    <input class="form-control" asp-for="DatumDolaska" readonly />
+</div>
+
+<div class="form-group">
+    <label></label>
+    <input class="form-control" asp-for="DatumOdlaska" readonly />
+</div>
+<form asp-controller="RezervisanSmjestaj" asp-action="OdaberiSmjestaj" method="post">
+
+    <input type="text" asp-for="CheckInId" value="@Model.CheckInId" hidden />
+    <input type="text" asp-for="GostId" value="@Model.GostId" hidden />
+    <div>
+        <label>Smjestaj</label>
+        @Html.DropDownListFor(x => x.Smjestaj.Id, Model.Smjestaji, "Odaberite Smjestaj Hotela", new { @class = "form-control" })
+    </div>
+    <div id="ajaxDiv"></div>
+    <input type="submit" value="Snimi" ajax-poziv="da" ajax-rezultat="ajaxDiv"/>
+</form>

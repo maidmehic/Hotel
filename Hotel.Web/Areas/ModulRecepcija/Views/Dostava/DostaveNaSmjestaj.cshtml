@@ -1,0 +1,30 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.DostavaDostaveNaSmjestajVM
+@{
+    ViewData["Title"] = "DostaveNaSmjestaj";
+}
+<h2>Dostave na smjestaj</h2>
+<div class="form-group">
+    <label>Rezervisan smjestaj</label>
+    <input class="form-control" asp-for="@Model.RezervisanSmjestaj" readonly/>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Zavrsena</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.dostave)
+        {
+            <tr>
+                <td>@item.Datum</td>
+                <td>@(item.Zavrsena ? "Da" : "Ne")</td>
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>

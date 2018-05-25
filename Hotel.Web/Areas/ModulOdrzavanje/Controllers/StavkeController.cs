@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hotel.Data.Models;
-using Hotel.Web.Areas.ModulOdrzavanje.ViewModels;
+using Hotel.Web.Areas.ModulRecepcija.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;

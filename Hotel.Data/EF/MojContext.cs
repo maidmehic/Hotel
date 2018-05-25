@@ -14,7 +14,7 @@ namespace Hotel.Data.Models
         public DbSet<Smjestaj> Smjestaj { set; get; }
         public DbSet<Stavke> Stavke { set; get; }
         public DbSet<TipUsluge> TipUsluge { set; get; }
-        public DbSet<Uplata> Uplata { set; get; }
+      
         public DbSet<UslugeHotela> UslugeHotela { set; get; }
         public DbSet<VrstaSmjestaja> VrstaSmjestaja { set; get; }
         public DbSet<ZahtjevZaCiscenjem> ZahtjevZaCiscenjem { set; get; }
@@ -26,13 +26,14 @@ namespace Hotel.Data.Models
         public DbSet<Feedback> Feedback { set; get; }
         public DbSet<Grad> Grad { set; get; }
         public DbSet<Drzava> Drzava { set; get; }
+        public DbSet<DostavaStavke> DostavaStavke { set; get; }
         public DbSet<Dostava> Dostava { set; get; }
-
+       
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer("Server=p1714.app.fit.ba;Database=p1714Hotel;Trusted_Connection=false;MultipleActiveResultSets=true;User ID=p1714;Password=vToz76@3");
-            optionsBuilder.UseSqlServer("Server=DESKTOP-0IJ5R4J;Database=Hotel;Trusted_Connection=true;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer("Server=localhost;Database=Hotel;Trusted_Connection=true;MultipleActiveResultSets=true");
             //optionsBuilder.UseSqlServer("Server=localhost;Database=Hotel;Trusted_Connection=true;MultipleActiveResultSets=true");
 
         }

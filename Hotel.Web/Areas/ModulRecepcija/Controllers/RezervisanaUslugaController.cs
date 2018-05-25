@@ -6,6 +6,7 @@ using Hotel.Data.Models;
 using Hotel.Web.Areas.ModulRecepcija.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 {
@@ -20,7 +21,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             model.usluge = db.RezervisanaUsluga.Select(x => new RezervisanaUslugaIndexVM.Row{
                 Id=x.Id,
                 UslugeHotela = x.UslugeHotela.Naziv +"/"+ x.UslugeHotela.Opis + "/" +x.UslugeHotela.Cijena,
-                CheckIN= x.CheckIN.Gost.Ime+"/"+x.CheckIN.Gost.Prezime +"("+ x.CheckIN.DatumDolaska.ToShortDateString() +"-" + x.CheckIN.DatumOdlaska.ToShortDateString()
+                CheckIN= x.CheckIN.Gost.Ime+" "+x.CheckIN.Gost.Prezime +"("+ x.CheckIN.DatumDolaska.ToShortDateString() +"-" + x.CheckIN.DatumOdlaska.ToShortDateString() + ")"
 
 
 
@@ -28,22 +29,29 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             return View(model);
         }
-        public IActionResult Dodaj()
+        public IActionResult UslugeOdabranogSmjestaja(int RezervisanSmjestajID)
+        {
+            RezervisanaUslugaUslugeOdabranogSmjestajaVM model = new RezervisanaUslugaUslugeOdabranogSmjestajaVM();
+
+         
+            // nadi rezervisan smjestaj
+            RezervisanSmjestaj s = db.RezervisanSmjestaj.Where(x => x.Id == RezervisanSmjestajID).FirstOrDefault();
+            //nadi rezervisane usluge za taj smjestaj
+            model.lista = db.RezervisanaUsluga.Include(x=>x.UslugeHotela).Where(x => x.CheckINId == s.CheckINId).ToList();
+
+            return View(model);
+        }
+        public IActionResult Dodaj(int RezervisanSmjestajID)
         {
             RezervisanaUslugaDodajVM model = new RezervisanaUslugaDodajVM();
 
+            RezervisanSmjestaj sr = new RezervisanSmjestaj();
+            sr = db.RezervisanSmjestaj.Include(x=>x.CheckIN.Gost).Include(x=>x.Gost).Where(x=>x.Id==RezervisanSmjestajID).Where(x => x.Id == RezervisanSmjestajID).FirstOrDefault();
 
-            var CheckINI =
-            db.CheckIN
-           .Select(s => new
-           {
-               Id = s.Id,
-               
-               Polje = string.Format("Gost: {0} Datum Dolaska {1} Datum Odlaska: {2} /// Broj djece:{3} Broj odraslih: {4}", s.Gost.Ime + s.Gost.Prezime, s.DatumDolaska, s.DatumOdlaska, s.BrojDjece, s.BrojOdraslih)
-           })
-    .ToList();
-
-
+            model.Rezervacija = sr.CheckIN.Gost.Ime + " "+ sr.CheckIN.Gost.Prezime;
+            model.Datum ="Od: " + sr.CheckIN.DatumDolaska + " do" + sr.CheckIN.DatumOdlaska;
+            model.Gost = sr.Gost.Ime + " " + sr.Gost.Prezime;
+            model.CheckINId = sr.CheckINId;
 
             var Usluge =
          db.UslugeHotela
@@ -56,8 +64,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
 
             model.UslugeHotela = new SelectList(Usluge, "Id", "Polje");
-            model.Checkini = new SelectList(CheckINI, "Id", "Polje");
-
+         
             return View(model);
 
         }
@@ -67,13 +74,13 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         {
 
             RezervisanaUsluga ru = new RezervisanaUsluga();
-            ru.CheckINId = model.CheckIN.Id;
+            ru.CheckINId = model.CheckINId;
             ru.UslugeHotelaId = model.Usluga.Id;
 
             db.RezervisanaUsluga.Add(ru);
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ProvjeriSlobodanSmjestaj","RezervisanSmjestaj");
         }
         public IActionResult Obrisi(int Id)
         {

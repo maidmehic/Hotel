@@ -11,11 +11,9 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
         public List<Row> dostave { get; set; }
         public class Row
         {
-            public int Kolicina { get; set; }
-            public float Cijena { get; set; }
-            public string Naziv { get; set; }
-            public string Gost { get; set; }
-            public int RezervisanSmjestajId { get; set; }
+            public string Datum { get; set; }
+            public bool Zavrsena { get; set; }           
+            public string RezervisanSmjestaj { get; set; }
 
         }
     }

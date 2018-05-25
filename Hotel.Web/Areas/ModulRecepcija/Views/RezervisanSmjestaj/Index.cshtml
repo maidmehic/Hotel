@@ -25,9 +25,10 @@
                 <td>@i.Gost</td>
                 <td>@i.Smjestaj</td>
                 <td>
-                    @Html.ActionLink("Obrisi", "Obrisi", "RezervisanSmjestaj", new { ID = i.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Dostava", "Dodaj", "Dostava", new { RezervisanSmjestajId = i.Id }, new { @class = "btn btn-success" })
-                    <a asp-action="Dodaj" asp-controller="Feedback" asp-route-CheckINId="@i.CheckINID" asp-route-GostId="@i.GostId" ajax-poziv="da" ajax-rezultat="ajaxDiv" class="btn btn-success">Unesi feedback</a>
+                    @Html.ActionLink("Detalji", "IndexOdabranogSmjestaja", "RezervisanSmjestaj",new { CheckINId=i.CheckINID, SmjestajId=i.SmjestajId }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Obrisi", "Obrisi", "RezervisanSmjestaj", new { ID = i.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Usluge", "UslugeOdabranogSmjestaja", "RezervisanaUsluga", new { RezervisanSmjestajID=i.Id },new {@class="btn btn-warning"})
+                  
 
 
                 </td>
@@ -36,8 +37,7 @@
 
     </tbody>
 </table>
-@Html.ActionLink("Dodaj novi Rezervisani Smjestaj", "Dodaj", "RezervisanSmjestaj", new { }, new { @class = "btn btn-success" })
-@Html.ActionLink("Provjeri slobodan Smjestaj", "ProvjeriSlobodanSmjestaj", "RezervisanSmjestaj", new { }, new { @class = "btn btn-success" })
+@*@Html.ActionLink("Dodaj novi Rezervisani Smjestaj", "Dodaj", "RezervisanSmjestaj", new { }, new { @class = "btn btn-success" })*@
+@Html.ActionLink("Prikazi smještaje", "ProvjeriSlobodanSmjestaj", "RezervisanSmjestaj", new { }, new { @class = "btn btn-success" })
 
 
-<div class="form-group" id="ajaxDiv"> </div>
