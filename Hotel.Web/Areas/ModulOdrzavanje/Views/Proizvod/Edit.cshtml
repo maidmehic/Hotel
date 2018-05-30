@@ -4,29 +4,35 @@
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
-<h2>Edit</h2>
-
+<h2>Uredi proizvod </h2>
+<br />
 <form asp-action="Edit" asp-controller="Proizvod" method="post">
 
-    <input asp-for="ID" hidden/>
+    <input asp-for="ID" hidden />
 
     <div class="form-group">
         <label>Naziv:</label>
         <input asp-for="Naziv" class="form-control" />
-
+        <span style="color:red">@Html.ValidationMessageFor(x => x.Naziv)</span>
     </div>
 
     <div class="form-group">
         <label>Cijena:</label>
         <input asp-for="Cijena" class="form-control" />
-
+        <span style="color:red">@Html.ValidationMessageFor(x => x.Cijena)</span>
     </div>
 
 
     <div class="form-group">
         <label>Vrsta:</label>
-        <input asp-for="Vrsta" class="form-control" />
-
+        <select asp-for="Vrsta" class="form-control">
+            <option value="">Odaberite vrstu</option>
+            <option>Hrana</option>
+            <option>Piće</option>
+            <option>Namirnica</option>
+            <option>Sredstvo za čišćenje</option>
+        </select>
+        <span style="color:red">@Html.ValidationMessageFor(x => x.Vrsta)</span> 
     </div>
 
 

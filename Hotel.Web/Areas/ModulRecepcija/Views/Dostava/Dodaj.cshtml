@@ -3,29 +3,65 @@
     ViewData["Title"] = "NovaDostava";
 }
 <h2>Nova dostava</h2>
+<br />
 <form asp-action="Dodaj" asp-controller="Dostava" method="post">
     <input asp-for="DostavaId" value="@Model.DostavaId" hidden />
     <input asp-for="RezervisanSmjestajId" value="@Model.RezervisanSmjestajId" hidden />
+
     <div class="form-group">
         <label>Datum</label>
         <input class="form-control" asp-for="Datum" readonly />
 
     </div>
 
-    <a asp-action="DodajStavku" asp-controller="Dostava" asp-route-DostavaId="@Model.DostavaId" asp-route-RezervisanSmjestajId="@Model.RezervisanSmjestajId" ajax-poziv="da" ajax-rezultat="ajaxDiv" class="btn btn-warning">Dodaj stavku</a>
+    <div class="form-group">
+        <label>Podaci o smještaju</label>
+        <input class="form-control" asp-for="PodaciOSmjestaju" readonly />
 
-    <a id="Pozovi" asp-action="DostaveNaSmjestaj" asp-controller="Dostava" asp-route-IdSmjestaja="@Model.IdSmjestaja" ajax-poziv="da" ajax-rezultat="ajaxDiv"></a>
-    <br /><br />
-    <div class="form-group" id="ajaxDiv"></div>
-    <input type="submit" value="Snimi" class="btn btn-danger" />
+    </div>
+
+    <a asp-action="DodajStavku" asp-controller="Dostava" asp-route-DostavaId="@Model.DostavaId" asp-route-RezervisanSmjestajId="@Model.RezervisanSmjestajId" ajax-poziv="da" ajax-rezultat="ajaxDiv2" class="btn btn-warning">Dodaj stavku</a>
+
+   
+    <a id="Pozovi2" asp-action="StavkeDostaveNaSmjestaj" asp-controller="Dostava" asp-route-DostavaId="@Model.DostavaId" ajax-poziv="da" ajax-rezultat="ajaxDiv2"></a>
+
+   
+
+    <input type="submit" value="Spasi dostavu" class="btn btn-danger" />
 
 </form>
 
+   
+    <div id="ajaxDiv2" ></div>
 
 
 <script type="text/javascript">
+  
     $(document).ready(function () {
-        $("#Pozovi").click()
+        $("#Pozovi2").click()
     });
 
 </script>
+
+@*<style type="text/css">
+    .divovi {
+        width: 50%;
+        display: inline-block;
+    }
+    .container {                             
+        padding: 10px;
+    }
+
+    .one {
+        width: 50%;             
+        float: left;
+    }
+
+    .two {
+        margin-left: 50%;             
+    }
+
+</style>*@
+
+
+

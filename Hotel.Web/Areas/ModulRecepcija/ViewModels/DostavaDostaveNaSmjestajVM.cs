@@ -12,8 +12,11 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
         public class Row
         {
             public string Datum { get; set; }
+            public string Proizvodi { get; set; }
+
             public bool Zavrsena { get; set; }
-          
+            public int BrojStavki { get; set; }
+
 
         }
     }

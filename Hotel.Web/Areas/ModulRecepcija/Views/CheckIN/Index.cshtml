@@ -7,8 +7,10 @@
 <h1>Check ini</h1>
 
 
+
 @using (Html.BeginForm("Index", "CheckIN", FormMethod.Get))
 {
+
     <div class="container">
         <h3>Pretrazi po: </h3>
         <div class="form-row">
@@ -33,9 +35,9 @@
         </div>
     </div>
     <div class="form-inline">
-        @Html.TextBox("pretraga","",new { @class="form form-control pretrag"}) <input type="submit" value="Trazi" class="btn btn-default"/>
+        @Html.TextBox("pretraga", "", new { @class = "form form-control pretrag" }) <input type="submit" value="Trazi" class="btn btn-default" />
     </div>
-    
+
 }
 
 
@@ -50,11 +52,11 @@
             <th>BrojDjece</th>
             <th>BrojOdraslih</th>
             <th>Datum dolaska </th>
-            <th>Datum odlaska </th>            
+            <th>Datum odlaska </th>
             <th>Tip usluge </th>
             <th>Napomena </th>
             <th>Zaposlenik </th>
-            <th colspan="2">Akcija </th>
+            <th>Akcija </th>
 
 
         </tr>
@@ -76,35 +78,33 @@
         <tbody>
             @foreach (var i in Model.CheckINI)
             {
-            <tr>
+                <tr>
 
-                <td>@i.Gost</td>
-                <td>@i.BrojPasosa</td>
-                <td>@i.BrojDjece</td>
-                <td>@i.BrojOdraslih</td>
-                <td>@i.DatumDolaska</td>
-                <td>@i.DatumOdlaska</td>              
-                <td>@i.TipUsluge</td>
-                <td>@i.Napomena</td>
-                <td>@i.Zaposlenik</td>
+                    <td>@i.Gost</td>
+                    <td>@i.BrojPasosa</td>
+                    <td>@i.BrojDjece</td>
+                    <td>@i.BrojOdraslih</td>
+                    <td>@i.DatumDolaska</td>
+                    <td>@i.DatumOdlaska</td>
+                    <td>@i.TipUsluge</td>
+                    <td>@i.Napomena</td>
+                    <td>@i.Zaposlenik</td>
 
 
-                <td >
-                    <a asp-action="Detalji" asp-controller="Gost" asp-route-GostId="@i.GostId" asp-route-ImeKontrolera="CheckIn" asp-route-ImeAkcije="Index" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn" class="btn btn-success dugmad">Detalji gosta</a><br />
-                    <a asp-action="Dodaj" asp-controller="Feedback" asp-route-CheckINId="@i.Id" asp-route-GostId="@i.GostId" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn" class=" btn btn-success dugmad">Feedback</a>
-                </td>
                     <td>
-                    <a asp-action="CheckOut" asp-controller="CheckIN" asp-route-GostId="@i.GostId" class="  btn btn-primary dugmad" data-toggle="modal" data-target="#exampleModal">Check-Out</a><br />
-                    @Html.ActionLink("Obrisi", "Obrisi", "CheckIN", new { Id = i.Id }, new { @class = "  btn btn-danger dugmad" })
-                </td>
+                        <a asp-action="Detalji" asp-controller="Gost" asp-route-GostId="@i.GostId" asp-route-ImeKontrolera="CheckIn" asp-route-ImeAkcije="Index" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn" class="btn btn-success dugmad">Detalji gosta</a>
+                  
+                        <a asp-action="CheckOut" asp-controller="CheckIN" asp-route-GostId="@i.GostId" class="  btn btn-primary dugmad" data-toggle="modal" data-target="#exampleModal">Check-Out</a>
+                   
+                    @*@Html.ActionLink("", "Obrisi", "CheckIN", new { Id = i.Id }, new { @class = "glyphicon glyphicon-trash" })</td>*@
 
 
-            </tr>
+                </tr>
             }
         </tbody>
     }
 </table>
-@Html.ActionLink("Dodaj", "OdaberiteGosta", "CheckIN",new  { },new { @class="btn btn-success"})
+@Html.ActionLink("Dodaj", "OdaberiteGosta", "CheckIN", new { }, new { @class = "btn btn-success" })
 
 <div class="form-group" id="ajaxDiv"> </div>
 
@@ -115,14 +115,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                
-               
+
+
             </div>
             <div class="modal-body">
-                
+
             </div>
             <div class="modal-footer">
-               
+
             </div>
         </div>
     </div>
@@ -130,13 +130,16 @@
 
 <style type="text/css">
     .dugmad {
-       width:92px;
-       text-align:center;
         margin-top: 5px;
-        padding:5px;
-    }
-    .pretrag{
-        width:25%;
+        width: 80px;
+        text-align: center;     
+        padding:2px;
     }
 
+    #akcija{
+        text-align:center;
+    }
+    .pretrag {
+        width: 25%;
+    }
 </style>

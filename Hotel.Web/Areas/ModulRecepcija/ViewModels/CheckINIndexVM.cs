@@ -16,8 +16,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
         public class Row
         {
             public int Id { set; get; }
-            public DateTime DatumDolaska { get; set; }
-            public DateTime DatumOdlaska { get; set; }
+            public string DatumDolaska { get; set; }
+            public string DatumOdlaska { get; set; }
             public int BrojDjece { get; set; }
             public int BrojOdraslih { get; set; }
             public float Depozit { get; set; }

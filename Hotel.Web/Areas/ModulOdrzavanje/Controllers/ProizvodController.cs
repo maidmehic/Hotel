@@ -16,30 +16,37 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
         {
             ProizvodIndexVM model = new ProizvodIndexVM();
 
-            model.Proizvodi = db.Proizvod.Select(x=> new ProizvodIndexVM.Row {
-                Naziv=x.Naziv,
-                Cijena=x.Cijena,
-                Vrsta=x.Vrsta,
-               ID=x.Id
+            model.Proizvodi = db.Proizvod.Select(x => new ProizvodIndexVM.Row
+            {
+                Naziv = x.Naziv,
+                Cijena = x.Cijena,
+                Vrsta = x.Vrsta,
+                ID = x.Id
             }).ToList();
 
 
 
             return View(model);
         }
-        public IActionResult Dodaj()
+        public IActionResult Dodaj(int NarudzbaId)
         {
             ProizvodDodajVM model = new ProizvodDodajVM();
+            model.NarudzbaId = NarudzbaId;
 
-            
 
-            return View(model);
+
+           return View(model);
         }
         [HttpPost]
         public IActionResult Dodaj(ProizvodDodajVM model)
         {
 
-            Proizvodi p  = new Proizvodi();
+            //if (!ModelState.IsValid)
+            //{
+            //    return PartialView("Dodaj", model);
+            //}
+
+            Proizvodi p = new Proizvodi();
 
             p.Naziv = model.Naziv;
             p.Cijena = model.Cijena;
@@ -49,7 +56,7 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             db.SaveChanges();
 
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Dodaj", "Stavke", new { NarudzbaId = model.NarudzbaId });
         }
         public IActionResult Edit(int ProizvodId)
         {
@@ -69,7 +76,7 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
         [HttpPost]
         public IActionResult Edit(ProizvodDodajVM model)
         {
-            
+
             Proizvodi p = db.Proizvod.Where(x => x.Id == model.ID).FirstOrDefault();
 
             p.Naziv = model.Naziv;
@@ -83,7 +90,7 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
         }
         public IActionResult Obrisi(int Id)
         {
-            Proizvodi p= db.Proizvod.Where(x => x.Id == Id).FirstOrDefault();
+            Proizvodi p = db.Proizvod.Where(x => x.Id == Id).FirstOrDefault();
             db.Proizvod.Remove(p);
             db.SaveChanges();
 

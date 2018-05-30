@@ -13,30 +13,31 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
 
         public SelectList Gradovi { get; set; }
 
-     
-        public Grad Grad { get; set; }
+        [Required(ErrorMessage = "Grad je obavezan")]
+        public int GradId { get; set; }
 
         public int Id { set; get; }
-        [Required]
+        [Required(ErrorMessage = "Ime je obavezno")]
         [StringLength(25)]
         public string Ime { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Prezime je obavezno")]
         [StringLength(25)]
         public string Prezime { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Broj pasoša je obavezan")]
 
         public string BrojPasosa { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Drzavljanstvo je obavezno")]
 
         public string Drzavljanstvo { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Datum rodenja je obavezan")]
 
         public DateTime DatumRodenja { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Telefon je obavezan")]
         [RegularExpression("\\(\\d{3}\\)\\-\\d{3}\\-\\d{3}", ErrorMessage = "Broj telefona je u formatu (000)-000-000")]
         public string Telefon { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Email je obavezan")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Unesite validnu Email adresu")]
         public string Email { get; set; }
         public string Spol { get; set; }

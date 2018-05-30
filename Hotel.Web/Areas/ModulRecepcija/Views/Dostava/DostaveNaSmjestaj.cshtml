@@ -2,7 +2,8 @@
 @{
     ViewData["Title"] = "DostaveNaSmjestaj";
 }
-<h2>Dostave na smjestaj</h2>
+<h2>Prethodne dostave na smjestaj</h2>
+<br />
 <div class="form-group">
     <label>Rezervisan smjestaj</label>
     <input class="form-control" asp-for="@Model.RezervisanSmjestaj" readonly/>
@@ -12,6 +13,7 @@
         <tr>
             <th>Datum</th>
             <th>Zavrsena</th>
+            <th>Broj stavki</th>
             
         </tr>
     </thead>
@@ -21,7 +23,7 @@
             <tr>
                 <td>@item.Datum</td>
                 <td>@(item.Zavrsena ? "Da" : "Ne")</td>
-
+                <td>@item.BrojStavki</td>
             </tr>
         }
 

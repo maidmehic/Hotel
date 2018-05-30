@@ -17,8 +17,9 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
         public class Row
         {
             public int Id { set; get; }
-            public string Ime { get; set; }
-            public string Prezime { get; set; }
+         
+            public string ImePrezime { get; set; }
+           
             public string BrojPasosa { get; set; }
             public string Drzavljanstvo { get; set; }
             public string DatumRodenja { get; set; }

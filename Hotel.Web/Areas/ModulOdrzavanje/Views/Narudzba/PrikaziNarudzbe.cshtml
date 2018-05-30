@@ -4,15 +4,15 @@
 @{
     ViewData["Title"] = "PrikaziNarudzbe";
 }
-<h2>Prikazi Narudzbe</h2>
+<h2>Prikaži narudžbe</h2>
 <table class="table table-striped">
 
     <thead>
         <tr>
-            <th>DatumKreiranja</th>
+            <th>Datum kreiranja</th>
             <th>Hitnost</th>
             <th>Opis</th>
-            <th>Ime Zaposlenika</th>
+            <th>Ime zaposlenika</th>
             <th>Akcija </th>
 
 
@@ -28,7 +28,7 @@
         @foreach (var i in Model.podaci)
         {
             <tr>
-                <td>@i.DatumKreiranja.ToShortDateString()</td>
+                <td>@i.DatumKreiranja</td>
                 <td>@i.Hitnost</td>
                 <td>@i.Opis</td>
                 <td>@i.ImeZaposlenika</td>
@@ -47,7 +47,10 @@
         }
     </tbody>
 </table>
-@Html.ActionLink("Dodaj Narudzbu", "DodajNarudzbu","Narudzba",new { },new { @class="btn btn-success"})
 
+<a asp-action="DodajNarudzbu" asp-controller="Narudzba" class="btn btn-success" ajax-poziv="da" ajax-rezultat="ajaxDiv">Dodaj narudžbu</a>
 
+<div id="ajaxDiv">
+
+</div>
 

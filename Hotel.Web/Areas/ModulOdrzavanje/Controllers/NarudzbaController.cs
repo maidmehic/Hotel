@@ -23,19 +23,21 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
         }
         public IActionResult DodajNarudzbu()
         {
+            DodajNarudzbuVM model = new DodajNarudzbuVM();
 
+            model.DatumKreiranja = DateTime.Now.Date.ToShortDateString();
 
-            return View();
+            return PartialView(model);
         }
         [HttpPost]
         public IActionResult DodajNarudzbu(DodajNarudzbuVM model)
         {
 
             Narudzba n = new Narudzba();
-            n.DatumKreiranja = model.DatumKreiranja;
+            n.DatumKreiranja = Convert.ToDateTime(model.DatumKreiranja);
             n.Opis = model.Opis;
             n.Hitnost = model.Hitnost;
-            n.ZaposlenikId = 2; // izmijenit da dobija iz sesije 
+            n.ZaposlenikId = 2; //izmjenit da se dobija iz sesije
 
 
 
@@ -52,7 +54,7 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             {
                 Id = x.Id,
                 Hitnost = x.Hitnost,
-                DatumKreiranja = x.DatumKreiranja,
+                DatumKreiranja = x.DatumKreiranja.ToShortDateString(),
                 Opis = x.Opis,
                 ImeZaposlenika = x.Zaposlenik.Ime + x.Zaposlenik.Prezime
 
@@ -67,7 +69,7 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             narudzbe.podaci = db.Narudzba.Include(x => x.Zaposlenik).Select(x => new PrikaziNarudzbeVM.Row
             {
                 Id = x.Id,
-                DatumKreiranja = x.DatumKreiranja,
+                DatumKreiranja = x.DatumKreiranja.ToShortDateString(),
                 Hitnost = x.Hitnost,
                 Opis = x.Opis,
                 ImeZaposlenika = x.Zaposlenik.Ime
@@ -92,7 +94,7 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             model.Opis = n.Opis;
             model.DatumKreiranja = n.DatumKreiranja;
 
-            model.Zaposlenici = new SelectList(db.Zaposlenik, "Id", "Ime");
+           
 
             return View(model);
         }
@@ -104,8 +106,8 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             n = db.Narudzba.Where(x => x.Id == model.Id).FirstOrDefault();
 
             n.Hitnost = model.Hitnost;
-            n.DatumKreiranja = model.DatumKreiranja;
-            n.ZaposlenikId = model.zaposlenik.Id;
+             n.Opis=model.Opis;
+            
 
             db.Narudzba.Update(n);
             db.SaveChanges();

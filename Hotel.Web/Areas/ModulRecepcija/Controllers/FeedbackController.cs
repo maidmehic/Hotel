@@ -53,12 +53,12 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             f.CheckINId = model.CheckINId;
             f.GostId = model.GostId;
-
+            int smjestajId = db.RezervisanSmjestaj.Where(x => x.GostId == model.GostId).Select(x=>x.SmjestajId).FirstOrDefault();
             f.Sadrzaj = model.Sadrzaj;
 
             db.Feedback.Add(f);
             db.SaveChanges();
-            return RedirectToAction("Index","CheckIN");
+            return RedirectToAction("IndexOdabranogSmjestaja","RezervisanSmjestaj",new { CheckINId=model.CheckINId, SmjestajId=smjestajId });
         }
 
     }

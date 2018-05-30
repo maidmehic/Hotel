@@ -14,9 +14,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
         public DateTime DatumKreiranja { set; get; }
         public string Hitnost { set; get; }
         public string Opis { set; get; }
-        public SelectList Zaposlenici { get; set; }
 
-        public Zaposlenik zaposlenik { get; set; }
 
 
 

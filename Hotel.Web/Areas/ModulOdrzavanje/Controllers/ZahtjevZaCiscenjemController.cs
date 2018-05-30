@@ -23,7 +23,7 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             model.zahtjevi = db.ZahtjevZaCiscenjem.Select(x => new ZahtjevZaCiscenjemIndexVM.Row
             {
                 Id = x.Id,
-                DatumZahtjeva = x.DatumZahtjeva,
+                DatumZahtjeva = x.DatumZahtjeva.ToShortDateString(),
                 Opis = x.Opis,
                 Prioritet = x.Prioritet,
                 Obavljen = x.Obavljen,

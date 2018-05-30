@@ -9,39 +9,37 @@
 <h2>Dodaj Gosta</h2>
 <form asp-action="Dodaj" asp-controller="Gost" method="post">
 
-    <div>
+    <div class="form-group">
         <label>Ime:</label>
         <input asp-for="Ime" class="form-control" />
         <span asp-validation-for="Ime" class="text-danger"></span>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>Prezime:</label>
         <input asp-for="Prezime" class="form-control" />
         <span asp-validation-for="Prezime" class="text-danger"></span>
     </div>
-    <div>
+    <div class="form-group">
         <label>Grad:</label>
-        @Html.DropDownListFor(x => x.Grad.Id, Model.Gradovi, "--Odaberite Grad--", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Grad.Id, "Odaberite grad", new { @class = "text-danger" })
+        @Html.DropDownListFor(x => x.GradId, Model.Gradovi, "--Odaberite Grad--", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.GradId,"", new { @class = "text-danger" })
     </div>
-    <div>
+    <div class="form-group">
         <label>Broj Pasosa:</label>
         <input asp-for="BrojPasosa" class="form-control" />
         <span asp-validation-for="BrojPasosa" class="text-danger"></span>
     </div>
-    <div>
+    <div class="form-group">
         <label>Drzavljanstvo:</label>
         <input asp-for="Drzavljanstvo" class="form-control" />
         <span asp-validation-for="Drzavljanstvo" class="text-danger"></span>
     </div>
 
-   
 
-
-    <div>
+    <div class="form-group">
         <label>Datum Rodenja:</label>
-        <input asp-for="DatumRodenja" type="datetime-local" class="form-control" />    
+        <input asp-for="DatumRodenja" type="datetime-local" class="form-control" />
         <span asp-validation-for="DatumRodenja" class="text-danger"></span>
     </div>
 
@@ -60,19 +58,25 @@
             });
         </script>*@
 
-    <div>
+    <div class="form-group">
         <label>Telefon:</label>
         <input asp-for="Telefon" class="form-control" />
         <span asp-validation-for="Telefon" class="text-danger"></span>
     </div>
-    <div>
+    <div class="form-group">
         <label>Email:</label>
         <input asp-for="Email" class="form-control" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
-    <div>
+    <div class="form-group">
         <label>Spol:</label>
-        <input asp-for="Spol" class="form-control" />
+
+
+        <select asp-for="Spol" class="form-control">
+            <option>M</option>
+            <option>Ž</option>
+
+        </select>
 
     </div>
 

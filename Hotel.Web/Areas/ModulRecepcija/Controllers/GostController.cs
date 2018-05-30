@@ -19,21 +19,22 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         {
             GostIndexVM model = new GostIndexVM();
 
-            model.Gosti = db.Gost.Where(x=>x.Ime.StartsWith(ImePrezimePretraga) || x.Prezime.StartsWith(ImePrezimePretraga) || ImePrezimePretraga==null).Select(x => new GostIndexVM.Row
+            model.Gosti = db.Gost.Where(x => x.Ime.StartsWith(ImePrezimePretraga) || x.Prezime.StartsWith(ImePrezimePretraga) || ImePrezimePretraga == null).Select(x => new GostIndexVM.Row
             {
                 Id = x.Id,
                 BrojPasosa = x.BrojPasosa,
-                Ime = x.Ime,
-                Prezime = x.Prezime,
+               ImePrezime = x.Ime + " " + x.Prezime,
+           
                 Drzavljanstvo = x.Drzavljanstvo,
                 DatumRodenja = x.DatumRodenja.ToShortDateString(),
                 Telefon = x.Telefon,
                 Email = x.Email,
                 Grad = x.Grad.Naziv,
+               
                 Spol = x.Spol
+                   
 
-
-            }).ToList();
+    }).ToList();
 
 
 
@@ -47,8 +48,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             Gost x = db.Gost.Include(c=>c.Grad).Where(c => c.Id == GostId).FirstOrDefault();
             model.Id = x.Id;
             model.BrojPasosa = x.BrojPasosa;
-            model.Ime = x.Ime;
-            model.Prezime = x.Prezime;
+            model.ImePrezime = x.Ime +" "+ x.Prezime;
+           
             model.Drzavljanstvo = x.Drzavljanstvo;
             model.DatumRodenja = x.DatumRodenja.ToShortDateString();
             model.Telefon = x.Telefon;
@@ -142,7 +143,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             g.Email = model.Email;
             g.Telefon = model.Telefon;
             g.Spol = model.Spol;
-            g.GradId = model.Grad.Id;
+            g.GradId = model.GradId;
 
 
 
@@ -174,33 +175,33 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             return View(g);
         }
-        [HttpPost]
-        public IActionResult Uredi(GostDodajVM model)
-        {
+        //[HttpPost]
+        //public IActionResult Uredi(GostDodajVM model)
+        //{
 
-            Gost g = db.Gost.Where(x => x.Id == model.Id).FirstOrDefault();
-
-
-            g.BrojPasosa = model.BrojPasosa;
-            g.Ime = model.Ime;
-            g.Prezime = model.Prezime;
-            g.Drzavljanstvo = model.Drzavljanstvo;
-            g.DatumRodenja = model.DatumRodenja;
-            g.Email = model.Email;
-            g.Telefon = model.Telefon;
-            g.Spol = model.Spol;
-            g.GradId = model.Grad.Id;
+        //    Gost g = db.Gost.Where(x => x.Id == model.Id).FirstOrDefault();
 
 
-            db.Gost.Update(g);
-            db.SaveChanges();
+        //    g.BrojPasosa = model.BrojPasosa;
+        //    g.Ime = model.Ime;
+        //    g.Prezime = model.Prezime;
+        //    g.Drzavljanstvo = model.Drzavljanstvo;
+        //    g.DatumRodenja = model.DatumRodenja;
+        //    g.Email = model.Email;
+        //    g.Telefon = model.Telefon;
+        //    g.Spol = model.Spol;
+        //    g.GradId = model.GradId;
 
 
+        //    db.Gost.Update(g);
+        //    db.SaveChanges();
 
 
 
-            return RedirectToAction("Index");
-        }
+
+
+        //    return RedirectToAction("Index");
+        //}
         public IActionResult Obrisi(int GostID)
         {
             Gost g = db.Gost.Where(x => x.Id == GostID).FirstOrDefault();

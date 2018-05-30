@@ -36,8 +36,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                     Id = x.Id,
                     BrojDjece = x.BrojDjece,
                     BrojOdraslih = x.BrojOdraslih,
-                    DatumDolaska = x.DatumDolaska,
-                    DatumOdlaska = x.DatumOdlaska,
+                    DatumDolaska = x.DatumDolaska.ToShortDateString(),
+                    DatumOdlaska = x.DatumOdlaska.ToShortDateString(),
                   
                     Napomena = x.Napomena,
                     Gost = x.Gost.Ime + " " + x.Gost.Prezime,
@@ -59,8 +59,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                     Id = x.Id,
                     BrojDjece = x.BrojDjece,
                     BrojOdraslih = x.BrojOdraslih,
-                    DatumDolaska = x.DatumDolaska,
-                    DatumOdlaska = x.DatumOdlaska,
+                    DatumDolaska = x.DatumDolaska.ToShortDateString(),
+                    DatumOdlaska = x.DatumOdlaska.ToShortDateString(),
                    
                     Napomena = x.Napomena,
                     Gost = x.Gost.Ime + " " + x.Gost.Prezime,
@@ -79,8 +79,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                     Id = x.Id,
                     BrojDjece = x.BrojDjece,
                     BrojOdraslih = x.BrojOdraslih,
-                    DatumDolaska = x.DatumDolaska,
-                    DatumOdlaska = x.DatumOdlaska,
+                    DatumDolaska = x.DatumDolaska.ToShortDateString(),
+                    DatumOdlaska = x.DatumOdlaska.ToShortDateString(),
 
                     Napomena = x.Napomena,
                     Gost = x.Gost.Ime + " " + x.Gost.Prezime,
@@ -100,8 +100,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                     Id = x.Id,
                     BrojDjece = x.BrojDjece,
                     BrojOdraslih = x.BrojOdraslih,
-                    DatumDolaska = x.DatumDolaska,
-                    DatumOdlaska = x.DatumOdlaska,
+                    DatumDolaska = x.DatumDolaska.ToShortDateString(),
+                    DatumOdlaska = x.DatumOdlaska.ToShortDateString(),
                  
                     Napomena = x.Napomena,
                     Gost = x.Gost.Ime + " " + x.Gost.Prezime,

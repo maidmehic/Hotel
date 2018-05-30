@@ -4,15 +4,17 @@
 }
 
 <h2>Dostave</h2>
-
+<br />
 <table class="table table-striped">
 
     <thead>
         <tr>
+            <th>Rezervisan smjestaj</th>
+            <th>Broj stavki</th>
             <th>Datum</th>
             <th>Zavrsena</th>
-            <th>Rezervisan smjestaj</th>
-           
+
+
         </tr>
     </thead>
 
@@ -20,10 +22,12 @@
             @foreach (var item in Model.dostave)
     {
             <tr>
-                <td>@item.Datum</td>
-                <td>@(item.Zavrsena ?"Da":"Ne")</td>
                 <td>@item.RezervisanSmjestaj</td>
-              
+                <td>@item.BrojStavki</td>
+                <td>@item.Datum</td>
+                <td>@(item.Zavrsena ? "Da" : "Ne")</td>
+
+
 
             </tr>
 }

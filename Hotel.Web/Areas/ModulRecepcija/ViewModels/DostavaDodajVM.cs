@@ -10,6 +10,8 @@
         public int RezervisanSmjestajId { get; set; }
         public int DostavaId { get; set; }
         public int IdSmjestaja { get; set; }
+        public string PodaciOSmjestaju { get; set; }
+
 
 
     }

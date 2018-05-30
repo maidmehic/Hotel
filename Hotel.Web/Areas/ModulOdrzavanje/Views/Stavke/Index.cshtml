@@ -7,8 +7,11 @@
 
     <thead>
         <tr>
-            <th>Naziv Proizvoda</th>
-            <th>Kolicina</th>          
+            <th>Naziv proizvoda</th>
+            <th>Cijena proizvoda</th>
+            <th>Kolicina</th>
+            <th>Cijena stavke</th>
+
             <th>Akcija</th>
         </tr>
 
@@ -18,8 +21,11 @@
         {
         <tr>
             <td>@i.NazivProizvoda</td>
+            <td>@i.CijenaProizvoda</td>
             <td>@i.Kolicina</td>
-            <td>@Html.ActionLink("Obrisi", "Obrisi", "Stavke",new { StavkaId= i.StavkaId , narudzbaID = Model.IdNarudzbe })   </td>
+            <td>@i.CijenaStavke</td>
+
+            <td>@Html.ActionLink("Obrisi", "Obrisi", "Stavke", new { StavkaId = i.StavkaId, narudzbaID = Model.IdNarudzbe })   </td>
 
 
         </tr>
