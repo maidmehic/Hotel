@@ -16,6 +16,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
         {
             public int Kolicina { get; set; }
             public int StavkaId { get; set; }
+            public string CijenaProizvoda { get; set; }
+            public string CijenaStavke { get; set; }
             public string NazivProizvoda { get; set; }
 
         }

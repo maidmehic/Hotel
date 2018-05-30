@@ -4,7 +4,10 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h2>Rezervisani Smjestaji</h2>
+
+<h2>Rezervisani smještaji</h2>
+
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -14,7 +17,7 @@
             <th>Akcije</th>
 
         </tr>
-
+       
     </thead>
     <tbody>
 
@@ -37,7 +40,7 @@
 
     </tbody>
 </table>
-@*@Html.ActionLink("Dodaj novi Rezervisani Smjestaj", "Dodaj", "RezervisanSmjestaj", new { }, new { @class = "btn btn-success" })*@
+
 @Html.ActionLink("Prikazi smještaje", "ProvjeriSlobodanSmjestaj", "RezervisanSmjestaj", new { }, new { @class = "btn btn-success" })
 
 

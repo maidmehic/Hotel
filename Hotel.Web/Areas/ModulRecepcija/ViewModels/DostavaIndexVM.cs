@@ -14,6 +14,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
             public string Datum { get; set; }
             public bool Zavrsena { get; set; }           
             public string RezervisanSmjestaj { get; set; }
+            public int BrojStavki { get; set; }
 
         }
     }

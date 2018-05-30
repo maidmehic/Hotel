@@ -4,8 +4,9 @@
 @{
 
 }
-
-<form class="form-horizontal">
+<h2>Detalji narudžbe</h2>
+<br />
+<form>
 
     <div class="form-group">
 
@@ -37,8 +38,8 @@
 
 
         <label>Opis:</label>
-        <input type="text" readonly value=" @Model.Opis" class="form-control" />
-
+        <textarea  readonly value=" @Model.Opis" class="form-control" >
+        </textarea>
     </div>
 
     <div class="form-group" id="ajaxDiv"> </div>
@@ -46,7 +47,7 @@
 
     <div>
         @Html.ActionLink("Dodaj Stavku", "Dodaj", "Stavke", new { NarudzbaId = Model.Id }, new { @class = "btn btn-success" })
-        @Html.ActionLink("Dodaj Proizvod", "Dodaj", "Proizvod", new { }, new { @class = "btn btn-success" })
+       
 
     </div>
     

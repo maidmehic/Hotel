@@ -1,0 +1,28 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.DostavaStavkeDostaveNaSmjestajVM
+@{
+    ViewData["Title"] = "StavkeDostaveNaSmjestaj";
+}
+
+<h2>Stavke dostave</h2>
+
+<table class="table table-striped">
+    <thead>
+
+        <tr>
+            <th>Proizvod</th>
+            <th>Kolicina</th>
+
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var i in Model.stavke)
+        {
+        <tr>
+            <td>@i.Proizvod</td>
+            <td>@i.Kolicina</td>
+        </tr>
+
+    }
+        </tbody>
+    </table>

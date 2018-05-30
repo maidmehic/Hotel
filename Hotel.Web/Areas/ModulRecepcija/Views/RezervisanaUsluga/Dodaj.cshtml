@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Dodaj";
 }
-<h2>Dodaj rezervisanu uslugu</h2>
+<h2>Dodaj uslugu</h2>
 
 <form asp-action="Dodaj" asp-controller="RezervisanaUsluga" method="post">
 
@@ -25,7 +25,7 @@
         <label>Usluga hotela:</label>
         @Html.DropDownListFor(x => x.Usluga.Id, Model.UslugeHotela, "Odaberite uslugu hotela", new { @class = "form-control" })
     </div>
+     <br />
 
-
-    <input type="submit" value="Snimi" />
+    <input type="submit" value="Spasi" class="btn btn-primary" />
 </form>

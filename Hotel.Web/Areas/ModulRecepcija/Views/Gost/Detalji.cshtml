@@ -6,37 +6,33 @@
 }
 
 
-<h2>Detalji Gosta</h2>
-
+<h2>Detalji gosta</h2>
+<br />
 <form asp-action="Detalji" asp-controller="Gost" method="post">
     <div>
-        <label>Ime:</label>
-        <input asp-for="Ime" class="form-control" readonly />
-        <span asp-validation-for="Ime" class="text-danger"></span>
+        <label>Ime i prezime:</label>
+        <input asp-for="ImePrezime" class="form-control" readonly />
+      
     </div>
 
-    <div>
-        <label>Prezime:</label>
-        <input asp-for="Prezime" class="form-control" readonly/>
-        <span asp-validation-for="Prezime" class="text-danger"></span>
-    </div>
+    
     <div>
         <label>Grad:</label>
         <input asp-for="Grad" class="form-control" readonly/>
 
     </div>
     <div>
-        <label>Broj Pasosa:</label>
+        <label>Broj pasoša:</label>
         <input asp-for="BrojPasosa" class="form-control" readonly />
-        <span asp-validation-for="BrojPasosa" class="text-danger"></span>
+     
     </div>
     <div>
-        <label>Drzavljanstvo:</label>
+        <label>Državljanstvo:</label>
         <input asp-for="Drzavljanstvo" class="form-control" readonly />
-        <span asp-validation-for="Drzavljanstvo" class="text-danger"></span>
+       
     </div>
     <div>
-        <label>Datum Rodenja:</label>
+        <label>Datum rodenja:</label>
         <input asp-for="DatumRodenja" class="form-control" readonly/>
 
     </div>
@@ -44,12 +40,12 @@
     <div>
         <label>Telefon:</label>
         <input asp-for="Telefon" class="form-control" readonly/>
-        <span asp-validation-for="Telefon" class="text-danger"></span>
+       
     </div>
     <div>
         <label>Email:</label>
         <input asp-for="Email" class="form-control" readonly/>
-        <span asp-validation-for="Email" class="text-danger"></span>
+      
     </div>
     <div>
         <label>Spol:</label>

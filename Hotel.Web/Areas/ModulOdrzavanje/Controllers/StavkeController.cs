@@ -19,12 +19,14 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             PrikaziStavkeNarudzbeVM model = new PrikaziStavkeNarudzbeVM();
 
             model.IdNarudzbe = IdNarudzbe;
-            model.stavke = db.Stavke.Include(x => x.Proizvodi).Where(x=>x.NarudzbaId==IdNarudzbe).Select(x => new PrikaziStavkeNarudzbeVM.Stavka
+            model.stavke = db.Stavke.Include(x => x.Proizvodi).Where(x => x.NarudzbaId == IdNarudzbe).Select(x => new PrikaziStavkeNarudzbeVM.Stavka
             {
-                StavkaId=x.Id,
+                StavkaId = x.Id,
                 Kolicina = x.Kolicina,
-                NazivProizvoda = x.Proizvodi.Naziv
-
+                NazivProizvoda = x.Proizvodi.Naziv,
+                CijenaProizvoda=x.Proizvodi.Cijena.ToString() +" KM",
+                CijenaStavke=x.Proizvodi.Cijena*x.Kolicina +" KM"
+                
             }).ToList();
             return PartialView(model);
         }
@@ -32,13 +34,21 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
         {
             DodajStavkuVM model = new DodajStavkuVM();
             model.NarudzbaId = NarudzbaId;
-            model.Proizvodi = new SelectList(db.Proizvod,"Id","Naziv");
-            
+            model.Proizvodi = new SelectList(db.Proizvod, "Id", "Naziv");
+
             return View(model);
         }
         [HttpPost]
         public IActionResult Dodaj(DodajStavkuVM model)
         {
+
+            if (model.Kolicina == 0)
+            {
+                model.Proizvodi = new SelectList(db.Proizvod, "Id", "Naziv");
+                ViewBag.Poruka = "kolicina mora biti veca od 0 ";
+                return View("Dodaj", model);
+            }
+
             Stavke stavka = new Stavke();
 
             stavka.Kolicina = model.Kolicina;
@@ -48,9 +58,9 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             db.Stavke.Add(stavka);
             db.SaveChanges();
 
-            return RedirectToAction("Detalji", "Narudzba",new { NarudzbaID = model.NarudzbaId });
+            return RedirectToAction("Detalji", "Narudzba", new { NarudzbaID = model.NarudzbaId });
         }
-       public IActionResult Obrisi(int StavkaId,int narudzbaID)
+        public IActionResult Obrisi(int StavkaId, int narudzbaID)
         {
             Stavke s = new Stavke();
             s = db.Stavke.Where(x => x.Id == StavkaId).FirstOrDefault();

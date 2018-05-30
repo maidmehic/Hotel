@@ -1,20 +1,44 @@
-﻿@model  Hotel.Web.Areas.ModulRecepcija.ViewModels.RezervisanSmjestajUcitajGosteNaSmjestajuVM
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.RezervisanSmjestajUcitajGosteNaSmjestajuVM
 @{
     ViewData["Title"] = "UcitajGosteNaSmjestaju";
 }
 <h2>Gosti na smještaju</h2>
 <table class="table table-hover">
     <thead>
-        <tr><th>Gost: </th></tr>
+        <tr>
+            <th>Gost: </th>
+            <th>Akcije: </th>
+
+
+
+        </tr>
     </thead>
     <tbody>
         @foreach (var i in Model.Gosti)
-    {
-        <tr>
-            <td>@i.Text</td>
-        </tr>
-   }
+        {
+            <tr>
+                <td>@i.Gost</td>
+                <td>
 
+                    <a ajax-url="/ModulRecepcija/Feedback/Dodaj?CheckINId=@i.CheckInId&GostId=@i.GostId" ajax-rezultat="#ajaxDiv" class="btn btn-success dugmence">Feedback</a>
+                    <!-- ovo ajax-url je sad samo da ne moras dole spajat sa plusevima, nego ovdje namjestis citavu putanju, dole je preuzmes -->
+                    <a asp-action="ObrisiGostaSaSmjestaja" asp-controller="RezervisanSmjestaj" asp-route-CheckINId="@i.CheckInId" asp-route-GostId="@i.GostId" asp-route-SmjestajId="@i.SmjestajId" class=" btn btn-danger">Obrisi</a>
+                </td>
+            </tr>
+        }
 
     </tbody>
 </table>
+
+<script>
+
+    $(".dugmence").click(function () {
+
+        var url = $(this).attr("ajax-url"); //preuzimanje putanje
+        var ajaxDiv = $(this).attr("ajax-rezultat");
+        $.get(url, function (result) {
+            $(ajaxDiv).html(result);
+        });
+    });
+</script>
+

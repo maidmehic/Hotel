@@ -102,6 +102,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             s.Smjestaj.Zauzeto = false;
             db.Smjestaj.Update(s.Smjestaj);
 
+
             db.RezervisanSmjestaj.Remove(s);
             db.SaveChanges();
 
@@ -153,11 +154,16 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             if (lista.Count > (s.BrojKreveta + 1))
             {
-                
-               
+                              
                 return RedirectToAction("IndexOdabranogSmjestaja", new { CheckINId = model.CheckInId, model.SmjestajId , poruka = "Nemoguće dodat gosta u smještaj , maximalni kapacitet dostignut" ,greska = true});
             }
            
+            //PROVJERA JEL POSTOJI APSOLUTNO ISTI REZERVISANSMJESTAJ (ISTI CHECKIN,GOSTID,SMJESTAJID)
+
+            if(db.RezervisanSmjestaj.Where(x=>x.CheckINId==model.CheckInId && x.GostId==model.GostId && x.SmjestajId==model.SmjestajId).Any())
+            {
+                return RedirectToAction("IndexOdabranogSmjestaja", new { CheckINId = model.CheckInId, model.SmjestajId, poruka = "Nemoguće dodat istog gosta u smještaj", greska = true });
+            }
 
             RezervisanSmjestaj ss = new RezervisanSmjestaj();
 
@@ -237,16 +243,38 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         {
             RezervisanSmjestajUcitajGosteNaSmjestajuVM model = new RezervisanSmjestajUcitajGosteNaSmjestajuVM();
 
-            model.Gosti = db.RezervisanSmjestaj.Include(x=>x.Gost).Where(x => x.SmjestajId == SmjestajId).Select(x => new SelectListItem {
-                Text = x.Gost.Ime + "" + x.Gost.Prezime,
-                Value = x.GostId.ToString()
-
+            model.Gosti = db.RezervisanSmjestaj.Include(x=>x.Gost).Where(x => x.SmjestajId == SmjestajId).Select(x => new RezervisanSmjestajUcitajGosteNaSmjestajuVM.Row {
+                Gost = x.Gost.Ime + "" + x.Gost.Prezime,
+                GostId = x.GostId,
+                CheckInId=x.CheckINId,
+                SmjestajId=SmjestajId
+            
             }).ToList();
 
 
             return PartialView(model);
         }
+        public IActionResult ObrisiGostaSaSmjestaja(int CheckINId, int SmjestajId,int GostId)
+        {
 
+            RezervisanSmjestaj ss = new RezervisanSmjestaj();
+            List<RezervisanSmjestaj> sss = new List<RezervisanSmjestaj>();
+            ss = db.RezervisanSmjestaj.Where(x => x.SmjestajId == SmjestajId && x.GostId == GostId).FirstOrDefault();
+
+            //sprijeciti da obrise prvog gosta---nosioca check ina
+
+            sss = db.RezervisanSmjestaj.Where(x => x.SmjestajId == SmjestajId && x.CheckINId == CheckINId).ToList();
+            if(sss.Count == 1)
+            {
+
+                return RedirectToAction("IndexOdabranogSmjestaja", new { CheckINId = CheckINId,  SmjestajId, poruka = "Nemoguće obrisat zadnjeg gosta", greska = true });
+            }
+            db.RezervisanSmjestaj.Remove(ss);
+            db.SaveChanges();
+
+
+            return RedirectToAction("IndexOdabranogSmjestaja", new { CheckINId = CheckINId, SmjestajId = SmjestajId });
+        }
 
     }
 }

@@ -13,7 +13,7 @@
 
 
     <div class="form-group">
-        <label>Kolicina</label>
+        <label>Proizvod</label>
         <select asp-for="ProizvodId" class="form-control">
             @foreach (var i in Model.Proizvodi)
             {
@@ -30,6 +30,6 @@
     </div>
 
 
-    <input type="submit" value="Spasi stavku" />
+    <input type="submit" value="Spasi stavku" class="btn btn-primary" />
 
 </form>

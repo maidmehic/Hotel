@@ -13,7 +13,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
         public class Row
         {
             public int Id { set; get; }
-            public DateTime DatumKreiranja { set; get; }
+            public string DatumKreiranja { set; get; }
             public string Hitnost { set; get; }
             public string Opis { set; get; }
             public string  ImeZaposlenika { get; set; }

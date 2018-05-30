@@ -49,7 +49,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             sr = db.RezervisanSmjestaj.Include(x=>x.CheckIN.Gost).Include(x=>x.Gost).Where(x=>x.Id==RezervisanSmjestajID).Where(x => x.Id == RezervisanSmjestajID).FirstOrDefault();
 
             model.Rezervacija = sr.CheckIN.Gost.Ime + " "+ sr.CheckIN.Gost.Prezime;
-            model.Datum ="Od: " + sr.CheckIN.DatumDolaska + " do" + sr.CheckIN.DatumOdlaska;
+            model.Datum ="Od: " + sr.CheckIN.DatumDolaska.ToShortDateString() + " do" + sr.CheckIN.DatumOdlaska.ToShortDateString();
             model.Gost = sr.Gost.Ime + " " + sr.Gost.Prezime;
             model.CheckINId = sr.CheckINId;
 
