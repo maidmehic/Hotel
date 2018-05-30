@@ -11,9 +11,10 @@ using System;
 namespace Hotel.Data.Migrations
 {
     [DbContext(typeof(MojContext))]
-    partial class MojContextModelSnapshot : ModelSnapshot
+    [Migration("20180524104858_DodanoOtkazanaUNarudzbu")]
+    partial class DodanoOtkazanaUNarudzbu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,6 +33,8 @@ namespace Hotel.Data.Migrations
                     b.Property<DateTime>("DatumDolaska");
 
                     b.Property<DateTime>("DatumOdlaska");
+
+                    b.Property<float>("Depozit");
 
                     b.Property<int>("GostId");
 
@@ -57,37 +60,19 @@ namespace Hotel.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("Datum");
+                    b.Property<float>("Cijena");
+
+                    b.Property<int>("Kolicina");
+
+                    b.Property<string>("Naziv");
 
                     b.Property<int>("RezervisanSmjestajId");
-
-                    b.Property<bool>("Zavrsena");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RezervisanSmjestajId");
 
                     b.ToTable("Dostava");
-                });
-
-            modelBuilder.Entity("Hotel.Data.Models.DostavaStavke", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("DostavaId");
-
-                    b.Property<int>("Kolicina");
-
-                    b.Property<int>("ProizvodId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DostavaId");
-
-                    b.HasIndex("ProizvodId");
-
-                    b.ToTable("DostavaStavke");
                 });
 
             modelBuilder.Entity("Hotel.Data.Models.Drzava", b =>
@@ -366,6 +351,24 @@ namespace Hotel.Data.Migrations
                     b.ToTable("TipUsluge");
                 });
 
+            modelBuilder.Entity("Hotel.Data.Models.Uplata", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CheckINId");
+
+                    b.Property<DateTime>("DatumUplate");
+
+                    b.Property<double>("Iznos");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CheckINId");
+
+                    b.ToTable("Uplata");
+                });
+
             modelBuilder.Entity("Hotel.Data.Models.UslugeHotela", b =>
                 {
                     b.Property<int>("Id")
@@ -498,19 +501,6 @@ namespace Hotel.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Hotel.Data.Models.DostavaStavke", b =>
-                {
-                    b.HasOne("Hotel.Data.Models.Dostava", "Dostava")
-                        .WithMany()
-                        .HasForeignKey("DostavaId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Hotel.Data.Models.Proizvodi", "Proizvod")
-                        .WithMany()
-                        .HasForeignKey("ProizvodId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Hotel.Data.Models.Feedback", b =>
                 {
                     b.HasOne("Hotel.Data.Models.CheckIN", "CheckIN")
@@ -623,6 +613,14 @@ namespace Hotel.Data.Migrations
                     b.HasOne("Hotel.Data.Models.Proizvodi", "Proizvodi")
                         .WithMany()
                         .HasForeignKey("ProizvodId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Hotel.Data.Models.Uplata", b =>
+                {
+                    b.HasOne("Hotel.Data.Models.CheckIN", "CheckIN")
+                        .WithMany()
+                        .HasForeignKey("CheckINId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

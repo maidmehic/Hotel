@@ -1,29 +1,29 @@
 ﻿@using Hotel.Data.Models;
 @{
-    Layout = "_Layout";
-    ViewData["Title"] = "PrikaziZalihe";
+   
+    ViewData["Title"] = "PrikaziProizvode";
     int brojac = 1;
 }
-@model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziZaliheVM
-<h2>PrikaziZalihe</h2>
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazProizvodaVM
+<h2>Prikazi proizvode</h2>
 
 
-<form action="/ModulRestoran/Proizvod/PrikaziZalihe">
+<form action="/ModulAdministracija/Proizvod/PrikaziProizvode">
     <table>
         <tr>
             <td>
                 @Html.TextBoxFor(x => x.NazivPretraga, new { @class = "form-control", placeholder = "Unesite naziv" })
             </td>
             <td>
-                @Html.DropDownListFor(x=>x.VrstaOdabir,Model.vrstaStavke,new {@class="form-control"})
+                @Html.DropDownListFor(x => x.VrstaOdabir, Model.vrstaStavke, new { @class = "form-control" })
             </td>
             <td><input type="submit" value="Pretraži" class="btn btn-success" /></td>
-        </tr> 
+        </tr>
     </table>
 </form><br />
-<a href="/ModulRestoran/Narudzba/PrikaziNarudzbe" class="btn btn-primary">Prikaži narudžbe</a>
-<a href="/ModulRestoran/Narudzba/NovaNarudzba" class="btn btn-primary">Napravi narudžbu</a>
+<a href="/ModulAdministracija/Proizvod/DodajProizvod" class="btn btn-primary" ajax-poziv="da" ajax-rezultat="ajaxdiv">Dodaj proizvod</a><br /><br />
 
+<div class="form-group" id="ajaxdiv"></div>
 
 <table class="table table-striped">
     <tr>
@@ -33,6 +33,7 @@
         <th>Cijena</th>
         <th>Količina</th>
         <th>Mjerna jedinica</th>
+        <th>Akcija</th>
     </tr>
     @foreach (Proizvodi p in Model.Proizvodi)
     {
@@ -43,6 +44,8 @@
             <td>@p.Cijena</td>
             <td>@p.Kolicina</td>
             <td>@p.MjernaJedinica</td>
+            <td><a href="/ModulAdministracija/Proizvod/UrediProizvod?Id=@p.Id" class="btn btn-info">Uredi</a>
+                <a href="/ModulAdministracija/Proizvod/Obrisi?Id=@p.Id" class="btn btn-danger">Obriši</a></td>
         </tr>
     }
 </table>

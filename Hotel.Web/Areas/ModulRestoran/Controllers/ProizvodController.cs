@@ -11,13 +11,14 @@ namespace Hotel.Web.Areas.ModulRestoran.Controllers
     [Area("ModulRestoran")]
     public class ProizvodController : Controller
     {
+       
         MojContext db = new MojContext();
         public IActionResult Index()
         {
             return View();
         }
-        
-        //Mozda dodati da administrator dodaje proizvode
+
+
 
         public IActionResult PrikaziZalihe(string NazivPretraga, int? VrstaOdabir)
         {
@@ -28,11 +29,14 @@ namespace Hotel.Web.Areas.ModulRestoran.Controllers
 
             if(VrstaOdabir==1)
                 Model.Proizvodi = db.Proizvod.Where(x =>x.Vrsta=="Hrana" && (x.Naziv.Contains(NazivPretraga) || NazivPretraga == null)).ToList();
-
+            
             if (VrstaOdabir == 2)
                 Model.Proizvodi = db.Proizvod.Where(x =>(x.Naziv.Contains(NazivPretraga) || NazivPretraga == null)&& x.Vrsta == "Pića").ToList();
+            
 
             return View(Model);
         }
+
+        
     }
 }

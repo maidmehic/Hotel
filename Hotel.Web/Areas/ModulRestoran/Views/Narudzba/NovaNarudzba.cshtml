@@ -16,6 +16,7 @@
         <tr>
             <td><b>Hitnost</b></td>
             <td>@Html.DropDownListFor(m=>m.Hitnost,Model.HitnostStavke, new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Hitnost)</span></td>
         </tr>
         <tr>
             <td><b>Datum kreiranja</b></td>
@@ -23,6 +24,12 @@
         </tr>
         <tr>
             <td>@Html.HiddenFor(m=>m.ZaposlenikId)</td>
+        </tr>
+        <tr>
+            <td>@Html.HiddenFor(m => m.Otkazana)</td>
+        </tr>
+        <tr>
+            <td>@Html.HiddenFor(m => m.Zavrsena)</td>
         </tr>
         <tr>
             <td><input type="submit" value="Dodajte proizvode" class="btn btn-primary" /></td>

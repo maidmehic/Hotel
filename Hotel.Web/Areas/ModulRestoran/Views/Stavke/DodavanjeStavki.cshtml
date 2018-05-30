@@ -2,11 +2,12 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "DodavanjeStavki";
+    //string poruka =(string) ViewBag.poruka;
 }
 @model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziNarudzbuDodajProizvodeVM
 
 <h2>DodavanjeStavki</h2>
-<form action="/ModulRestoran/Narudzba/SnimiStavku" ajax-poziv="da" ajax-rezultat="ajaxDiv">
+<form action="/ModulRestoran/Stavke/SnimiStavku"  ajax-poziv="da" ajax-rezultat="ajaxDiv">
 
     <table>
         <tr>@Html.HiddenFor(m => m.NarudzbaId)</tr>
@@ -28,8 +29,14 @@
         </tr>
         <tr>
             <td>@Html.DropDownListFor(m => m.ProizvodId, Model.ProizvodiStavke, new { @class = "form-control" })</td>
+            <td><span style="color:red">@Html.ValidationMessageFor(m => m.ProizvodId)</span></td>
+        </tr>
+        <tr>
             <td>@Html.TextBoxFor(m => m.Kolicina, new { @class = "form-control", @placeholder = "Unesite količinu" })</td>
-            <td><input type="submit" value="Dodaj" class="btn btn-success" ajax-poziv="da" ajax-rezultat="ajaxDiv" /></td>
+            <td><span style="color:red">@Html.ValidationMessageFor(m => m.Kolicina)</span></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Dodaj" class="btn btn-success" /></td>
         </tr>
     </table>
 </form>

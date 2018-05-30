@@ -4,7 +4,7 @@
 @{
     Layout = "LayoutBezFootera";
     ViewData["Title"] = "PrikaziStavke";
-    int NarudzbaId = Model.Stavke.FirstOrDefault().NarudzbaId;
+    
 }
 <h2>Stavke</h2>
 
@@ -14,6 +14,7 @@
         <th>Vrsta</th>
         <th>Količina</th>
         <th>Mjerna jedinica</th>
+        <th>Akcija</th>
     </tr>
     @foreach (Stavke s in Model.Stavke)
     {
@@ -22,10 +23,11 @@
             <td>@s.Proizvodi.Vrsta</td>
             <td>@s.Kolicina</td>
             <td>@s.Proizvodi.MjernaJedinica</td>
+            <td><a href="/ModulRestoran/Stavke/ObrisiStavku?Id=@s.Id" class="btn btn-danger" ajax-poziv="da" ajax-rezultat="ajaxDiv">Obriši</a></td>
         </tr>
     }
     <tr>
-    <td><a href="/ModulRestoran/Narudzba/FinalizirajNarudzbu/?NarudzbaId=@NarudzbaId" class="btn btn-danger">Finaliziraj narudžbu</a></td>
+    <td><a href="/ModulRestoran/Proizvod/PrikaziZalihe" class="btn btn-danger">Završi</a></td>
     </tr>
 </table>
 
