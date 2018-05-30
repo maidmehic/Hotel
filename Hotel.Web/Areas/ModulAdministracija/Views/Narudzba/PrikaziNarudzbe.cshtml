@@ -1,0 +1,57 @@
+﻿@using Hotel.Data.Models;
+@{
+    ViewData["Title"] = "PrikaziNarudzbe";
+}
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazNarudzbiVM
+<h2>PrikaziNarudzbe</h2>
+
+
+<form action="/ModulAdministracija/Narudzba/PrikaziNarudzbe">
+    <table>
+        <tr>
+            <td><b>Odaberite stanje:</b></td>
+            <td>@Html.DropDownListFor(x => x.StanjeOdabir, Model.StanjeStavke, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Traži" class="btn btn-success" /></td>
+        </tr>
+    </table>
+</form>
+<br /><br />
+
+<table class="table table-striped">
+    <tr>
+        <th>Datum kreiranja</th>
+        <th>Hitnost</th>
+        <th>Opis</th>
+        <th>Stanje</th>
+        <th>Narudžbu kreirao</th>
+        <th>Akcija</th>
+    </tr>
+    @foreach (Narudzba n in Model.Narudzbe)
+    {
+        <tr>
+            <td>@n.DatumKreiranja.ToString("dd.MM.yyyy HH:mm")</td>
+            <td>@n.Hitnost</td>
+            <td>@n.Opis</td>
+            @if (n.Zavrsena == false && n.Otkazana == false)
+            {
+                <td>Na čekanju</td>
+            }
+            @if (n.Zavrsena == false && n.Otkazana == true)
+            {
+                <td>Otkazana</td>
+            }
+            @if (n.Zavrsena != false)
+            {
+                <td>Završena</td>
+            }
+
+            <td>@n.Zaposlenik.Ime @n.Zaposlenik.Prezime</td>
+            <td>
+                <a href="/ModulAdministracija/Narudzba/PrikaziStavkeNarudzbe?Id=@n.Id" class="btn btn-success">Prikaži stavke</a>
+           </td>
+        </tr>
+    }
+</table>
+

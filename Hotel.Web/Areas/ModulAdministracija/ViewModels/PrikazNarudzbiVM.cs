@@ -5,26 +5,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Hotel.Web.Areas.ModulRestoran.ViewModels
+namespace Hotel.Web.Areas.ModulAdministracija.ViewModels
 {
-    public class PrikaziNarudzbeVM
+    public class PrikazNarudzbiVM
     {
-        public int zaposlenikId { get; set; }//Ovo koristimo da bi stavili uslov da samo nosilac narudzbe moze uraditi edit
-
-
-        public List<Narudzba> Narudzbe{ get; set; }
-        public int StanjeOdabir { get; set; }
-        public IEnumerable<SelectListItem> StanjeStavke{ get {
+        public List<Narudzba> Narudzbe { get; set; }
+        public int? StanjeOdabir { get; set; }
+        public IEnumerable<SelectListItem> StanjeStavke
+        {
+            get
+            {
                 List<SelectListItem> _stavke = new List<SelectListItem>();
                 _stavke.Add(new SelectListItem()
                 {
                     Value = null,
-                    Text = "Na čekanju"
+                    Text = "Sve"
                 });
                 _stavke.Add(new SelectListItem()
                 {
                     Value = 1.ToString(),
-                    Text = "Sve"
+                    Text = "Na čekanju"
                 });
                 _stavke.Add(new SelectListItem()
                 {
@@ -37,6 +37,7 @@ namespace Hotel.Web.Areas.ModulRestoran.ViewModels
                     Text = "Otkazane"
                 });
                 return _stavke;
-            } }
+            }
+        }
     }
 }

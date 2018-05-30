@@ -1,0 +1,61 @@
+﻿@using Hotel.Data.Models;
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "PrikaziDostave";
+}
+@model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziDostaveVM
+
+<h2>PrikaziDostave</h2>
+
+
+
+<form action="/ModulRestoran/Dostava/PrikaziDostave">
+    <table>
+        <tr>
+            <td>
+                @Html.DropDownListFor(x => x.StanjeOdabir, Model.stanjeStavke, new { @class = "form-control" })
+            </td>
+            <td><input type="submit" value="Pretraži" class="btn btn-success" /></td>
+        </tr>
+    </table>
+</form>
+<br /><br />
+
+@if (ViewBag.Poruka != null)
+{
+    <div class="alert alert-danger">
+        <center><span>@Html.Raw(ViewBag.Poruka)</span></center>
+    </div>
+}
+
+<table class="table table-striped">
+
+    <tr>
+        <th>Vrijeme narudžbe</th>
+        <th>Broj smještaja</th>
+        <th>Sprat smještaja</th>
+        <th>Nosilac check-ina</th>
+        <th>Stanje narudžbe</th>
+        <th>Akcija</th>
+    </tr>
+    @foreach(Dostava d in Model.Dostave)
+    {
+        <tr>
+            <td>@d.Datum.ToString("dd/MM/yyyy HH:mm")</td>
+            <td>@d.RezervisanSmjestaj.Smjestaj.BrojSmjestaja</td>
+            <td>@d.RezervisanSmjestaj.Smjestaj.Sprat</td>
+            <td>@d.RezervisanSmjestaj.CheckIN.Gost.Ime @d.RezervisanSmjestaj.CheckIN.Gost.Prezime</td>
+            @if (d.Zavrsena == false)
+            {
+                <td>Na čekanju</td>
+            }
+            else
+            {
+                <td>Završena</td>
+            }
+            <td><a href="/ModulRestoran/DostavaStavke/PrikaziStavkeZaDostavu?DostavaId=@d.Id"class="btn btn-success" ajax-poziv="da" ajax-rezultat="ajaxdiv">Prikazi proizvode</a></td>
+        </tr>
+        
+    }
+</table>
+<div id="ajaxdiv"></div>

@@ -22,6 +22,20 @@ namespace Hotel.Web.Areas.ModulRestoran.Controllers
 
         public IActionResult PrikaziZalihe(string NazivPretraga, int? VrstaOdabir)
         {
+            bool greska = false;
+            foreach(Proizvodi p in db.Proizvod.ToList())
+            {
+                if (p.Kolicina <= 20)
+                {
+                    greska=true;
+                }
+            }
+            if (greska == true)
+            {
+                ViewBag.Poruka = "Zalihe nekih proizvoda su pri kraju. Molimo izvršite narudžbu"; //Ovdje mozda nekako prikazati i koji su to proizvodi
+            }
+
+
             PrikaziZaliheVM Model = new PrikaziZaliheVM();
 
             if(VrstaOdabir==null)

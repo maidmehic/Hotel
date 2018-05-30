@@ -14,7 +14,6 @@ namespace Hotel.Data.Models
         public DbSet<Smjestaj> Smjestaj { set; get; }
         public DbSet<Stavke> Stavke { set; get; }
         public DbSet<TipUsluge> TipUsluge { set; get; }
-      
         public DbSet<UslugeHotela> UslugeHotela { set; get; }
         public DbSet<VrstaSmjestaja> VrstaSmjestaja { set; get; }
         public DbSet<ZahtjevZaCiscenjem> ZahtjevZaCiscenjem { set; get; }

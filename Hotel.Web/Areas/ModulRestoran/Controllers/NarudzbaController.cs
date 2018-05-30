@@ -146,16 +146,16 @@ namespace Hotel.Web.Areas.ModulRestoran.Controllers
             return Json(true);
         }
 
-        public IActionResult PrikaziNarudzbe(int ? StanjeOdabir)
+        public IActionResult PrikaziNarudzbe(int ? StanjeOdabir,string poruka)
         {
             PrikaziNarudzbeVM Model = new PrikaziNarudzbeVM();
-
+            ViewBag.Poruka = poruka;
             if (StanjeOdabir == null)
-                Model.Narudzbe = db.Narudzba.Include(x => x.Zaposlenik).OrderByDescending(x => x.DatumKreiranja).ToList();
+                Model.Narudzbe = db.Narudzba.Where(x=>x.Zavrsena==false&& x.Otkazana==false).Include(x => x.Zaposlenik).OrderByDescending(x => x.DatumKreiranja).ToList();
             
             if (StanjeOdabir == 1)
-                Model.Narudzbe = db.Narudzba.Where(x=>x.Zavrsena==false).Include(x => x.Zaposlenik).OrderByDescending(x => x.DatumKreiranja).ToList();
-            
+                 Model.Narudzbe = db.Narudzba.Include(x => x.Zaposlenik).OrderByDescending(x => x.DatumKreiranja).ToList();
+
             if (StanjeOdabir == 2)
                 Model.Narudzbe = db.Narudzba.Where(x => x.Zavrsena == true).Include(x => x.Zaposlenik).OrderByDescending(x => x.DatumKreiranja).ToList();
 
@@ -166,7 +166,16 @@ namespace Hotel.Web.Areas.ModulRestoran.Controllers
             return View(Model);
         }
 
-        
+        public IActionResult ProvjeriNosiocaNarudzbe (int Id)
+        {
+            Narudzba n = new Narudzba();
+            n = db.Narudzba.Find(Id);
+            if (n.ZaposlenikId == HttpContext.GetLogiraniKorisnik().Id)
+            {
+                return RedirectToAction("Uredi", new { Id = n.Id });
+            }
+            return RedirectToAction("PrikaziNarudzbe", new { poruka = "Samo nosilac narudžbe može urediti istu."});
+        }
 
         public IActionResult PrikaziStavkeNarudzbe(int Id)
         {

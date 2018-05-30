@@ -1,0 +1,29 @@
+﻿@using Hotel.Data.Models;
+
+@{
+    ViewData["Title"] = "PrikaziStavkeNarudzbe";
+    int brojac = 0;
+}
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazStavkiNarudzbeVM
+<h2>PrikaziStavkeNarudzbe</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>R.br.</th>
+        <th>Naziv</th>
+        <th>Vrsta</th>
+        <th>Kolicina</th>
+        <th>Mjerna jedinica</th>
+    </tr>
+    @foreach (Stavke s in Model.Stavke)
+    {
+        <tr>
+            <td>@(brojac++)</td>
+            <td>@s.Proizvodi.Naziv</td>
+            <td>@s.Proizvodi.Vrsta</td>
+            <td>@s.Kolicina</td>
+            <td>@s.Proizvodi.MjernaJedinica</td>
+        </tr>
+
+    }
+</table>

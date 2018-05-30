@@ -1,0 +1,34 @@
+﻿@using Hotel.Data.Models;
+@{
+    Layout = "LayoutBezFootera";
+    ViewData["Title"] = "PrikaziStavkeZaDostavu";
+}
+@model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziStavkeDostaveVM
+    
+<h2>PrikaziStavkeZaDostavu</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>Proizvod</th>
+        <th>Vrsta</th>
+        <th>Cijena</th>
+        <th>Količina</th>
+        <th>Mjerna jedinica</th>
+    </tr>
+    @foreach(DostavaStavke d in Model.StavkeDostave)
+    {
+        <tr>
+            <td>@d.Proizvod.Naziv</td>
+            <td>@d.Proizvod.Vrsta</td>
+            <td>@d.Proizvod.Cijena KM</td>
+            <td>@d.Kolicina</td>
+            <td>@d.Proizvod.MjernaJedinica</td>
+        </tr>
+
+    }
+   
+</table>
+@if (Model.StavkeDostave.FirstOrDefault().Dostava.Zavrsena == false)
+{
+    <a href="/ModulRestoran/DostavaStavke/IsporuciDostavu?DostavaId=@Model.StavkeDostave.FirstOrDefault().DostavaId" class="btn btn-warning">Isporuči</a>
+}

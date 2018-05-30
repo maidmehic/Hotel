@@ -7,7 +7,12 @@
 @model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziZaliheVM
 <h2>PrikaziZalihe</h2>
 
-
+@if (ViewBag.Poruka != null)
+{
+    <div class="alert alert-danger">
+        <center><span>@Html.Raw(ViewBag.Poruka)</span></center>
+    </div>
+}
 <form action="/ModulRestoran/Proizvod/PrikaziZalihe">
     <table>
         <tr>
