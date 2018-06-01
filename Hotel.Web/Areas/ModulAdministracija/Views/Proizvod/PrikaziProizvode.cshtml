@@ -21,9 +21,19 @@
         </tr>
     </table>
 </form><br />
-<a href="/ModulAdministracija/Proizvod/DodajProizvod" class="btn btn-primary" ajax-poziv="da" ajax-rezultat="ajaxdiv">Dodaj proizvod</a><br /><br />
+
+@*<a href="/ModulAdministracija/Proizvod/DodajProizvod" class="btn btn-primary" ajax-poziv="da" ajax-rezultat="ajaxdiv">Dodaj proizvod</a><br /><br />*@
+<a class="btn btn-primary" id="dodajProizvodBtn">Dodaj proizvod</a><br /><br />
 
 <div class="form-group" id="ajaxdiv"></div>
+<script>
+    $("#dodajProizvodBtn").click(function () {
+        $.get("/ModulAdministracija/Proizvod/DodajProizvod", function (result) { 
+            $("#ajaxdiv").html(result);
+        });
+    });
+    
+</script>
 
 <table class="table table-striped">
     <tr>

@@ -1,13 +1,50 @@
 ﻿@using Hotel.Data.Models;
 @{
-    Layout = "LayoutBezFootera";
+    Layout = "_LayoutAjax";
     ViewData["Title"] = "DodajProizvod";
 }
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.NoviProizvodVM
 <h2>Dodaj proizvod</h2>
 
 
-<form action="/ModulAdministracija/Proizvod/Snimi">
+<form asp-action="Snimi" asp-controller="Proizvod">
+        <table>
+            <tr>
+                <td><input asp-for="Kolicina" hidden/></td>
+            </tr>
+            <tr>
+                <th>Naziv</th>
+                <td><input asp-for="Naziv"  class = "form-control" placeholder = "Unesite naziv"/></td>
+                <td><span style="color:red">@Html.ValidationMessageFor(x => x.Naziv)</span></td>
+            </tr>
+            <tr>
+                <th>Cijena</th>
+                <td><input asp-for="Cijena" class="form-control" placeholder="Unesite cijenu" /></td>
+                <td><span style="color:red">@Html.ValidationMessageFor(x => x.Cijena)</span></td>
+            </tr>
+            <tr>
+                <th>Vrsta</th>
+                <td>
+                <select asp-for="Vrsta" asp-items="@Model.VrstaStavke" class = "form-control"></select>
+                </td>
+                <td><span style="color:red">@Html.ValidationMessageFor(x => x.Vrsta)</span></td>
+            </tr>
+            <tr>
+                <th>Mjerna jedinica</th>
+                <td>
+                    <select asp-for="MjernaJedinica" asp-items="@Model.MjernaJedinicaStavke" class="form-control"></select>
+                 </td>
+                <td><span style="color:red">@Html.ValidationMessageFor(x => x.MjernaJedinica)</span></td>
+            </tr>
+            <tr><td><input type="submit" value="Sačuvaj" class="btn btn-success" /></td></tr>
+        </table>
+    </form>
+
+
+@*<form action="/ModulAdministracija/Proizvod/Snimi">
     <table>
         <tr>
             <td>@Html.HiddenFor(x => x.Kolicina)</td>
@@ -34,5 +71,5 @@
         </tr>
         <tr><td><input type="submit" value="Sačuvaj" class="btn btn-success" /></td></tr>
     </table>
-</form>
+</form>*@
 
