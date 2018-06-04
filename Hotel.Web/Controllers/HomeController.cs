@@ -13,7 +13,10 @@ namespace Hotel.Web.Controllers
         public IActionResult Index()
         {
             //return View();
-            return RedirectToAction("Index", "Index",new { area = "ModulRecepcija" });
+            //return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+
+
+            return View();
         }
         
 
