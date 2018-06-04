@@ -1,8 +1,8 @@
 ﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.FeedbackIndexVM
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Utisci o boravku (Feedbacks)";
 }
-<h2>Utisci o boravku (Feedbacks)</h2>
+
 <table class="table table-striped">
 
     <thead>
@@ -28,13 +28,13 @@
 
                 <td>@i.CheckIN</td>
                 <td>@i.Gost</td>
-                <td>@i.Sadrzaj</td>
+                <td><textarea readonly>@i.Sadrzaj</textarea></td>
              
 
                 <td>
 
                   
-                    @Html.ActionLink("Na CheckIN","Detalji", "CheckIN",new {Id=i.CheckINId }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Detalji Check-Ina", "Detalji", "CheckIN",new {Id=i.CheckINId }, new { @class = "btn btn-primary" })
                    
                 </td>
 

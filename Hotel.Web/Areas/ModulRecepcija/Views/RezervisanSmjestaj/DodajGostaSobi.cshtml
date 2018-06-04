@@ -12,7 +12,7 @@
 
     <div class="form-group">
         <label>Gost: </label>
-        <select asp-for="GostId">
+        <select asp-for="GostId" class="form-control">
 
             @foreach (var i in Model.Gosti)
             {
@@ -22,5 +22,5 @@
         </select>     
         
     </div>
-    <input type="submit" value="Spasi gosta" />
+    <input type="submit" value="Spasi gosta" class="btn btn-primary"/>
 </form>

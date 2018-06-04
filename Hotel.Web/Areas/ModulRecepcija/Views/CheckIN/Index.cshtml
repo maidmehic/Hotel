@@ -2,9 +2,8 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Check ini";
 }
-<h1>Check ini</h1>
 
 
 
@@ -92,14 +91,14 @@
 
 
                     <td>
-                        <a asp-action="Detalji" asp-controller="Gost" asp-route-GostId="@i.GostId" asp-route-ImeKontrolera="CheckIn" asp-route-ImeAkcije="Index" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn" class="btn btn-success dugmad">Detalji gosta</a>
-                  
-                        <a asp-action="CheckOut" asp-controller="CheckIN" asp-route-GostId="@i.GostId" class="  btn btn-primary dugmad" data-toggle="modal" data-target="#exampleModal">Check-Out</a>
-                   
-                    @*@Html.ActionLink("", "Obrisi", "CheckIN", new { Id = i.Id }, new { @class = "glyphicon glyphicon-trash" })</td>*@
+                        <a asp-action="Detalji" asp-controller="Gost" asp-route-GostId="@i.GostId" asp-route-ImeKontrolera="CheckIn" asp-route-ImeAkcije="Index" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn" class="btn btn-primary dugmad">Detalji gosta</a>
+                       
+                        <a asp-action="CheckOut" asp-controller="CheckIN" asp-route-GostId="@i.GostId" class="  btn btn-info dugmad" data-toggle="modal" data-target="#exampleModal">Check-Out</a>
 
 
-                </tr>
+
+
+</tr>
             }
         </tbody>
     }
@@ -129,12 +128,12 @@
 </div>
 
 <style type="text/css">
-    .dugmad {
+    /*.dugmad {
         margin-top: 5px;
         width: 80px;
         text-align: center;     
         padding:2px;
-    }
+    }*/
 
     #akcija{
         text-align:center;

@@ -1,0 +1,84 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.DostavaUrediVM
+
+@{
+    ViewData["Title"] = "Uredi Dostavu";
+}
+
+
+
+<form asp-action="Uredi" asp-controller="Dostava" method="post">
+
+    <div class="form-group">
+        <label>Rezervisan smještaj: </label>
+        <input class="form-control" asp-for="@Model.RezervisanSmjestaj" />
+    </div>
+    <div class="form-group">
+        <label>Datum: </label>
+        <input class="form-control" asp-for="@Model.Datum" />
+    </div>
+    @*<a asp-action="StavkeDostaveUredi" asp-controller="Dostava" asp-route-DostavaId="@Model.DostavaId" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn" hidden ></a>*@
+
+    <table class="table table-bordered " id="tabela">
+
+        <thead>
+            <tr>
+                <th>Proizvod</th>
+                <th>Kolicina</th>
+                <th>Akcija</th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var i in Model.stavke)
+            {
+                <tr>
+
+
+                    <td><input asp-for="@i.Proizvod" value="@i.Proizvod" class="form-control" readonly /></td>
+                    <td><input asp-for="@i.Kolicina" class="form-control" readonly /></td>
+                    <td><a attr="@i.StavkaId" class="uredi">Uredi</a></td>
+
+                </tr>
+            }
+
+
+
+        </tbody>
+
+
+
+
+    </table>
+
+
+
+</form>
+<div id="ajaxDiv2"></div>
+
+
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    $("#jbtn").click();
+    //});
+
+    $(".uredi").on("click", function (event) {
+
+        //var x = $(".inputKolicina").attr("value");
+        var y = $(".uredi").attr("attr");
+        //alert(x);
+        alert(y);
+        $.ajax({
+            type: 'GET',
+            url: '/ModulRecepcija/Dostava/UrediStavku?StavkaId=' + y,
+            contentType: "html",
+            success: function (rezultat) {
+                $("#ajaxDiv2").html(rezultat);
+                alert("uso");
+            }
+        })
+    });
+
+</script>
+
+

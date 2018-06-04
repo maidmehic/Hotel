@@ -2,9 +2,9 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
 @{
-    ViewData["Title"] = "PrikaziNarudzbe";
+    ViewData["Title"] = "Prikaži narudžbe";
 }
-<h2>Prikaži narudžbe</h2>
+
 <table class="table table-striped">
 
     <thead>
@@ -35,15 +35,20 @@
 
                 <td>
                     @Html.ActionLink("Detalji", "Detalji", "Narudzba", new { NarudzbaID = i.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Uredi", "UrediNarudzbu", "Narudzba", new { id = i.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Obrisi", "ObrisiNarudzbu", "Narudzba", new { NarudzbaId = i.Id }, new { @class = "btn btn-danger" })
+                    @if (i.Zavrsena == false && i.Otkazana == false)
+                    {
+                        @Html.ActionLink("Uredi", "UrediNarudzbu", "Narudzba", new { id = i.Id }, new { @class = "btn btn-success" });
+                            @Html.ActionLink("Otkazi", "ObrisiNarudzbu", "Narudzba", new { NarudzbaId = i.Id }, new { @class = "btn btn-danger" });
+                        }
+                        
 
-                </td>
+                    </td>
+    
 
 
 
 
-            </tr>
+                </tr>
         }
     </tbody>
 </table>

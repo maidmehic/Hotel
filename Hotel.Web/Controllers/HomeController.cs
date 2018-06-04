@@ -12,7 +12,8 @@ namespace Hotel.Web.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            //return View();
+            return RedirectToAction("Index", "Index",new { area = "ModulRecepcija" });
         }
         
 

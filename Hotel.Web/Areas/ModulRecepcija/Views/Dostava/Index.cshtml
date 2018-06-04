@@ -1,11 +1,11 @@
 ﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.DostavaIndexVM
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Dostave";
 }
 
-<h2>Dostave</h2>
-<br />
-<table class="table table-striped">
+
+
+<table class="table table-striped" id="tabela">
 
     <thead>
         <tr>
@@ -13,7 +13,7 @@
             <th>Broj stavki</th>
             <th>Datum</th>
             <th>Zavrsena</th>
-
+            <th>Akcija</th>
 
         </tr>
     </thead>
@@ -26,7 +26,7 @@
                 <td>@item.BrojStavki</td>
                 <td>@item.Datum</td>
                 <td>@(item.Zavrsena ? "Da" : "Ne")</td>
-
+                <td>@Html.ActionLink("Uredi","Uredi","Dostava",new { DostavaId= item.DostavaId },new { @class="btn btn-primary"})</td>
 
 
             </tr>
@@ -37,3 +37,11 @@
 
 </table>
 
+<script type="text/javascript">
+    $('#tabela').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json"
+        }
+    });
+   
+</script>

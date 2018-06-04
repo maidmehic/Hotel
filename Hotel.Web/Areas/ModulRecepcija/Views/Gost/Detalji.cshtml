@@ -2,12 +2,11 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
 @{
-    ViewData["Title"] = "Detalji";
+    ViewData["Title"] = "Detalji gosta";
 }
 
 
-<h2>Detalji gosta</h2>
-<br />
+
 <form asp-action="Detalji" asp-controller="Gost" method="post">
     <div>
         <label>Ime i prezime:</label>
@@ -56,5 +55,6 @@
     <input asp-for="ImeAkcije" hidden />
     <input asp-for="ImeKontrolera" hidden />
     <input asp-for="IdPozivatelja" hidden/>
+    <br />
     <input type="submit" value="Zatvori" class="btn btn-primary" />
 </form>

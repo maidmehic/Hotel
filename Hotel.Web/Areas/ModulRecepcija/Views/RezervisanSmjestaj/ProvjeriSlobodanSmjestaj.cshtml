@@ -1,11 +1,10 @@
 ﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.RezervisanSmjestajProvjeriSlobodanSmjestajVM
 @{
 
-    ViewData["Title"] = "ProvjeriSlobodanSmjestaj";
+    ViewData["Title"] = "Smjestaj";
 
 }
-<h2>Smjestaj</h2>
-<br /><br />
+
 <div class="wrapper center-block">
 
     @for (int i = 0; i < Model.lista.Count; i++)
@@ -13,7 +12,7 @@
 
         if (Model.lista[i].Zauzeto == false)
         {
-            <div class="box">
+            <div class="kucara">
                 <div class="form-group">
                     <label> Broj sobe/vrsta</label>
                     <input asp-for="@Model.lista[i].OpisSobe" class="form-control" readonly />
@@ -26,7 +25,7 @@
         else
               
         {
-            <div class="box">
+            <div class="kucara">
                 <div class="form-group">
                     <label> Broj sobe/vrsta</label>
                     <input asp-for="@Model.lista[i].OpisSobe" class="form-control" readonly />
@@ -43,8 +42,8 @@
                     <label>Gost: </label>
                     <input asp-for="@Model.lista[i].Gost" class="form-control" readonly />
                 </div>
-                <a class="btn btn-primary dugme" asp-action="Dodaj" asp-controller="Dostava" asp-route-RezervisanSmjestajId="@Model.lista[i].RezervisanSmjestajId">Dostava u sobu</a><br />
-                <a class="btn btn-primary dugme" asp-action="Dodaj" asp-controller="RezervisanaUsluga" asp-route-RezervisanSmjestajID="@Model.lista[i].RezervisanSmjestajId">Dodaj uslugu</a>
+                <a class="btn btn-warning dugme" asp-action="Dodaj" asp-controller="Dostava" asp-route-RezervisanSmjestajId="@Model.lista[i].RezervisanSmjestajId">Dostava u sobu</a><br />
+                <a class="btn btn-warning dugme" asp-action="Dodaj" asp-controller="RezervisanaUsluga" asp-route-RezervisanSmjestajID="@Model.lista[i].RezervisanSmjestajId">Dodaj uslugu</a>
 
 
             </div>
@@ -54,33 +53,32 @@
 </div>
 
 <style type="text/css">
-    body {
-        margin: 40px;
-    }
+   
     .dugme {
         margin-top:5px;
         width:125px;
     }
-    .box {
-        background-color: #444;
+    .kucara {
+        background-color: #2A3F54;
         color: #fff;
         border-radius: 5px;
         padding: 20px;
         margin: 0 auto;
         font-size: 150%;
+        height: auto;
     }
 
-        .box:nth-child(even) {
-            background-color: #ccc;
-            color: #000;
+        .kucara:nth-child(even) {
+            background-color: #2A3F54;
+            color: #fff;
         }
 
     .wrapper {
-        width: auto;
+       
         display: grid;
         margin: 0 auto;
         text-align: center;
-        grid-gap: 10px;
-        grid-template-columns: repeat(5,200px);
+        grid-gap: 65px;
+        grid-template-columns: repeat(5,125px);
     }
 </style>

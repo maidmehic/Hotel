@@ -1,9 +1,8 @@
 ﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.DostavaDodajVM
 @{
-    ViewData["Title"] = "NovaDostava";
+    ViewData["Title"] = "Nova dostava";
 }
-<h2>Nova dostava</h2>
-<br />
+
 <form asp-action="Dodaj" asp-controller="Dostava" method="post">
     <input asp-for="DostavaId" value="@Model.DostavaId" hidden />
     <input asp-for="RezervisanSmjestajId" value="@Model.RezervisanSmjestajId" hidden />

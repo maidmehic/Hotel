@@ -1,28 +1,78 @@
 ﻿
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Home page Recepcije";
 }
-<h2>HomePage Recepcije</h2>
 
 
 
 
 
 
-<div class="list-group">
-    <div class="list-group-item">@Html.ActionLink("Prikazi Check Ine", "Index", "CheckIN", new { }, new { @class = "btn btn-primary" })</div>
 
-    <div class="list-group-item">@Html.ActionLink("Prikazi Goste", "Index", "Gost", new { }, new { @class = "btn btn-primary" })</div>
-    <div class="list-group-item">@Html.ActionLink("Prikazi Feedbacke", "Index", "Feedback", new { }, new { @class = "btn btn-primary" })</div>
-    <div class="list-group-item">@Html.ActionLink("Prikazi Rezervisane Usluge", "Index", "RezervisanaUsluga", new { }, new { @class = "btn btn-primary" })</div>
-    <div class="list-group-item">@Html.ActionLink("Prikazi Rezervisane Smještaje", "Index", "RezervisanSmjestaj", new { }, new { @class = "btn btn-primary" })</div>
-    <div class="list-group-item">@Html.ActionLink("Prikazi Dostave", "Index", "Dostava", new { }, new { @class = "btn btn-primary" })</div>
 
-    <div class="list-group-item">@Html.ActionLink("Prikazi Racune", "Index", "Racun", new { }, new { @class = "btn btn-primary" })</div>
-    <div class="list-group-item">@Html.ActionLink("Prikazi Tipove Usluga", "Index", "TipUsluge", new { }, new { @class = "btn btn-primary" })</div>
+
+
+
+<div class="icon-grid">
+    <div class="col-lg-3 col-md-4 col-sm-6" style="min-height:165px;">
+        <a href="/ModulRecepcija/CheckIN/Index" style="display:block;text-align:center;" title="Check ini"><i class="fa fa-edit fa-5x" id="1" title="Check ini" aria-hidden="true"></i></a>
+        <hr style="border-color:white;">
+        <a href="/ModulRecepcija/CheckIN/Index" class="text-center" style="display:block; margin-top:-24px;  font-size:18px;">
+           Check ini
+        </a>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6" style="min-height:165px;">
+        <a href="/ModulRecepcija/Gost/Index" style="display:block;text-align:center;" id="2" title="Gosti"><i class="fa fa-group fa-5x" aria-hidden="true"></i></a>
+        <hr style="border-color:white;">
+        <a href="/ModulRecepcija/Gost/Index" class="text-center" style="display:block; margin-top:-24px;  font-size:18px;">
+            Gosti
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6" style="min-height:165px;">
+        <a href="/ModulRecepcija/Feedback/Index" style="display:block;text-align:center;" id="3" title="Utisci gostiju"><i class="fa fa-send fa-5x" aria-hidden="true"></i></a>
+        <hr style="border-color:white;">
+        <a href="/ModulRecepcija/Feedback/Index" class="text-center" style="display:block; margin-top:-24px;  font-size:18px;">
+            Utisci gostiju
+        </a>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6" style="min-height:165px;">
+        <a href="/ModulRecepcija/RezervisanaUsluga/Index" style="display:block;text-align:center;" id="4" title="Rezervisane usluge"><i class="fa fa-calendar fa-5x" aria-hidden="true"></i></a>
+        <hr style="border-color:white;">
+        <a href="/ModulRecepcija/RezervisanaUsluga/Index" class="text-center" style="display:block; margin-top:-24px;  font-size:18px;">
+            Rezervisane usluge
+        </a>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6" style="min-height:165px;">
+        <a href="/ModulRecepcija/RezervisanSmjestaj/Index" id="4" style="display:block;text-align:center;" title=" Rezervisani smjestaji"> <i class="fa fa-calendar fa-5x" aria-hidden="true"></i></a>
+        <hr style="border-color:white; ">
+        <a href="/ModulRecepcija/RezervisanSmjestaj/Index" class="text-center" style="display:block; margin-top:-24px;  font-size:18px;">
+            Rezervisani smještaji
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6" style="min-height:165px;">
+        <a href="/ModulRecepcija/Dostava/Index" style="display:block;text-align:center;" id="5" title="Dostave"><i class="fa fa-truck fa-5x" aria-hidden="true"></i></a>
+        <hr style="border-color:white; ">
+        <a href="/ModulRecepcija/Dostava/Index" class="text-center" style="display:block; margin-top:-24px;  font-size:18px;">
+            Dostave
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6" style="min-height:165px;">
+        <a href="/ModulRecepcija/Racun/Index" style="display:block;text-align:center;" id="3" title="Računi"> <i class="fa fa-line-chart fa-5x" aria-hidden="true"></i></a>
+        <hr style="border-color:white;">
+        <a href="/ModulRecepcija/Racun/Index" class="text-center" style="display:block; margin-top:-24px;  font-size:18px;">
+            Računi
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6" style="min-height:165px;">
+        <a href="/ModulRecepcija/TipUsluge/Index" style="display:block;text-align:center;" id="3" title="Tipovi usluga"> <i class="fa fa-glass fa-5x" aria-hidden="true"></i></a>
+        <hr style="border-color:white;">
+        <a href="/ModulRecepcija/TipUsluge/Index" class="text-center" style="display:block; margin-top:-24px;  font-size:18px;">
+            Tipovi usluga
+        </a>
+    </div>
 </div>
-
-
-
 
