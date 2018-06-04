@@ -1,0 +1,23 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.DostavaUrediStavkeVM
+@{
+    ViewData["Title"] = "UrediStavku";
+}
+
+
+
+<form asp-action="UrediStavku" asp-controller="Dostava" method="post">
+    <input asp-for="StavkaId" value="@Model.StavkaId" hidden />
+    <input asp-for="DostavaId" value="@Model.DostavaId" hidden />
+
+    <div class="form-group">
+        <label>Proizvod: </label>
+        <input asp-for="Proizvod" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label>Kolicina: </label>
+        <input asp-for="Kolicina" class="form-control" />
+    </div>
+    <br />
+    <input type="submit" value="Spasi" />
+</form>

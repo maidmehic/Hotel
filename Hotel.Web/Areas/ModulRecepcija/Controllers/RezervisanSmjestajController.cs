@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Hotel.Data.Models;
 using Hotel.Web.Areas.ModulRecepcija.ViewModels;
+using Hotel.Web.Helper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,13 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         MojContext db = new MojContext();
         public IActionResult Index()
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isRecepcioner == false)
+            {
+                TempData["error_poruka"] = "nemate pravo pristupa/TREBA RECEPCIJA";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+
+            }
             RezervisanSmjestajIndexVM model = new RezervisanSmjestajIndexVM();
 
             model.smjestaji = db.RezervisanSmjestaj.Select(x => new RezervisanSmjestajIndexVM.Row
@@ -26,7 +34,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                 GostId=x.GostId,
                 CheckINID=x.CheckINId,
                 SmjestajId=x.SmjestajId,
-                CheckIN= "Nosioc rezervacije: "+ x.CheckIN.Gost.Ime + " "+ x.CheckIN.Gost.Prezime +" Boravio od do" +x.CheckIN.DatumDolaska.ToShortDateString()+"-" +x.CheckIN.DatumOdlaska.ToShortDateString()
+                CheckIN= "Nosioc rezervacije: "+ x.CheckIN.Gost.Ime + " "+ x.CheckIN.Gost.Prezime +" Boravio od: " +x.CheckIN.DatumDolaska.ToShortDateString()+"do: " +x.CheckIN.DatumOdlaska.ToShortDateString()
                 
             }).ToList();
 
@@ -110,6 +118,14 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         }
         public IActionResult ProvjeriSlobodanSmjestaj()
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isRecepcioner == false)
+            {
+                TempData["error_poruka"] = "nemate pravo pristupa/TREBA RECEPCIJA";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+
+            }
+
             RezervisanSmjestajProvjeriSlobodanSmjestajVM model = new RezervisanSmjestajProvjeriSlobodanSmjestajVM();
 
             model.lista = db.RezervisanSmjestaj.Where(x=>x.Smjestaj.Zauzeto==true).Include(x=>x.Smjestaj).Select(x => new RezervisanSmjestajProvjeriSlobodanSmjestajVM.Row
@@ -244,7 +260,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             RezervisanSmjestajUcitajGosteNaSmjestajuVM model = new RezervisanSmjestajUcitajGosteNaSmjestajuVM();
 
             model.Gosti = db.RezervisanSmjestaj.Include(x=>x.Gost).Where(x => x.SmjestajId == SmjestajId).Select(x => new RezervisanSmjestajUcitajGosteNaSmjestajuVM.Row {
-                Gost = x.Gost.Ime + "" + x.Gost.Prezime,
+                Gost = x.Gost.Ime + " " + x.Gost.Prezime,
                 GostId = x.GostId,
                 CheckInId=x.CheckINId,
                 SmjestajId=SmjestajId

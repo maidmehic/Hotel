@@ -149,12 +149,35 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             return View(model);
         }
+
+
+        bool ProvjeriValidnost(DateTime datum)
+        {
+            if (datum > DateTime.Now)
+                return true;
+            else
+                return false;
+        }
+
+        public JsonResult ValidanDatum(DateTime DatumZavrsetka, DateTime DatumPocetka)
+        {
+            if (DatumZavrsetka < DatumPocetka)
+                return Json("Datum završetka mora biti veći od datuma početka.");
+
+            if (DatumZavrsetka == DatumPocetka)
+                return Json("Datum završetka ne smije biti isti kao datum početka.");
+
+            return Json(true);
+        }
+
         [HttpPost]
         public IActionResult Dodaj(CheckINDodajVM model)
         {
+            JsonResult a = ValidanDatum(model.DatumOdlaska, model.DatumDolaska);
+                string b = a.Value.ToString();
 
 
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || b!=null)
             {
                 PripremiStavkeModela(model);
                 return View("Dodaj", model);
@@ -164,9 +187,13 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
            
             c.TipUslugeId = model.TipUsluge.Id;
-            c.ZaposlenikId = HttpContext.GetLogiraniKorisnik().Id;// PREUZIMATI IZ SESIJE
+            c.ZaposlenikId = HttpContext.GetLogiraniKorisnik().Id;
             c.BrojDjece = model.BrojDjece;
             c.BrojOdraslih = model.BrojOdraslih;
+
+            //provjera datuma
+
+
             c.DatumDolaska = model.DatumDolaska;
             c.DatumOdlaska = model.DatumOdlaska;
            

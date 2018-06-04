@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Hotel.Data.Models;
 using Hotel.Web.Areas.ModulRecepcija.ViewModels;
+using Hotel.Web.Helper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,15 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         public IActionResult Index(string ImePrezimePretraga)
         {
             GostIndexVM model = new GostIndexVM();
+
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isRecepcioner == false)
+            {
+                TempData["error_poruka"] = "nemate pravo pristupa/TREBA RECEPCIJA";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+
+            }
+
 
             model.Gosti = db.Gost.Where(x => x.Ime.StartsWith(ImePrezimePretraga) || x.Prezime.StartsWith(ImePrezimePretraga) || ImePrezimePretraga == null).Select(x => new GostIndexVM.Row
             {
@@ -59,6 +69,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             model.ImeAkcije = ImeAkcije;
             model.ImeKontrolera = ImeKontrolera;
             model.IdPozivatelja = IdPozivatelja!=null ? IdPozivatelja.Value : 0;
+
             return PartialView(model);
         }
         [HttpPost]
@@ -71,18 +82,11 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             else
                 return RedirectToAction(model.ImeAkcije, model.ImeKontrolera, new { Id = model.IdPozivatelja });
         }
-
-
-
-      
-
-
-
         public void PripremiStavkeModela(GostDodajVM model)
         {
             model.Gradovi = new SelectList(db.Grad, "Id", "Naziv", "--Odaberite Grad--");
         }
-        public IActionResult DetaljiZaposlenika(int ZaposlenikId)
+        public IActionResult DetaljiZaposlenika(int ZaposlenikId,string ImeKontrolera,string ImeAkcije, int? IdPozivatelja)
         {
             GostDetaljiZaposlenikaVM z = new GostDetaljiZaposlenikaVM();
 
@@ -92,18 +96,41 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                 DatumRodjenja=x.DatumRodjenja.ToShortDateString(),                          
                 Email=x.Email,                
                 Spol=x.Spol,             
-                Grad=x.Grad.Naziv
+                Grad=x.Grad.Naziv,
+                ImeKontrolera=ImeKontrolera,
+                ImeAkcije=ImeAkcije,
+                IdPozivatelja = IdPozivatelja != null ? IdPozivatelja.Value : 0
 
-
-            }).FirstOrDefault();
+        }).FirstOrDefault();
 
             return PartialView(z);
         }
+  
+        [HttpPost]
+        public IActionResult DetaljiZaposlenika(GostDetaljiZaposlenikaVM z)
+        {
 
 
-        
+            if (z.IdPozivatelja == 0)
+                return RedirectToAction(z.ImeAkcije, z.ImeKontrolera);
+            else
+                return RedirectToAction(z.ImeAkcije, z.ImeKontrolera, new { Id = z.IdPozivatelja });
+          
+        }
+
+
+
         public IActionResult Dodaj()
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isRecepcioner == false)
+            {
+                TempData["error_poruka"] = "nemate pravo pristupa/TREBA RECEPCIJA";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+
+            }
+
+
             GostDodajVM model = new GostDodajVM();
             PripremiStavkeModela(model);
 
@@ -175,33 +202,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             return View(g);
         }
-        //[HttpPost]
-        //public IActionResult Uredi(GostDodajVM model)
-        //{
-
-        //    Gost g = db.Gost.Where(x => x.Id == model.Id).FirstOrDefault();
-
-
-        //    g.BrojPasosa = model.BrojPasosa;
-        //    g.Ime = model.Ime;
-        //    g.Prezime = model.Prezime;
-        //    g.Drzavljanstvo = model.Drzavljanstvo;
-        //    g.DatumRodenja = model.DatumRodenja;
-        //    g.Email = model.Email;
-        //    g.Telefon = model.Telefon;
-        //    g.Spol = model.Spol;
-        //    g.GradId = model.GradId;
-
-
-        //    db.Gost.Update(g);
-        //    db.SaveChanges();
-
-
-
-
-
-        //    return RedirectToAction("Index");
-        //}
+    
         public IActionResult Obrisi(int GostID)
         {
             Gost g = db.Gost.Where(x => x.Id == GostID).FirstOrDefault();

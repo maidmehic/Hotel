@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Hotel.Data.Models;
 using Hotel.Web.Areas.ModulRecepcija.ViewModels;
+using Hotel.Web.Helper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,14 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
         MojContext db = new MojContext();
         public IActionResult Index(int IdNarudzbe)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isCistacica == false)
+            {
+                TempData["error_poruka"] = "nemate pravo pristupa";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+
+            }
+
             PrikaziStavkeNarudzbeVM model = new PrikaziStavkeNarudzbeVM();
 
             model.IdNarudzbe = IdNarudzbe;

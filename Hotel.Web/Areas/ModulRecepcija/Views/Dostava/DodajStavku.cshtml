@@ -1,9 +1,10 @@
 ﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.DostavaDodajStavkuVM
 
 @{
-    ViewData["Title"] = "DodajStavku";
+    ViewData["Title"] = "Dodaj stavku";
+    Layout = "_LayoutAjax";
 }
-<h2>Dodaj stavku</h2>
+
 
 <form asp-action="DodajStavku" asp-controller="Dostava" method="post">
 
@@ -27,6 +28,7 @@
     <div class="form-group">
         <label>Kolicina</label>
         <input class="form-control" type="text" asp-for="Kolicina" />
+        <span asp-validation-for="Kolicina" class="text-danger"></span>
     </div>
 
 

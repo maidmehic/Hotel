@@ -1,9 +1,9 @@
 ﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.GostIndexVM
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Gosti";
 }
 
-<h2>Odaberite gosta</h2>
+
 <br />
     <form asp-action="Index" asp-controller="Gost" method="get">
 
@@ -27,7 +27,7 @@
                 <th>Telefon </th>
                 <th>Email </th>
                 <th>Spol </th>
-
+                <th colspan="3" style="text-align:center;">Akcija</th>
             </tr>
 
 
@@ -40,31 +40,34 @@
             @foreach (var i in Model.Gosti)
             {
               
-                    <tr>
+            <tr>
 
-                        <td>@i.ImePrezime</td>                      
-                        <td>@i.Grad</td>
-                        <td>@i.BrojPasosa</td>
-                        <td>@i.Drzavljanstvo</td>
-                        <td>@i.DatumRodenja</td>
-                        <td>@i.Telefon</td>
-                        <td>@i.Email</td>
-                        <td>@i.Spol</td>
-
-
-                        <td>
-                           
-                            @Html.ActionLink("Kreiraj CheckIn", "Dodaj", "CheckIN", new { GostId = i.Id }, new { @class = "btn btn-info dugmad" })
-                           
-                            @Html.ActionLink("Uredi", "Uredi", "Gost", new { GostID = i.Id }, new { @class = "btn btn-success dugmad" })
-                            @Html.ActionLink("Obrisi", "Obrisi", "Gost", new { GostID = i.Id }, new { @class = "btn btn-danger dugmad" })
-
-                        </td>
+                <td>@i.ImePrezime</td>
+                <td>@i.Grad</td>
+                <td>@i.BrojPasosa</td>
+                <td>@i.Drzavljanstvo</td>
+                <td>@i.DatumRodenja</td>
+                <td>@i.Telefon</td>
+                <td>@i.Email</td>
+                <td>@i.Spol</td>
 
 
+                <td>
+
+                    @Html.ActionLink("+ChIn", "Dodaj", "CheckIN", new { GostId = i.Id }, new { @class = "btn btn-info dugmad" })
+                </td>
+                <td>
+                    <a asp-controller="Gost" asp-action="Uredi" asp-route-GostID="@i.Id" class="btn btn-success dugmad"><i class="fa fa-edit"></i></a>
+                </td>
+                <td>
+                    <a asp-controller="Gost" asp-action="Obrisi" asp-route-GostID="@i.Id" class="btn btn-danger dugmad"><i class="fa fa-trash"></i></a>
+                </td>
 
 
-                    </tr>
+
+
+
+            </tr>
                 
             }
         </tbody>
@@ -74,13 +77,13 @@
   
 
 <style type="text/css">
-    .dugmad {
-        width: 92px;
+    /*.dugmad {
+        width: 40px;
         text-align: center;
         margin-top: 5px;
         padding: 5px;
         display:inline;
-    }
+    }*/
 
    
 </style>

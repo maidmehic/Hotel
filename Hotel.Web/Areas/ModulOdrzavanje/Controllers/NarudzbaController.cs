@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Hotel.Data.Models;
 using Hotel.Web.Areas.ModulRecepcija.ViewModels;
+using Hotel.Web.Helper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,13 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
 
         public IActionResult Index()
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isCistacica == false)
+            {
+                TempData["error_poruka"] = "nemate pravo pristupa";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+
+            }
             return RedirectToAction("PrikaziNarudzbe");
         }
         public IActionResult DodajNarudzbu()
@@ -37,8 +45,9 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             n.DatumKreiranja = Convert.ToDateTime(model.DatumKreiranja);
             n.Opis = model.Opis;
             n.Hitnost = model.Hitnost;
-            n.ZaposlenikId = 2; //izmjenit da se dobija iz sesije
-
+            n.ZaposlenikId =2; //izmjenit da se dobija iz sesije
+            n.Zavrsena = false;
+            n.Otkazana = false;
 
 
             db.Narudzba.Add(n);
@@ -66,13 +75,15 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
         {
             PrikaziNarudzbeVM narudzbe = new PrikaziNarudzbeVM();
 
-            narudzbe.podaci = db.Narudzba.Include(x => x.Zaposlenik).Select(x => new PrikaziNarudzbeVM.Row
+            narudzbe.podaci = db.Narudzba.Include(x => x.Zaposlenik).OrderByDescending(x=>x.DatumKreiranja).Select(x => new PrikaziNarudzbeVM.Row
             {
                 Id = x.Id,
                 DatumKreiranja = x.DatumKreiranja.ToShortDateString(),
                 Hitnost = x.Hitnost,
                 Opis = x.Opis,
-                ImeZaposlenika = x.Zaposlenik.Ime
+                ImeZaposlenika = x.Zaposlenik.Ime,
+                Otkazana=x.Otkazana,
+                Zavrsena=x.Zavrsena
             }).ToList();
 
             return View(narudzbe);

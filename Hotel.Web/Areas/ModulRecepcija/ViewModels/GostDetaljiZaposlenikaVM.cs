@@ -19,5 +19,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
         public string Spol { set; get; }
       
         public string  Grad { get; set; }
+        public string ImeAkcije { get; set; }
+        public string ImeKontrolera { get; set; }
+        public int IdPozivatelja { get; internal set; }
     }
 }

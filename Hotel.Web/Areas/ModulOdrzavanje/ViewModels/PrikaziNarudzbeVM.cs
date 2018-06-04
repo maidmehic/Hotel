@@ -17,6 +17,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
             public string Hitnost { set; get; }
             public string Opis { set; get; }
             public string  ImeZaposlenika { get; set; }
+            public bool Zavrsena { set; get; }
+            public bool Otkazana { set; get; }
         }
     }
 }

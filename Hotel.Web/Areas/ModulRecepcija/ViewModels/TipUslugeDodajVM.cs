@@ -9,9 +9,10 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
     public class TipUslugeDodajVM
     {
         public int Id { set; get; }
-        [Required]
+        [Required(ErrorMessage ="Naziv je obavezan")]
         public string Naziv { set; get; }
-        [Required]
+        [Required(ErrorMessage ="Cijena je obavezna")]
+        [Range(1,10000,ErrorMessage ="Cijena mora biti veca od 0")]
         public float Cijena { get; set; }
 
     }

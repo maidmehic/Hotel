@@ -1,10 +1,36 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Home page Odrzavanja";
 }
-<h2>HomePage Modula za Odrzavanje</h2>
 
 
-@Html.ActionLink("Prikazi Narudzbe", "PrikaziNarudzbe", "Narudzba", new { }, new { @class = "btn btn-primary" })
-@Html.ActionLink("Prikazi Proizvode", "Index", "Proizvod", new { }, new { @class = "btn btn-primary" })
-@Html.ActionLink("Prikazi Zahtjeve za ciscenjem", "Index", "ZahtjevZaCiscenjem", new { }, new { @class = "btn btn-primary" })
+
+
+
+<div class="icon-grid">
+    <div class="col-lg-3 col-md-4 col-sm-6" style="min-height:165px;">
+        <a href="/ModulOdrzavanje/Narudzba/PrikaziNarudzbe" style="display:block;text-align:center;" title="Narudžbe"><i class="fa fa-edit fa-5x" id="1" title="Check ini" aria-hidden="true"></i></a>
+        <hr style="border-color:white;">
+        <a href="/ModulOdrzavanje/Narudzba/PrikaziNarudzbe" class="text-center" style="display:block; margin-top:-24px;  font-size:18px;">
+            Narudžbe
+        </a>
+    </div>
+
+    <div class="col-lg-3 col-md-4 col-sm-6" style="min-height:165px;">
+        <a href="/ModulOdrzavanje/Proizvod/Index" style="display:block;text-align:center;" id="2" title="Proizvodi"><i class="fa fa-cubes fa-5x" aria-hidden="true"></i></a>
+        <hr style="border-color:white;">
+        <a href="/ModulOdrzavanje/Proizvod/Index" class="text-center" style="display:block; margin-top:-24px;  font-size:18px;">
+            Proizvodi
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6" style="min-height:165px;">
+        <a href="/ModulOdrzavanje/ZahtjevZaCiscenjem/Index" style="display:block;text-align:center;" id="3" title="Zahtjevi za čišćenjem"><i class="fa fa-flask fa-5x" aria-hidden="true"></i></a>
+        <hr style="border-color:white;">
+        <a href="/ModulOdrzavanje/ZahtjevZaCiscenjem/Index" class="text-center" style="display:block; margin-top:-24px;  font-size:18px;">
+            Zahtjevi za čišćenjem
+        </a>
+    </div>
+
+    
+</div>
+

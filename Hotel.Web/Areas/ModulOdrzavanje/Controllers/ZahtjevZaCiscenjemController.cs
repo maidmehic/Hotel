@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Hotel.Data.Models;
 using Hotel.Web.Areas.ModulRecepcija.Controllers;
 using Hotel.Web.Areas.ModulRecepcija.ViewModels;
+using Hotel.Web.Helper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,14 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
         MojContext db = new MojContext();
         public IActionResult Index()
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isCistacica == false)
+            {
+                TempData["error_poruka"] = "nemate pravo pristupa";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+
+            }
+
             ZahtjevZaCiscenjemIndexVM model = new ZahtjevZaCiscenjemIndexVM();
 
             
@@ -45,8 +54,7 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
 
             z.Obavljen = true;
 
-            ZahtjevZaCiscenjemOznaciObavljenimVM model = new ZahtjevZaCiscenjemOznaciObavljenimVM();
-            model.lista = db.Zaposlenik.Where(x => x.isCistacica == true).ToList();
+           
             
 
 
@@ -54,42 +62,9 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             db.ZahtjevZaCiscenjem.Update(z);
             db.SaveChanges();
 
-           return View();
+           return RedirectToAction("Index");
         }
-        //public IActionResult Dodaj()
-        //{
-        //    ZahtjevZaCiscenjemDodajVM model = new ZahtjevZaCiscenjemDodajVM();
-
-        //    var smjestaji = db.Smjestaj.Include(x => x.VrstaSmjestaja).Select(x => new
-        //    {
-        //        x.Id,
-        //        Opis = "Broj Smjestaja/BrKreveta/VrstaSmjestaja: " + x.BrojSmjestaja + "/ " + x.BrojKreveta + " / " + x.VrstaSmjestaja.Naziv,
-        //    }).ToList();
-
-        //    model.Smjestaji = new SelectList(smjestaji, "Id", "Opis");
-        //    model.CistacicaID = null;
-            
-
-        //    return View(model);
-        //}
-        //[HttpPost]
-        //public IActionResult Dodaj(ZahtjevZaCiscenjemDodajVM model)
-        //{
-        //    ZahtjevZaCiscenjem z = new ZahtjevZaCiscenjem();
-
-        //    z.Obavljen = false;
-        //    z.Opis = model.Opis;
-        //    z.Prioritet = model.Prioritet;
-        //    z.SmjestajId = model.Smjestaj.Id;
-        //    z.DatumZahtjeva = System.DateTime.Now.Date;
-        //    z.ZaposlenikId = model.CistacicaID;
-        //    db.ZahtjevZaCiscenjem.Add(z);
-        //    db.SaveChanges();
-
-
-
-        //    return RedirectToAction("Index");
-        //}
+       
         [HttpPost]
         public IActionResult PosaljiZahtjevZaCiscenjem(CheckINCheckOutVM model)
         {

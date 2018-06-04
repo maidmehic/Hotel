@@ -6,10 +6,8 @@
 @addTagHelper *, AuthoringTagHelpers
 @{
     ViewData["Title"] = "Dodaj Proizvod";
-    Layout = "LayoutBezFootera";
+    Layout = "_LayoutAjax";
 }
-<h2>Dodaj proizvod</h2>
-<br />
 
 <form asp-action="Dodaj" asp-controller="Proizvod" method="post">
 

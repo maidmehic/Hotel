@@ -1,0 +1,93 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.DostavaStavkeDostaveNaSmjestajVM
+@{
+    ViewData["Title"] = " ";
+}
+
+<table class="table table-bordered " id="tabela">
+
+    <thead>
+        <tr>
+            <th>Proizvod</th>
+            <th>Kolicina</th>
+            <th>Akcija</th>
+
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var i in Model.stavke)
+        {
+            <tr>
+
+
+                <td><input asp-for="@i.Proizvod" value="@i.Proizvod" class="form-control" readonly /></td>
+                <td><input asp-for="@i.Kolicina" class="form-control" readonly /></td>
+                <td><a asp-action="UrediStavku" asp-controller="Dostava" asp-route-StavkaId="@i.StavkaId" attr="@i.StavkaId"  id="uredi">Uredi</a></td>
+
+            </tr>
+        }
+
+
+
+    </tbody>
+
+
+
+
+</table>
+
+<div id="ajaxDiv2">
+
+</div>
+<script type="text/javascript">
+
+        $("#uredi").on("click", function (event) {
+
+            //var x = $(".inputKolicina").attr("value");
+            var y = $("#uredi").attr("attr");
+            //alert(x);
+            alert(y);
+            $.ajax({
+                type: 'POST',
+                url: '/Dostava/UrediStavku?StavkaId=' + y,
+                success: function (rezultat) {
+                    $('#ajaxDiv2').html(rezultat);
+                }
+            })
+        });
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+@*<script type="text/javascript">
+
+        $(".spasi").on("click", function (event) {
+
+            var x = $(".inputKolicina").attr("value");
+            var y = $(".inputDostava").attr("value");
+            alert(x);
+            alert(y);
+            $.ajax({
+                type: 'POST',
+                url: '/Dostava/SpasiPromjenu?Kolicina=' + x + '&DostavaId=' + y,
+                success: function (rezultat) {
+                    $('#ajaxDiv').html(rezultat);
+
+                }
+
+            })
+        });
+
+
+    </script>*@
+
+
+

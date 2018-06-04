@@ -2,38 +2,38 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
 @{
-    ViewData["Title"] = "Dodaj";
+    ViewData["Title"] = "Dodaj Check In";
 }
-<h2>Dodaj Check In</h2>
+
 <form asp-action="Dodaj" asp-controller="CheckIN" method="post">
     <input asp-for="GostId" value="@Model.GostId" hidden/>
-    <div>
+    <div class="form-group">
         <label>Datum dolaska:</label>
         <input asp-for="DatumDolaska" class="form-control" />
         <span asp-validation-for="DatumDolaska" class="text-danger"></span>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>Datum odlaska:</label>
         <input asp-for="DatumOdlaska" class="form-control" />
         <span asp-validation-for="DatumOdlaska" class="text-danger"></span>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>Broj djece:</label>
-        <input asp-for="BrojDjece" class="form-control" min="0"/>
+        <input asp-for="BrojDjece" class="form-control"/>
         <span asp-validation-for="BrojDjece" class="text-danger"></span>
     </div>
 
-    <div>
+    <div class="form-group">
         <label>Broj odraslih:</label>
-        <input asp-for="BrojOdraslih" class="form-control" min="0" />
+        <input asp-for="BrojOdraslih" class="form-control"/>
         <span asp-validation-for="BrojOdraslih" class="text-danger"></span>
     </div>
 
    
 
-    <div>
+    <div class="form-group">
         <label>Napomena:</label>
         <input asp-for="Napomena" class="form-control" />
      
@@ -42,13 +42,13 @@
 
    
 
-    <div>
+    <div class="form-group">
         <label>Tip usluge</label>
         @Html.DropDownListFor(x => x.TipUsluge.Id, Model.TipoviUsluga, "Odaberite tip usluge", new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.TipUsluge.Id, "Odaberite tip usluge", new { @class = "text-danger" })
     </div>
 
-
-    <input type="submit" value="Snimi" />
+    <br />
+    <input type="submit" value="Spasi" class="btn btn-primary"/>
 </form>
 

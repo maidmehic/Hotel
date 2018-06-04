@@ -1,9 +1,8 @@
 ﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.ProizvodIndexVM
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-<h2>Proizvodi</h2>
-<br />
+@{
+    ViewData["Title"] = "Proizvodi";
+}
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -17,28 +16,32 @@
     </thead>
     <tbody>
         @foreach (var i in Model.Proizvodi)
-    {
-        <tr>
-            <td>@i.Naziv</td>
-            <td>@i.Cijena</td>
-            <td>@i.Vrsta</td>
-            <td id="akcije">
-                @Html.ActionLink("Uredi", "Edit", "Proizvod", new { ProizvodId = i.ID }, new { @class = "btn btn-success" })
-                @Html.ActionLink("Obrisi", "Obrisi", "Proizvod", new {id=i.ID }, new { @class = "btn btn-danger" })
-            </td>
-          
-        </tr>
-}
+        {
+            <tr>
+                <td>@i.Naziv</td>
+                <td>@i.Cijena</td>
+                <td>@i.Vrsta</td>
+                <td id="akcije">
+                    @Html.ActionLink("Uredi", "Edit", "Proizvod", new { ProizvodId = i.ID }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Obrisi", "Obrisi", "Proizvod", new { id = i.ID }, new { @class = "btn btn-danger" })
+                </td>
+
+            </tr>
+        }
 
     </tbody>
 </table>
 
 <style type="text/css">
-    #akcije{
-        width:181px;
+    #akcije {
+        width: 181px;
     }
-    table{
-        text-align:center;
+
+    table {
+        text-align: center;
     }
-    th{text-align:center;}
+
+    th {
+        text-align: center;
+    }
 </style>
