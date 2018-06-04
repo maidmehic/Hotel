@@ -19,9 +19,11 @@ namespace Hotel.Web.Areas.ModulAdministracija.ViewModels
         public float Cijena { set; get; }
 
         [Required(ErrorMessage = "Datum početka je obavezan!")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DatumPocetka { set; get; }
 
         [Required(ErrorMessage = "Datum završetka je obavezan!")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",ApplyFormatInEditMode =true)]
         [Remote(action:nameof(UslugeHotelaController.ProvjeraDatuma),controller:"UslugeHotela",AdditionalFields =nameof(DatumPocetka))]
         public DateTime DatumZavrsetka { set; get; }
 

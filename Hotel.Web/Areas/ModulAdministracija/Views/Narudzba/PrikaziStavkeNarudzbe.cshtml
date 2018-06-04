@@ -2,11 +2,19 @@
 
 @{
     ViewData["Title"] = "PrikaziStavkeNarudzbe";
-    int brojac = 0;
+    int brojac = 1;
 }
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazStavkiNarudzbeVM
 <h2>PrikaziStavkeNarudzbe</h2>
+<style>
+    td {
+        text-align: center;
+    }
 
+    th {
+        text-align: center;
+    }
+</style>
 <table class="table table-striped">
     <tr>
         <th>R.br.</th>

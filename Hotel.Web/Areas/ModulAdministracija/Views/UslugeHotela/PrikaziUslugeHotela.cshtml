@@ -11,7 +11,7 @@
             <td>
                 @Html.TextBoxFor(x => x.PretragaNaziv, new { @class = "form-control",placeholder="Naziv" })
             </td>
-            <td>@Html.DropDownListFor(x=>x.PretragaAktivnostId,Model.StavkePretragaAktivnost)</td>
+            <td>@Html.DropDownListFor(x=>x.PretragaAktivnostId,Model.StavkePretragaAktivnost , new { @class = "form-control" })</td>
             <td><input type="submit" value="Traži" class="btn btn-primary" /></td>
             <td>
                 <a href="/ModulAdministracija/UslugeHotela/DodajUsluguHotela" class="btn btn-success">Nova usluga hotela</a>
@@ -34,8 +34,8 @@
     {
         <tr>
             <td>@u.usluga.Naziv</td>
-            <td>@u.usluga.DatumPocetka.ToString("dd-MM-yyyy h:mm")</td>
-            <td>@u.usluga.DatumZavrsetka.ToString("dd-MM-yyyy h:mm")</td>
+            <td>@u.usluga.DatumPocetka.ToString("dd.MM.yyyy hh:mm")</td>
+            <td>@u.usluga.DatumZavrsetka.ToString("dd.MM.yyyy hh:mm")</td>
             <td>@u.usluga.Opis</td>
             <td>@u.usluga.Cijena KM</td>
             @if (u.Aktivna) { <td>Aktivna</td>}

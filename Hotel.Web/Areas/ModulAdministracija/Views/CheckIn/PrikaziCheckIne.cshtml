@@ -6,8 +6,12 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
 <h2>PrikaziCheckIne</h2>
-
-<form action="/ModulAdministracija/CheckIn/PrikaziCheckIne">
+<style>
+    #tabela td {
+        text-align: center;
+    }
+</style>
+<form action="/ModulAdministracija/CheckIn/PrikaziCheckIne" >
     <table>
         <tr>
             <td>Period od::</td>
@@ -19,7 +23,11 @@
             <td><input asp-for="Do" class="form-control"/></td>
         </tr>
         <tr>
-            <td>@Html.DropDownListFor(x=>x.StatusPretraga,Model.statusRezervacije)</td>
+            <td>Stanje::</td>
+            <td>@Html.DropDownListFor(x=>x.StatusPretraga,Model.statusRezervacije,new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td style="color:white;">dsad</td>
         </tr>
         <tr>
             <td></td>
@@ -29,13 +37,13 @@
 </form>
 
 
-    <table class="table table-striped">
+    <table class="table table-striped" id="tabela">
         <tr>
             <td>Datum prijave</td>
             <td>Datum odjave</td>
             <td>Broj odraslih</td>
             <td>Broj djece</td>
-            <td>CheckIN prijavio</td>
+            <td>Nosilac CheckIN-a</td>
             <td>Tip</td>
             <td>Napomena</td>
             <td>Zaposlenik</td>

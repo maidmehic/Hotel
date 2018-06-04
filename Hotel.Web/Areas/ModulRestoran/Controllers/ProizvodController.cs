@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Hotel.Web.Areas.ModulRestoran.ViewModels;
 using Hotel.Data.Models;
+using Hotel.Web.Helper;
 
 namespace Hotel.Web.Areas.ModulRestoran.Controllers
 {
@@ -22,6 +23,12 @@ namespace Hotel.Web.Areas.ModulRestoran.Controllers
 
         public IActionResult PrikaziZalihe(string NazivPretraga, int? VrstaOdabir)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isKuhar == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
             bool greska = false;
             foreach(Proizvodi p in db.Proizvod.ToList())
             {

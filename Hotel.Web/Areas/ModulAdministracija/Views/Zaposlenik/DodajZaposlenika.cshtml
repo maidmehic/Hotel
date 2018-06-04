@@ -1,103 +1,121 @@
 ﻿@model Hotel.Web.Areas.ModulAdministracija.ViewModels.NoviZaposlenikVM
 @{
-    ViewData["Title"] = "Dodaj";
+    ViewData["Title"] = "Novi zaposlenik";
 }
 
-@*@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@addTagHelper *, AuthoringTagHelpers*@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+<style>
+    .kk{text-align:right;
+        padding-right:10px;
+    }
+    .ll {
+        padding-left: 10px;
+    }
 
-<h2>Novi zaposlenik</h2>
+.form-control {
+    margin-bottom:10px;
+    
+}
+    .divKlasa {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+</style>
 
-<script>
-    $(document).ready(function(){
-        $(".form-control datepicker").datepicker();
-    });
 
-</script>
-<form action="/ModulAdministracija/Zaposlenik/SnimiZaposlenika">
-    <table>
-        <tr>
-            <td><b>Ime</b></td>
-            <td>@Html.TextBoxFor(x => x.Ime, new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x=>x.Ime)</span></td>
-        </tr>
-        <tr>
-            <td><b>Prezime</b></td>
-            <td>@Html.TextBoxFor(x => x.Prezime, new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Prezime)</span></td>
-        </tr>
-        <tr>
-            <td><b>Datum rođenja</b></td>
-            <td class="date">@Html.TextBoxFor(x => x.DatumRodjenja, "{0:dd/MM/yyyy}", new { @class = "form-control"})</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.DatumRodjenja)</span></td>
-        </tr>
-        <tr>
-            <td><b>Telefon</b></td>
-            <td>@Html.TextBoxFor(x => x.Telefon, new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Telefon)</span></td>
-        </tr>
-        <tr>
-            <td><b>Email</b></td>
-            <td>@Html.TextBoxFor(x => x.Email, new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Email)</span></td>
-        </tr>
-        <tr>
-            <td><b>Broj ugovora</b></td>
-            <td>@Html.TextBoxFor(x => x.BrojUgovora, new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.BrojUgovora)</span></td>
-        </tr>
-        <tr>
-            <td><b>Datum zaposlenja</b></td>
-            <td>@Html.TextBoxFor(x => x.DatumZaposljenja, "{0:dd/MM/yyyy}", new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.DatumZaposljenja)</span></td>
-        </tr>
-        <tr>
-            <td><b>JBMG</b></td>
-            <td>@Html.TextBoxFor(x => x.JMBG, new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.JMBG)</span></td>
-        </tr>
-        <tr>
-            <td><b>Spol</b></td>
-            <td>@Html.DropDownListFor(x => x.Spol, Model.spoloviStavke, new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Spol)</span></td>
-        </tr>
-        <tr>
-            <td><b>Bračni status</b></td>
-            <td>@Html.DropDownListFor(x => x.BracniStatus, Model.brakStavke, new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.BracniStatus)</span></td>
-        </tr>
-        <tr>
-            <td><b>Grad</b></td>
-            <td>@Html.DropDownListFor(x => x.GradId, Model.gradoviStavke, new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.GradId)</span></td>
-        </tr>
-        <tr>
-            <td><b>Aktivan</b></td>
-            <td>@Html.CheckBoxFor(x => x.Aktivan, new { @class = "form-control" })</td>
-        </tr>
-        <tr>
-            <td><b>Administrator</b></td>
-            <td>@Html.CheckBoxFor(x => x.isAdministrator, new { @class = "form-control" })</td>
-        </tr>
-        <tr>
-            <td><b>Recepcioner</b></td>
-            <td>@Html.CheckBoxFor(x => x.isRecepcioner, new { @class = "form-control" })</td>
-        </tr>
-        <tr>
-            <td><b>Čistač</b></td>
-            <td>@Html.CheckBoxFor(x => x.isCistacica, new { @class = "form-control" })</td>
-        </tr>
-        <tr>
-            <td><b>Kuhar</b></td>
-            <td>@Html.CheckBoxFor(x => x.isKuhar, new { @class = "form-control" })</td>
-        </tr>
+<div class="divKlasa">
+    <form action="/ModulAdministracija/Zaposlenik/SnimiZaposlenika">
+        <table>
+            <tr>
+                <td class="kk"><b>Ime</b></td>
+                <td>@Html.TextBoxFor(x => x.Ime, new { @class = "form-control" })</td>
+                <td class="ll"><span style="color:red">@Html.ValidationMessageFor(x => x.Ime)</span></td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Prezime</b></td>
+                <td>@Html.TextBoxFor(x => x.Prezime, new { @class = "form-control" })</td>
+                <td class="ll"><span style="color:red">@Html.ValidationMessageFor(x => x.Prezime)</span></td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Datum rođenja</b></td>
+                <td style="width:200px;"><input asp-for="DatumRodjenja" class="form-control" /></td>
+                @*<td class="date">@Html.TextBoxFor(x => x.DatumRodjenja, "{0:dd/MM/yyyy}", new { @class = "form-control"})</td>*@
+                <td class="ll"><span style="color:red">@Html.ValidationMessageFor(x => x.DatumRodjenja)</span></td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Telefon</b></td>
+                <td>@Html.TextBoxFor(x => x.Telefon, new { @class = "form-control" })</td>
+                <td class="ll"><span style="color:red">@Html.ValidationMessageFor(x => x.Telefon)</span></td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Email</b></td>
+                <td>@Html.TextBoxFor(x => x.Email, new { @class = "form-control" })</td>
+                <td class="ll"><span style="color:red">@Html.ValidationMessageFor(x => x.Email)</span></td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Broj ugovora</b></td>
+                <td>@Html.TextBoxFor(x => x.BrojUgovora, new { @class = "form-control" })</td>
+                <td class="ll"><span style="color:red">@Html.ValidationMessageFor(x => x.BrojUgovora)</span></td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Datum zaposlenja</b></td>
+                <td><input asp-for="DatumZaposljenja" class="form-control" /></td>
+                @*<td>@Html.TextBoxFor(x => x.DatumZaposljenja, "{0:dd/MM/yyyy}", new { @class = "form-control" })</td>*@
+                <td class="ll"><span style="color:red">@Html.ValidationMessageFor(x => x.DatumZaposljenja)</span></td>
+            </tr>
+            <tr>
+                <td class="kk"><b>JBMG</b></td>
+                <td>@Html.TextBoxFor(x => x.JMBG, new { @class = "form-control" })</td>
+                <td class="ll"><span style="color:red">@Html.ValidationMessageFor(x => x.JMBG)</span></td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Spol</b></td>
+                <td>@Html.DropDownListFor(x => x.Spol, Model.spoloviStavke, new { @class = "form-control" })</td>
+                <td class="ll"><span style="color:red">@Html.ValidationMessageFor(x => x.Spol)</span></td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Bračni status</b></td>
+                <td>@Html.DropDownListFor(x => x.BracniStatus, Model.brakStavke, new { @class = "form-control" })</td>
+                <td class="ll"><span style="color:red">@Html.ValidationMessageFor(x => x.BracniStatus)</span></td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Grad</b></td>
+                <td>@Html.DropDownListFor(x => x.GradId, Model.gradoviStavke, new { @class = "form-control" })</td>
+                <td class="ll"><span style="color:red">@Html.ValidationMessageFor(x => x.GradId)</span></td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Aktivan</b></td>
+                <td>@Html.CheckBoxFor(x => x.Aktivan, new { @class = "form-control" })</td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Administrator</b></td>
+                <td>@Html.CheckBoxFor(x => x.isAdministrator, new { @class = "form-control" })</td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Recepcioner</b></td>
+                <td>@Html.CheckBoxFor(x => x.isRecepcioner, new { @class = "form-control" })</td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Čistač</b></td>
+                <td>@Html.CheckBoxFor(x => x.isCistacica, new { @class = "form-control" })</td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Kuhar</b></td>
+                <td>@Html.CheckBoxFor(x => x.isKuhar, new { @class = "form-control" })</td>
+            </tr>
 
-        <tr>
-            <td>
-                <input type="submit"value="Sačuvaj" class="btn btn-success"/>
-            </td>
-        </tr>
-    </table>
-</form>
+            <tr>
+                <td>
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <input type="submit" value="Sačuvaj" class=" btn btn-round btn-success" style="width: 30%;margin-left:28%;" />
+
+    </form>
+
+</div>
 
 

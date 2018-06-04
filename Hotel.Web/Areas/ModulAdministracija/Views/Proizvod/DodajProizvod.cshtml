@@ -1,12 +1,14 @@
 ﻿@using Hotel.Data.Models;
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.NoviProizvodVM
+
 @{
-    Layout = "_LayoutAjax";
+
+    Layout = Model.Link.ToString();
     ViewData["Title"] = "DodajProizvod";
 }
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
-@model Hotel.Web.Areas.ModulAdministracija.ViewModels.NoviProizvodVM
 <h2>Dodaj proizvod</h2>
 
 

@@ -5,14 +5,20 @@
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazNarudzbiVM
 <h2>PrikaziNarudzbe</h2>
 
+<style>
+    td {
+        text-align: center;
+    }
 
+    th {
+        text-align: center;
+    }
+</style>
 <form action="/ModulAdministracija/Narudzba/PrikaziNarudzbe">
     <table>
         <tr>
             <td><b>Odaberite stanje:</b></td>
             <td>@Html.DropDownListFor(x => x.StanjeOdabir, Model.StanjeStavke, new { @class = "form-control" })</td>
-        </tr>
-        <tr>
             <td><input type="submit" value="Traži" class="btn btn-success" /></td>
         </tr>
     </table>

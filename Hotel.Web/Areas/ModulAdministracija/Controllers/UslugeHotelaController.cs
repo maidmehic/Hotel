@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Hotel.Web.Areas.ModulAdministracija.ViewModels;
 using Hotel.Data.Models;
+using Hotel.Web.Helper;
 
 namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 {
@@ -19,16 +20,30 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult DodajUsluguHotela()
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             NovaUslugaHotelaVM Model = new NovaUslugaHotelaVM();
             return View(Model);
         }
         public IActionResult PrikaziUslugeHotela(string PretragaNaziv, int ? PretragaAktivnostId)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             PrikazUslugeHotelaVM Model = new PrikazUslugeHotelaVM();
 
             if (PretragaAktivnostId == 1) {
                 Model.uslugeHotela = db.UslugeHotela.
-                 Where(x => (x.Naziv == PretragaNaziv && x.DatumZavrsetka > DateTime.Now) ||
+                 Where(x => (x.Naziv.Contains(PretragaNaziv) && x.DatumZavrsetka > DateTime.Now) ||
                       (PretragaNaziv == null && x.DatumZavrsetka > DateTime.Now)).
                  Select(x => new PrikazUslugeHotelaVM.Rows()
                  {
@@ -39,7 +54,7 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
             if (PretragaAktivnostId == 2)
             {
                 Model.uslugeHotela = db.UslugeHotela.
-                 Where(x => (x.Naziv == PretragaNaziv && x.DatumZavrsetka < DateTime.Now) ||
+                 Where(x => (x.Naziv.Contains(PretragaNaziv) && x.DatumZavrsetka < DateTime.Now) ||
                       (PretragaNaziv == null && x.DatumZavrsetka < DateTime.Now)).
                  Select(x => new PrikazUslugeHotelaVM.Rows()
                  {
@@ -50,7 +65,7 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
             if (!PretragaAktivnostId.HasValue)
             {
                 Model.uslugeHotela = db.UslugeHotela.
-                    Where(x => (x.Naziv == PretragaNaziv) || (PretragaNaziv == null)).
+                    Where(x => (x.Naziv.Contains(PretragaNaziv)) || (PretragaNaziv == null)).
                     Select(x => new PrikazUslugeHotelaVM.Rows()
                     {
                         usluga = x,
@@ -85,6 +100,12 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult Snimi(NovaUslugaHotelaVM u)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
 
             if (!ModelState.IsValid)
             {
@@ -116,6 +137,13 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
         }
         public IActionResult Uredi(int id)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             NovaUslugaHotelaVM Model = new NovaUslugaHotelaVM();
             UslugeHotela u = new UslugeHotela();
             u = db.UslugeHotela.Find(id);

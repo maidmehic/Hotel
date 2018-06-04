@@ -1,12 +1,19 @@
 ﻿@using Hotel.Data.Models;
 @model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziStavkeVM
 @{
-    Layout = "LayoutBezFootera";
     ViewData["Title"] = "PrikaziDodajStavke";
 
 }
 <h2>Stavke</h2>
+<style>
+    #tabela td {
+        text-align: center;
+    }
 
+    #tabela th {
+        text-align: center;
+    }
+</style>
 <form action="/ModulRestoran/Narudzba/SnimiStavku">
     <table>
         <tr>
@@ -26,7 +33,7 @@
 </form>
 <br /><br />
 
-<table class="table table-striped">
+<table class="table table-striped" id="tabela">
     <tr>
         <th>Proizvod</th>
         <th>Vrsta</th>

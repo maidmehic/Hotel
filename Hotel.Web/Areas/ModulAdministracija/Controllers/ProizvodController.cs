@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Hotel.Data.Models;
 using Hotel.Web.Areas.ModulAdministracija.ViewModels;
+using Hotel.Web.Helper;
 
 namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 {
@@ -34,6 +35,15 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult PrikaziProizvode(string NazivPretraga, int? VrstaOdabir)
         {
+
+
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             PrikazProizvodaVM Model = new PrikazProizvodaVM();
 
             if (VrstaOdabir == null)
@@ -49,11 +59,18 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
             return View(Model);
         }
 
-        public IActionResult DodajProizvod()
+        public IActionResult DodajProizvod(string Link)
         {
-           NoviProizvodVM Model = new NoviProizvodVM();
-           Model.Kolicina = 0;
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
 
+            NoviProizvodVM Model = new NoviProizvodVM();
+           Model.Kolicina = 0;
+           Model.Link = Link;
             return View(Model);
         }
 
@@ -61,6 +78,14 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult Snimi(NoviProizvodVM p)
         {
+
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             if (p.Id != 0)
             {
                 if(p.MjernaJedinica== "Mjerna jednica" || p.Vrsta== "Odaberite vrstu")
@@ -100,6 +125,14 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult UrediProizvod(int Id)
         {
+
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             NoviProizvodVM Model = new NoviProizvodVM();
             Proizvodi p = new Proizvodi();
             p = db.Proizvod.Find(Id);
@@ -117,6 +150,14 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult Obrisi(int Id)
         {
+
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             Proizvodi p = new Proizvodi();
             p = db.Proizvod.Find(Id);
             db.Proizvod.Remove(p);

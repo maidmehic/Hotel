@@ -1,23 +1,21 @@
 ﻿@using Hotel.Data.Models;
 @{
-   
+    Layout = "_LayoutAdmin";
     ViewData["Title"] = "PrikaziDostave";
 }
-@model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziDostaveVM
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikaziDostaveVM
 
 <h2>PrikaziDostave</h2>
-
 <style>
-    #tabela td {
+    td {
         text-align: center;
     }
 
-    #tabela th {
+    th {
         text-align: center;
     }
 </style>
-
-<form action="/ModulRestoran/Dostava/PrikaziDostave">
+<form action="/ModulAdministracija/Dostava/PrikaziDostave">
     <table>
         <tr>
             <td>
@@ -28,16 +26,7 @@
     </table>
 </form>
 <br /><br />
-
-@if (ViewBag.Poruka != null)
-{
-    <div class="alert alert-danger">
-        <center><span>@Html.Raw(ViewBag.Poruka)</span></center>
-    </div>
-}
-
-<table class="table table-striped" id="tabela">
-
+<table class="table table-striped">
     <tr>
         <th>Vrijeme narudžbe</th>
         <th>Broj smještaja</th>
@@ -46,10 +35,10 @@
         <th>Stanje narudžbe</th>
         <th>Akcija</th>
     </tr>
-    @foreach(Dostava d in Model.Dostave)
+    @foreach (Dostava d in Model.Dostave)
     {
         <tr>
-            <td>@d.Datum.ToString("dd.MM.yyyy HH:mm")</td>
+            <td>@d.Datum.ToString("dd/MM/yyyy HH:mm")</td>
             <td>@d.RezervisanSmjestaj.Smjestaj.BrojSmjestaja</td>
             <td>@d.RezervisanSmjestaj.Smjestaj.Sprat</td>
             <td>@d.RezervisanSmjestaj.CheckIN.Gost.Ime @d.RezervisanSmjestaj.CheckIN.Gost.Prezime</td>
@@ -61,9 +50,9 @@
             {
                 <td>Završena</td>
             }
-            <td><a href="/ModulRestoran/DostavaStavke/PrikaziStavkeZaDostavu?DostavaId=@d.Id"class="btn btn-success" ajax-poziv="da" ajax-rezultat="ajaxdiv">Prikazi proizvode</a></td>
+            <td><a href="/ModulAdministracija/Dostava/PrikaziStavkeZaDostavu?DostavaId=@d.Id" class="btn btn-success" ajax-poziv="da" ajax-rezultat="ajaxdiv">Prikazi proizvode</a></td>
         </tr>
-        
+
     }
 </table>
 <div id="ajaxdiv"></div>

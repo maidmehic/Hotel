@@ -2,13 +2,23 @@
 
 @model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziStavkeVM
 @{
-    Layout = "LayoutBezFootera";
+    Layout = "_LayoutAjax";
+
     ViewData["Title"] = "PrikaziStavke";
-    
+
 }
 <h2>Stavke</h2>
 
-<table class="table table-striped">
+<style>
+    #tabela td {
+        text-align: center;
+    }
+
+    #tabela th {
+        text-align: center;
+    }
+</style>
+<table class="table table-striped" id="tabela">
     <tr>
         <th>Proizvod</th>
         <th>Vrsta</th>

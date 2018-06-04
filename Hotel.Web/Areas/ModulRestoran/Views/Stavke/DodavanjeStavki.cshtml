@@ -1,12 +1,22 @@
 ﻿
 @{
-    Layout = "_Layout";
     ViewData["Title"] = "DodavanjeStavki";
     //string poruka =(string) ViewBag.poruka;
 }
 @model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziNarudzbuDodajProizvodeVM
 
 <h2>DodavanjeStavki</h2>
+
+
+<style>
+    #tabela td {
+        text-align: center;
+    }
+
+    #tabela th {
+        text-align: center;
+    }
+</style>
 <form action="/ModulRestoran/Stavke/SnimiStavku"  ajax-poziv="da" ajax-rezultat="ajaxDiv">
 
     <table>

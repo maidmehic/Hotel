@@ -6,7 +6,15 @@
 }
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazProizvodaVM
 <h2>Prikazi proizvode</h2>
+<style>
+   #tabela td {
+        text-align: center;
+    }
 
+   #tabela th {
+        text-align: center;
+    }
+</style>
 
 <form action="/ModulAdministracija/Proizvod/PrikaziProizvode">
     <table>
@@ -28,14 +36,18 @@
 <div class="form-group" id="ajaxdiv"></div>
 <script>
     $("#dodajProizvodBtn").click(function () {
-        $.get("/ModulAdministracija/Proizvod/DodajProizvod", function (result) { 
+        $.get("/ModulAdministracija/Proizvod/DodajProizvod?Link=~/Views/Shared/_LayoutAjax.cshtml", function (result) { 
             $("#ajaxdiv").html(result);
         });
     });
     
 </script>
 
-<table class="table table-striped">
+
+
+
+
+<table class="table table-striped" id="tabela">
     <tr>
         <th>R.br.</th>
         <th>Naziv</th>

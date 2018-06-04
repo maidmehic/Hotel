@@ -7,6 +7,7 @@ using Hotel.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Hotel.Web.Areas.ModulAdministracija.ViewModels;
+using Hotel.Web.Helper;
 
 namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 {
@@ -22,6 +23,13 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult Prikazi()
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             List<Pogodnost> pogodnosti = new List<Pogodnost>();
             pogodnosti = db.Pogodnost.ToList();
             ViewData["pogodnosti"] = pogodnosti;
@@ -29,11 +37,26 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
         }
         public IActionResult Dodaj()
         {
+
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             NovaPogodnostVM Model = new NovaPogodnostVM();
             return View(Model);
         }
         public IActionResult Snimi(NovaPogodnostVM temp)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             if (!ModelState.IsValid)
             {
                 //return View("Uredi", temp.Id);
@@ -58,6 +81,13 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
         }
         public IActionResult Obrisi(int id)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             Pogodnost p = db.Pogodnost.Find(id);
             db.Pogodnost.Remove(p);
             db.SaveChanges();
@@ -65,6 +95,14 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
         }
         public IActionResult Uredi(int id)
         {
+
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             NovaPogodnostVM Model = new NovaPogodnostVM();
             Pogodnost p = new Pogodnost();
             p = db.Pogodnost.Find(id);
@@ -85,6 +123,14 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
         //tabela "PogodnostiSmjestaja"
         public IActionResult PrikaziPogodnostiZaSmjestaj(int id)
         {
+
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             ViewData["smjestajID"] = id;
             List<PogodnostiSmjestaja> p = new List<PogodnostiSmjestaja>();
             p = db.PogodnostiSmjestaja.Include(x => x.Smjestaj).Include(x => x.Pogodnost).
@@ -95,6 +141,13 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
         }
         public IActionResult ObrisiPogodnostZaSmjestaj(int id)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             PogodnostiSmjestaja p = new PogodnostiSmjestaja();
             p = db.PogodnostiSmjestaja.Find(id);
             int smjestajID = new int();
@@ -105,6 +158,13 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
         }
         public IActionResult DodajPogodnostZaSmjestaj(int smjestajID)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             NovaPogodnostZaSmjestajVM Model = new NovaPogodnostZaSmjestajVM();
             
             Model.smjestajID = smjestajID;
@@ -142,6 +202,13 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult SnimiPogodnostZaSmjestaj(NovaPogodnostZaSmjestajVM p)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             if (!ModelState.IsValid)
             {
                 NapuniCmb(p);

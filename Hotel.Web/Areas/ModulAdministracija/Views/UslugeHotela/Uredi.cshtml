@@ -20,14 +20,12 @@
         </tr>
         <tr>
             <td><b>Datum početka</b></td>
-            @*<td>@Html.TextBoxFor(x => x.DatumPocetka, new { @class = "form-control" })</td>*@
-            <td><input asp-for="DatumPocetka" class="form-control" /></td>
+            <td>@Html.TextBoxFor(x => x.DatumPocetka, new { @class = "form-control" })</td>
             <td><span style="color:red">@Html.ValidationMessageFor(x => x.DatumPocetka)</span></td>
         </tr>
         <tr>
             <td><b>Datum završetka</b></td>
-            @*<td>@Html.TextBoxFor(x => x.DatumZavrsetka, new { @class = "form-control" })</td>*@
-            <td><input asp-for="DatumZavrsetka" class="form-control" /></td>
+            <td>@Html.TextBoxFor(x => x.DatumZavrsetka, new { @class = "form-control" })</td>
             <td><span style="color:red">@Html.ValidationMessageFor(x => x.DatumZavrsetka)</span></td>
         </tr>
         <tr>

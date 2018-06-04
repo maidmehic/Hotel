@@ -4,10 +4,26 @@
     ViewData["Title"] = "PrikaziSmjestaj";
 }
 <br />
+<style>
+    td {
+        text-align: center;
+    }
+    th{text-align:center;}
+</style>
 <form action="/ModulAdministracija/Smjestaj/PrikaziSmjestaj">
-    @Html.TextBoxFor(x=>x.BrojPretraga, new {placeholder="Broj" })
-    @Html.DropDownListFor(x=>x.StatusPretraga,Model.PretragaPoStatusu)
-    <input type="submit" value="Traži" />
+    <table>
+        <tr>
+            <td>
+                @Html.TextBoxFor(x => x.BrojPretraga, new { @class = "form-control", placeholder = "Broj..." })
+            </td>
+            <td>
+                @Html.DropDownListFor(x => x.StatusPretraga, Model.PretragaPoStatusu, new { @class = "form-control" })
+            </td>
+            <td>
+                <input type="submit" class="btn btn-primary" value="Traži" />
+            </td>
+        </tr>
+    </table>
     <a href="/ModulAdministracija/Smjestaj/DodajSmjestaj" class="btn btn-success">Novi smještaj</a>
 </form>
 <br />

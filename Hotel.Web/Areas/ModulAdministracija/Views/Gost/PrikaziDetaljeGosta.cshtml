@@ -1,10 +1,14 @@
 ﻿@using Hotel.Data.Models;
 @{
-    ViewData["Title"] = "PrikaziDetaljeGosta";
+    ViewData["Title"] = "Detalji boravaka za gosta";
 }
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazDetaljaZaGostaVM
-
-<h2>PrikaziDetaljeGosta</h2>
+<style>
+    td {
+        text-align: center;
+    }
+    th{text-align:center;}
+</style>
 
 
 <table class="table table-striped">
@@ -12,11 +16,11 @@
     <tr>
         <th>Datum prijave</th>
         <th>Datum odjave</th>
-        <th>Check in prijavio</th>
-        <th>Tip</th>
-        <th>Zaposlenik</th>
+        <th>Nosilac check-ina</th>
+        <th>Tip usluge</th>
         <th>Broj smještaja</th>
-        <th>Vrsta</th>
+        <th>Vrsta smještaja</th>
+        <th>Zaposlenik</th>
     </tr>
 
     @foreach (RezervisanSmjestaj s in Model.RezervisaniSmjestaji)
@@ -26,9 +30,9 @@
             <td>@s.CheckIN.DatumOdlaska</td>
             <td>@s.CheckIN.Gost.Ime @s.CheckIN.Gost.Prezime</td>
             <td>@s.CheckIN.TipUsluge.Naziv</td>
-            <td>@s.CheckIN.Zaposlenik.Ime @s.CheckIN.Zaposlenik.Prezime</td>
             <td>@s.Smjestaj.BrojSmjestaja</td>
             <td>@s.Smjestaj.VrstaSmjestaja.Naziv</td>
+            <td>@s.CheckIN.Zaposlenik.Ime @s.CheckIN.Zaposlenik.Prezime</td>
         </tr>
     }
 

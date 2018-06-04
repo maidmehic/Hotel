@@ -7,14 +7,20 @@
 @addTagHelper *, AuthoringTagHelpers
 <h2>Pregle historije gostiju na smjestaju</h2>
 
-
+<style>
+    td {
+        text-align: center;
+        padding:5px;
+    }
+    th{text-align:center;}
+</style>
 <form>
     <table>
         <tr>
             <td>@Html.HiddenFor(x => x.id)</td>
         </tr>
         <tr>
-            <td>Period CheckIn-a</td>
+            <td>OD:</td>
             <td>
                 <input asp-for="CheckInDatum" class="form-control" />
             </td>
@@ -27,9 +33,9 @@
                 </td>
                 <td><input type="submit" value="Traži" class="btn btn-primary" /></td>
             </tr>*@
-            
     </table>
 
+    <br />
 
     <table class="table table-striped">
         
@@ -40,9 +46,9 @@
             <th>Državljanstvo</th>
             <th>Pasoš</th>
             <th>Email</th>
-            <th>Datum CheckIn-a</th>
-            <th>Datum odjave</th>
-            <th>CheckIn prijavio</th>
+            <th>Datum Check In-a</th>
+            <th>Datum Check Out-a</th>
+            <th>Nosilac check in-a</th>
         </tr>
         @foreach (RezervisanSmjestaj s in Model.RezervacijeZaSmjestaj)
         {
@@ -53,8 +59,8 @@
                 <td>@s.Gost.Drzavljanstvo</td>
                 <td>@s.Gost.BrojPasosa</td>
                 <td>@s.Gost.Email</td>
-                <td>@s.CheckIN.DatumDolaska.ToString("dd-MM-yyyy h:mm")</td>
-                <td>@s.CheckIN.DatumOdlaska.ToString("dd-MM-yyyy h:mm")</td>
+                <td>@s.CheckIN.DatumDolaska.ToString("dd.MM.yyyy Hh:mm")</td>
+                <td>@s.CheckIN.DatumOdlaska.ToString("dd.MM.yyyy hh:mm")</td>
                 <td>@s.CheckIN.Gost.Ime @s.CheckIN.Gost.Prezime</td>
             </tr>
         }

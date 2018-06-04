@@ -3,19 +3,18 @@
     Layout = "_LayoutAjax";
     ViewData["Title"] = "PrikaziStavkeZaDostavu";
 }
-@model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziStavkeDostaveVM
-<h2>Naručeni proizvodi</h2>
-    <style>
-    #tabela td {
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikaziStavkeDostaveVM
+<style>
+    td {
         text-align: center;
     }
 
-    #tabela th {
+    th {
         text-align: center;
     }
 </style>
-
-<table class="table table-striped" id="tabela">
+<h2>PrikaziStavkeZaDostavu</h2>
+<table class="table table-striped">
     <tr>
         <th>Proizvod</th>
         <th>Vrsta</th>
@@ -23,7 +22,7 @@
         <th>Količina</th>
         <th>Mjerna jedinica</th>
     </tr>
-    @foreach(DostavaStavke d in Model.StavkeDostave)
+    @foreach (DostavaStavke d in Model.StavkeDostave)
     {
         <tr>
             <td>@d.Proizvod.Naziv</td>
@@ -34,9 +33,6 @@
         </tr>
 
     }
-   
+
 </table>
-@if (Model.StavkeDostave.FirstOrDefault().Dostava.Zavrsena == false)
-{
-    <a href="/ModulRestoran/DostavaStavke/IsporuciDostavu?DostavaId=@Model.StavkeDostave.FirstOrDefault().DostavaId" class="btn btn-warning">Isporuči</a>
-}
+

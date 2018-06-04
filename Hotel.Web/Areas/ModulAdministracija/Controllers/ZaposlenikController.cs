@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Hotel.Data.Models;
 using Hotel.Web.Areas.ModulAdministracija.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Hotel.Web.Helper;
 
 namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 { 
@@ -102,6 +104,13 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult DodajZaposlenika()
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             NoviZaposlenikVM Model = new NoviZaposlenikVM();
             Model.Aktivan = true;
             Model.isAdministrator = false;
@@ -116,19 +125,37 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult PrikaziZaposlenike(int? Tip, string ImePrezimePretraga)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             PrikazZaposlenikaVM Model = new PrikazZaposlenikaVM();
-            Model.Zaposlenici = db.Zaposlenik.
-                Where(x => ((x.isAdministrator == true && Tip == 1) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
-                         (x.isCistacica == true && Tip == 2) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
-                         (x.isRecepcioner == true && Tip == 3) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
-                         (x.isKuhar == true && Tip == 4) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null) ||
-                         (!Tip.HasValue) && (ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null))).ToList();
-            return View(Model);//dodati grad
+            Model.Zaposlenici = db.Zaposlenik.Include(x=>x.Grad).
+                Where(x => ((x.isAdministrator == true && Tip == 1) && ((x.Ime + " " + x.Prezime).Contains(ImePrezimePretraga) || ImePrezimePretraga == null) ||
+                         (x.isCistacica == true && Tip == 2) && ((x.Ime + " " + x.Prezime).Contains(ImePrezimePretraga) || ImePrezimePretraga == null) ||
+                         (x.isRecepcioner == true && Tip == 3) && ((x.Ime + " " + x.Prezime).Contains(ImePrezimePretraga) || ImePrezimePretraga == null) ||
+                         (x.isKuhar == true && Tip == 4) && ((x.Ime + " " + x.Prezime).Contains(ImePrezimePretraga) || ImePrezimePretraga == null) ||
+                         (!Tip.HasValue) && ((x.Ime + " " + x.Prezime).Contains(ImePrezimePretraga) || ImePrezimePretraga == null))).ToList();
+            return View(Model);
         }
         
+        public IActionResult ViseDetalja(int Id)
+        {
+            PrikazZaposlenikaVM Model = new PrikazZaposlenikaVM();
+            Model.Zaposlenik = db.Zaposlenik.Include(x => x.Grad).Where(x => x.Id == Id).FirstOrDefault();
+            return View(Model);
+        }
         public IActionResult SnimiZaposlenika(NoviZaposlenikVM zaposlenik) //
         {
-
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
             if (!ModelState.IsValid)
             {
                 PripremiCmb(zaposlenik);
@@ -168,6 +195,14 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult UrediZaposlenika(int id) 
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
+
             NoviZaposlenikVM Model = new NoviZaposlenikVM();
 
             Zaposlenik z = new Zaposlenik();
@@ -240,6 +275,11 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
             {
                 Value = "Udata",
                 Text = "Udata"
+            });
+            _brStavke.Add(new SelectListItem()
+            {
+                Value = "Slobodan/a",
+                Text = "Slobodan/a"
             });
 
             Model.brakStavke = _brStavke;

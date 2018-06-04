@@ -50,9 +50,8 @@
             <td><span style="color:red">@Html.ValidationMessageFor(x => x.Cijena)</span></td>
         </tr>
         <tr>
-            <td>Zauzeto</td>
             <td>
-                @Html.CheckBoxFor(x => x.Zauzeto, new { @class = "form-control" })
+                @Html.HiddenFor(x => x.Zauzeto, new { @class = "form-control" })
             </td>
         </tr>
         <tr>

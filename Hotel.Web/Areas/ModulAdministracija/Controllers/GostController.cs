@@ -7,6 +7,7 @@ using Hotel.Data.Models;
 using Hotel.Web.Areas.ModulAdministracija.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Hotel.Web.Helper;
 
 namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 {
@@ -22,12 +23,18 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
         
         public IActionResult PrikaziGoste(string ImePrezimePretraga,int? PretragaGrad)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
             PrikazGostijuVM Model = new PrikazGostijuVM();
 
             Model.Gosti = db.Gost.Include(x=>x.Grad).
                 Include(x=>x.Grad.Drzava).
-                Where(x=>(x.GradId==PretragaGrad)&&(ImePrezimePretraga==x.Ime+" "+x.Prezime || ImePrezimePretraga==null)||
-                         (!PretragaGrad.HasValue)&&(ImePrezimePretraga == x.Ime + " " + x.Prezime || ImePrezimePretraga == null)).
+                Where(x=>(x.GradId==PretragaGrad)&&((x.Ime+" "+x.Prezime).Contains(ImePrezimePretraga) || ImePrezimePretraga==null)||
+                         (!PretragaGrad.HasValue)&&((x.Ime + " " + x.Prezime).Contains(ImePrezimePretraga) || ImePrezimePretraga == null)).
                 ToList();
 
             List<SelectListItem> gradoviStavke = new List<SelectListItem>();
@@ -48,6 +55,14 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult PrikaziDetaljeGosta(int gostId)
         {
+
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             PrikazDetaljaZaGostaVM Model = new PrikazDetaljaZaGostaVM();
 
             Model.RezervisaniSmjestaji = db.RezervisanSmjestaj.

@@ -1,0 +1,57 @@
+﻿@using Hotel.Data.Models;
+
+@{
+    ViewData["Title"] = "ViseDetalja";
+}
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazZaposlenikaVM
+    <style>
+        td{text-align:center;}
+        th{text-align:center;}
+    </style>
+<h2>ViseDetalja</h2>
+<table class="table table-striped">
+    <tr>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Datum rođenja</th>
+        <th>Bračni status</th>
+        <th>Broj ugovora</th>
+        <th>Datum zaposlenja</th>
+        <th>Aktivan</th>
+        <th>Tip zaposlenja</th>
+    </tr>
+
+        <tr>
+            <td>@Model.Zaposlenik.Ime</td>
+            <td>@Model.Zaposlenik.Prezime</td>
+            <td>@Model.Zaposlenik.DatumRodjenja.ToString("dd-MM-yyyy")</td>
+            <td>@Model.Zaposlenik.BracniStatus</td>
+            <td>@Model.Zaposlenik.BrojUgovora</td>
+            <td>@Model.Zaposlenik.DatumZaposljenja.ToString("dd-MM-yyyy")</td>
+            @if (Model.Zaposlenik.Aktivan)
+            {
+            <td>DA</td>}
+            @if (!Model.Zaposlenik.Aktivan)
+            {
+            <td>NE</td>}
+            @if (Model.Zaposlenik.isAdministrator)
+            {
+                <td>Administrator <br /></td>
+            }
+            @if (Model.Zaposlenik.isCistacica)
+            {
+                <td>Čistač</td>
+            }
+            @if (Model.Zaposlenik.isKuhar)
+            {
+                <td>Kuhar</td>
+            }
+            @if (Model.Zaposlenik.isRecepcioner)
+            {
+                <td>Recepcioner</td>
+            }
+        </tr>
+
+
+</table>
+

@@ -1,11 +1,17 @@
 ﻿@using Hotel.Data.Models;
 @{
-    Layout = "_Layout";
     ViewData["Title"] = "PrikaziZalihe";
     int brojac = 1;
 }
 @model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziZaliheVM
-<h2>PrikaziZalihe</h2>
+
+<style>
+    #tabela td {
+        text-align: center;
+    }
+#tabela th{text-align:center;}
+</style>
+
 
 @if (ViewBag.Poruka != null)
 {
@@ -26,11 +32,10 @@
         </tr> 
     </table>
 </form><br />
-<a href="/ModulRestoran/Narudzba/PrikaziNarudzbe" class="btn btn-primary">Prikaži narudžbe</a>
 <a href="/ModulRestoran/Narudzba/NovaNarudzba" class="btn btn-primary">Napravi narudžbu</a>
 
 
-<table class="table table-striped">
+<table class="table table-striped" id="tabela">
     <tr>
         <th>R.br.</th>
         <th>Naziv</th>
@@ -45,7 +50,7 @@
             <td>@(brojac++)</td>
             <td>@p.Naziv</td>
             <td>@p.Vrsta</td>
-            <td>@p.Cijena</td>
+            <td>@p.Cijena KM</td>
             <td>@p.Kolicina</td>
             <td>@p.MjernaJedinica</td>
         </tr>

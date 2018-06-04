@@ -16,17 +16,17 @@ namespace Hotel.Web.Areas.ModulAdministracija.ViewModels
         
         [Required(ErrorMessage ="Ime je obavezno!")]
         [StringLength(maximumLength:30,MinimumLength =2,ErrorMessage ="Ime ne smije biti manje od 2 a veće od 30 slova.")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Koristiti samo slova!")]
+        [RegularExpression(@"^[a-žA-Ž]+$", ErrorMessage = "Koristiti samo slova!")]
         public string Ime { set; get; }
 
         [Required(ErrorMessage = "Prezime je obavezno!")]
         [StringLength(maximumLength: 30, MinimumLength = 2, ErrorMessage = "Prezime ne smije biti manje od 2 a veće od 30 slova.")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Koristiti samo slova!")]
+        [RegularExpression(@"^[a-žA-Ž]+$", ErrorMessage = "Koristiti samo slova!")]
         public string Prezime { set; get; }
 
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Datum rođenja je obavezan!")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",ApplyFormatInEditMode =true)] // ovo mozda nije dobro
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",ApplyFormatInEditMode =true)] 
         public DateTime DatumRodjenja { set; get; }
 
         [DataType(DataType.PhoneNumber)]
@@ -46,6 +46,7 @@ namespace Hotel.Web.Areas.ModulAdministracija.ViewModels
 
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Datum zaposljenja je obavezan!")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DatumZaposljenja { set; get; }
 
         [Required(ErrorMessage = "JMBG je obavezan!")]

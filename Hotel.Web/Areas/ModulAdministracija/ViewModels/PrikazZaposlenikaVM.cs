@@ -10,6 +10,7 @@ namespace Hotel.Web.Areas.ModulAdministracija.ViewModels
     public class PrikazZaposlenikaVM
     {
         public List<Zaposlenik> Zaposlenici { set; get; }
+        public Zaposlenik Zaposlenik { set; get; } //koristi se prilikom prikaza detalja za jednog zaposlenika
         public int Tip { set; get; }
         public string ImePrezimePretraga { set; get; }
         public IEnumerable<SelectListItem> tipoviStavke { get

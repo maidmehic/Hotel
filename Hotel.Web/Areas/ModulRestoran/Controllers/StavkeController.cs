@@ -7,6 +7,7 @@ using Hotel.Web.Areas.ModulRestoran.ViewModels;
 using Hotel.Data.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Hotel.Web.Helper;
 
 namespace Hotel.Web.Areas.ModulRestoran.Controllers
 {
@@ -22,6 +23,12 @@ namespace Hotel.Web.Areas.ModulRestoran.Controllers
 
         public IActionResult DodavanjeStavki()
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isKuhar == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
             PrikaziNarudzbuDodajProizvodeVM Model = new PrikaziNarudzbuDodajProizvodeVM();
 
             Model.Narudzba = db.Narudzba.Include(x => x.Zaposlenik).Last();
@@ -46,7 +53,13 @@ namespace Hotel.Web.Areas.ModulRestoran.Controllers
 
         public IActionResult SnimiStavku(PrikaziNarudzbuDodajProizvodeVM s)
         {
-            
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isKuhar == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             if (!ModelState.IsValid)
             {
                 return View("DodavanjeStavki", s);
@@ -80,13 +93,26 @@ namespace Hotel.Web.Areas.ModulRestoran.Controllers
 
         public IActionResult PrikaziStavke(int id)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isKuhar == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
             PrikaziStavkeVM Model = new PrikaziStavkeVM();
             Model.Stavke = db.Stavke.Include(x => x.Narudzba).Include(x => x.Proizvodi).Where(x => x.NarudzbaId == id).ToList();
 
             return View(Model);
         }
+
         public IActionResult FinalizirajNarudzbu(int NarudzbaId)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isKuhar == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
             foreach (Proizvodi p in db.Proizvod.ToList())
             {
                 foreach (Stavke s in db.Stavke.Where(x => x.NarudzbaId == NarudzbaId).ToList())
@@ -112,6 +138,13 @@ namespace Hotel.Web.Areas.ModulRestoran.Controllers
 
         public IActionResult ObrisiStavku(int Id)
         {
+
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isKuhar == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
             Stavke s = db.Stavke.Find(Id);
             db.Stavke.Remove(s);
             db.SaveChanges();

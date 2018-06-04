@@ -30,8 +30,29 @@ namespace Hotel.Web.Controllers
                 return View("Index", input);
             }
             
-            HttpContext.SetLogiraniKorisnik(zaposlenik); 
+            HttpContext.SetLogiraniKorisnik(zaposlenik);
+
+
+            if (HttpContext.GetLogiraniKorisnik().isAdministrator)
+            {
+                return RedirectToAction("Index", "Index",new {Area="ModulAdministracija"});
+            }
+
+            if (HttpContext.GetLogiraniKorisnik().isKuhar)
+            {
+                return RedirectToAction("Index", "Index", new { Area = "ModulRestoran" });
+            }
+            if (HttpContext.GetLogiraniKorisnik().isRecepcioner)
+            {
+                return RedirectToAction("Index", "Index", new { Area = "ModulRecepcija" });
+            }
+
+            if (HttpContext.GetLogiraniKorisnik().isCistacica)
+            {
+                return RedirectToAction("Index", "Index", new { Area = "ModulOdrzavanje" });
+            }
             return RedirectToAction("Index", "Home");
+
         }
 
         public IActionResult Logout()

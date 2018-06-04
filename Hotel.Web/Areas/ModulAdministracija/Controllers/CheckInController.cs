@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Hotel.Web.Areas.ModulAdministracija.ViewModels;
 using Hotel.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Hotel.Web.Helper;
 
 namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 {
@@ -21,6 +22,13 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult PrikaziCheckIne(DateTime? Od,DateTime? Do,int ? StatusPretraga)
         {
+
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
             PrikazCheckInaVM Model = new PrikazCheckInaVM();
 
             if (!StatusPretraga.HasValue) {
@@ -28,7 +36,7 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
                    Include(x => x.Gost).
                    Include(x => x.Zaposlenik).
                    Include(x => x.TipUsluge).
-                   Where(x => (x.DatumDolaska >= Od && x.DatumDolaska <= Do) || (x.DatumDolaska >= Od && Do == null) || (Od == null && x.DatumDolaska <= Do) || (Od == null && Do == null))
+                   Where(x => (x.DatumDolaska >= Od && x.DatumDolaska <= Do) || (x.DatumDolaska >= Od && Do == null) || (Od == null && x.DatumDolaska <= Do) || (Od == null && Do == null)).OrderByDescending(x=>x.DatumDolaska)
                    .ToList();
             }
             if (StatusPretraga == 1)
@@ -37,7 +45,7 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
                    Include(x => x.Gost).
                    Include(x => x.Zaposlenik).
                    Include(x => x.TipUsluge).
-                   Where(x => (x.DatumDolaska >= Od && x.DatumDolaska <= Do && x.DatumOdlaska>=DateTime.Now) || (x.DatumDolaska >= Od && Do == null && x.DatumOdlaska >= DateTime.Now) || (Od == null && x.DatumDolaska <= Do && x.DatumOdlaska >= DateTime.Now) || (Od == null && Do == null && x.DatumOdlaska >= DateTime.Now))
+                   Where(x => (x.DatumDolaska >= Od && x.DatumDolaska <= Do && x.DatumOdlaska>=DateTime.Now) || (x.DatumDolaska >= Od && Do == null && x.DatumOdlaska >= DateTime.Now) || (Od == null && x.DatumDolaska <= Do && x.DatumOdlaska >= DateTime.Now) || (Od == null && Do == null && x.DatumOdlaska >= DateTime.Now)).OrderByDescending(x => x.DatumDolaska)
                    .ToList();
             }
             if (StatusPretraga == 2)
@@ -46,7 +54,7 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
                    Include(x => x.Gost).
                    Include(x => x.Zaposlenik).
                    Include(x => x.TipUsluge).
-                   Where(x => (x.DatumDolaska >= Od && x.DatumDolaska <= Do && x.DatumOdlaska < DateTime.Now) || (x.DatumDolaska >= Od && Do == null && x.DatumOdlaska < DateTime.Now) || (Od == null && x.DatumDolaska <= Do && x.DatumOdlaska < DateTime.Now) || (Od == null && Do == null && x.DatumOdlaska < DateTime.Now))
+                   Where(x => (x.DatumDolaska >= Od && x.DatumDolaska <= Do && x.DatumOdlaska < DateTime.Now) || (x.DatumDolaska >= Od && Do == null && x.DatumOdlaska < DateTime.Now) || (Od == null && x.DatumDolaska <= Do && x.DatumOdlaska < DateTime.Now) || (Od == null && Do == null && x.DatumOdlaska < DateTime.Now)).OrderByDescending(x => x.DatumDolaska)
                    .ToList();
             }
             return View(Model);
@@ -54,6 +62,12 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult PrikaziDetaljeZaCheckIN(int id)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
             PrikazDetaljaZaCheckINVM Model = new PrikazDetaljaZaCheckINVM();
             Model.RezervisanSmjestaj = db.RezervisanSmjestaj.
                 Include(x => x.Gost).

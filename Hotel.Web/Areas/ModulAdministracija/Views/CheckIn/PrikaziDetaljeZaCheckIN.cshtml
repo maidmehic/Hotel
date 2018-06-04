@@ -1,10 +1,12 @@
 ﻿@using Hotel.Data.Models;
 @{
-    ViewData["Title"] = "PrikaziDetaljeZaCheckIN";
+    ViewData["Title"] = "Detalji CheckIn-a";
 }
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazDetaljaZaCheckINVM
-
-<h2>Prijavljeni gosti na odabrani CheckIN</h2>     
+    <style>
+        td,th{text-align:center;}
+    </style>
+<h2>Gosti koji su prijavljeni na odabrani check-in</h2>     
 <table class="table table-striped">
     <tr>
         <th>Gost</th>
@@ -28,12 +30,14 @@
             <td>@s.Smjestaj.VrstaSmjestaja.Naziv</td>
         </tr>
     }
-    <tr>
-        <th>Broj gostiju</th>
-        <td style="color:red">@Model.BrojGostiju</td>
-    </tr>
 </table>
-<h2>Rezervisane usluge</h2>
+
+<b>Broj gostiju na check-inu:</b><span style="color:red;">          @Model.BrojGostiju</span>
+
+
+<br />
+<br />
+<h2>Usluge koje su odabrane na odabrani check-in</h2>
 <table class="table table-striped">
     <tr>
         <th>Naziv</th>

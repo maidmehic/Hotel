@@ -1,19 +1,34 @@
 ﻿@using Hotel.Data.Models;
 @{
-    ViewData["Title"] = "PrikaziGoste";
+    ViewData["Title"] = "Prikaz gostiju";
     int brojac = 0;
 }
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazGostijuVM
-
-<h2>PrikaziGoste</h2>
+<style>
+    th {
+        text-align: center;
+    }
+    td{text-align:center;}
+</style>
 
 <form action="/ModulAdministracija/Gost/PrikaziGoste">
    
-   <b>Ime i prezime:</b>
-   @Html.TextBoxFor(m => m.ImePrezimePretraga, new { placeholder = "Ime i prezime" })
-   @Html.DropDownListFor(x=>x.PretragaGrad,Model.GradoviStavke)
-       
-   <input type="submit" class="btn btn-success" value="Pretraži" />
+    <table>
+        <tr>
+            <th>
+                Ime i prezime:
+            </th>
+            <td>
+                @Html.TextBoxFor(m => m.ImePrezimePretraga, new { placeholder = "Ime i prezime...", @class ="form-control" })
+            </td>
+            <td>
+                @Html.DropDownListFor(x => x.PretragaGrad, Model.GradoviStavke,new { @class = "form-control" })
+            </td>
+            <td>
+                <input type="submit" class="btn btn-success" value="Pretraži" />
+            </td>
+        </tr>
+    </table>
    
 </form>
 

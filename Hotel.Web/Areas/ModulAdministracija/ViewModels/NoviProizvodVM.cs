@@ -11,7 +11,7 @@ namespace Hotel.Web.Areas.ModulAdministracija.ViewModels
 {
     public class NoviProizvodVM
     {
-
+        public string  Link{ get; set; }//Ovdje se nalazi link do layouta
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Naziv je obavezan!")]

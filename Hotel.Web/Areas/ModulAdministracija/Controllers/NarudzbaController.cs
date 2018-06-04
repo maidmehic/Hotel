@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Hotel.Data.Models;
 using Hotel.Web.Areas.ModulAdministracija.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Hotel.Web.Helper;
 
 namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 {
@@ -21,6 +22,13 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult PrikaziNarudzbe( int ? StanjeOdabir)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
+
             PrikazNarudzbiVM Model = new PrikazNarudzbiVM();
 
             if (StanjeOdabir == null)
@@ -40,6 +48,12 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
 
         public IActionResult PrikaziStavkeNarudzbe(int Id)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isAdministrator == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
             PrikazStavkiNarudzbeVM Model = new PrikazStavkiNarudzbeVM();
             Model.Stavke = db.Stavke.Include(x=>x.Proizvodi).Where(x => x.NarudzbaId == Id).ToList();
             return View(Model);

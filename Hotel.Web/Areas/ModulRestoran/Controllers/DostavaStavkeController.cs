@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Hotel.Data.Models;
 using Hotel.Web.Areas.ModulRestoran.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Hotel.Web.Helper;
 
 namespace Hotel.Web.Areas.ModulRestoran.Controllers
 {
@@ -19,12 +20,24 @@ namespace Hotel.Web.Areas.ModulRestoran.Controllers
         }
         public IActionResult PrikaziStavkeZaDostavu(int DostavaId)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isKuhar == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
             PrikaziStavkeDostaveVM Model = new PrikaziStavkeDostaveVM();
             Model.StavkeDostave = db.DostavaStavke.Include(x => x.Proizvod).Include(x=>x.Dostava).Where(x => x.DostavaId == DostavaId).ToList();
             return View(Model);
         }
         public IActionResult IsporuciDostavu(int DostavaId)
         {
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isKuhar == false)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+            }
             Dostava d = new Dostava();
             d = db.Dostava.Find(DostavaId);
 
