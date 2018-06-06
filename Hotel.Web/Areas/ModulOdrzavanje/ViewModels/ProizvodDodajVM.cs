@@ -17,6 +17,10 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
         [Range(0.01, 100.00,
             ErrorMessage = "Cijena mora biti izmedu 0.01 i 100")]
         public float Cijena { set; get; }
+
+        [Required(ErrorMessage = "Mjerna jedinica je obavezna")]
+        public string MjernaJedinica { set; get; }
+
         public int NarudzbaId { set; get; }
 
     }

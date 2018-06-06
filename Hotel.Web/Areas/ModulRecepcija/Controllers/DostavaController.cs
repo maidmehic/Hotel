@@ -19,7 +19,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             Zaposlenik k = HttpContext.GetLogiraniKorisnik();
             if (k == null || k.isRecepcioner == false)
             {
-                TempData["error_poruka"] = "nemate pravo pristupa/TREBA RECEPCIJA";
+                TempData["error_poruka"] = "nemate pravo pristupa";
                 return RedirectToAction("Index", "Autentifikacija", new { area = " " });
 
             }

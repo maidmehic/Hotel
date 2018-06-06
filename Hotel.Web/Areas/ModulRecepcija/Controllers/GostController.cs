@@ -33,33 +33,67 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             {
                 Id = x.Id,
                 BrojPasosa = x.BrojPasosa,
-               ImePrezime = x.Ime + " " + x.Prezime,
-           
+                ImePrezime = x.Ime + " " + x.Prezime,
+
                 Drzavljanstvo = x.Drzavljanstvo,
-                DatumRodenja = x.DatumRodenja.ToShortDateString(),
+
                 Telefon = x.Telefon,
                 Email = x.Email,
-                Grad = x.Grad.Naziv,
-               
-                Spol = x.Spol
-                   
 
-    }).ToList();
+
+                Spol = x.Spol
+
+
+            }).ToList();
 
 
 
 
             return View(model);
         }
-        public IActionResult Detalji(int GostId,string ImeKontrolera,string ImeAkcije,int? IdPozivatelja)
+        public IActionResult PrikaziSveGoste()
+        {
+            GostIndexVM model = new GostIndexVM();
+
+            Zaposlenik k = HttpContext.GetLogiraniKorisnik();
+            if (k == null || k.isRecepcioner == false)
+            {
+                TempData["error_poruka"] = "nemate pravo pristupa";
+                return RedirectToAction("Index", "Autentifikacija", new { area = " " });
+
+            }
+
+
+            model.Gosti = db.Gost.Select(x => new GostIndexVM.Row
+            {
+                Id = x.Id,
+                BrojPasosa = x.BrojPasosa,
+                ImePrezime = x.Ime + " " + x.Prezime,
+                Drzavljanstvo = x.Drzavljanstvo,
+                DatumRodenja = x.DatumRodenja.ToShortDateString(),
+                Telefon = x.Telefon,
+                Email = x.Email,
+                Grad = x.Grad.Naziv,
+                Spol = x.Spol
+
+
+            }).ToList();
+
+
+
+
+            return View(model);
+        }
+
+        public IActionResult Detalji(int GostId, string ImeKontrolera, string ImeAkcije, int? IdPozivatelja)
         {
 
             GostIndexVM.Row model = new GostIndexVM.Row();
-            Gost x = db.Gost.Include(c=>c.Grad).Where(c => c.Id == GostId).FirstOrDefault();
+            Gost x = db.Gost.Include(c => c.Grad).Where(c => c.Id == GostId).FirstOrDefault();
             model.Id = x.Id;
             model.BrojPasosa = x.BrojPasosa;
-            model.ImePrezime = x.Ime +" "+ x.Prezime;
-           
+            model.ImePrezime = x.Ime + " " + x.Prezime;
+
             model.Drzavljanstvo = x.Drzavljanstvo;
             model.DatumRodenja = x.DatumRodenja.ToShortDateString();
             model.Telefon = x.Telefon;
@@ -68,7 +102,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             model.Spol = x.Spol;
             model.ImeAkcije = ImeAkcije;
             model.ImeKontrolera = ImeKontrolera;
-            model.IdPozivatelja = IdPozivatelja!=null ? IdPozivatelja.Value : 0;
+            model.IdPozivatelja = IdPozivatelja != null ? IdPozivatelja.Value : 0;
 
             return PartialView(model);
         }
@@ -76,7 +110,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         public IActionResult Detalji(GostIndexVM.Row model)
         {
 
-            //string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+           
             if (model.IdPozivatelja == 0)
                 return RedirectToAction(model.ImeAkcije, model.ImeKontrolera);
             else
@@ -86,26 +120,27 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         {
             model.Gradovi = new SelectList(db.Grad, "Id", "Naziv", "--Odaberite Grad--");
         }
-        public IActionResult DetaljiZaposlenika(int ZaposlenikId,string ImeKontrolera,string ImeAkcije, int? IdPozivatelja)
+        public IActionResult DetaljiZaposlenika(int ZaposlenikId, string ImeKontrolera, string ImeAkcije, int? IdPozivatelja)
         {
             GostDetaljiZaposlenikaVM z = new GostDetaljiZaposlenikaVM();
 
-            z = db.Zaposlenik.Include(x=>x.Grad).Where(x => x.Id == ZaposlenikId).Select(x=>new GostDetaljiZaposlenikaVM {
-                ImePrezime= x.Ime +" "+ x.Prezime,
-                Telefon= x.Telefon,
-                DatumRodjenja=x.DatumRodjenja.ToShortDateString(),                          
-                Email=x.Email,                
-                Spol=x.Spol,             
-                Grad=x.Grad.Naziv,
-                ImeKontrolera=ImeKontrolera,
-                ImeAkcije=ImeAkcije,
+            z = db.Zaposlenik.Include(x => x.Grad).Where(x => x.Id == ZaposlenikId).Select(x => new GostDetaljiZaposlenikaVM
+            {
+                ImePrezime = x.Ime + " " + x.Prezime,
+                Telefon = x.Telefon,
+                DatumRodjenja = x.DatumRodjenja.ToShortDateString(),
+                Email = x.Email,
+                Spol = x.Spol,
+                Grad = x.Grad.Naziv,
+                ImeKontrolera = ImeKontrolera,
+                ImeAkcije = ImeAkcije,
                 IdPozivatelja = IdPozivatelja != null ? IdPozivatelja.Value : 0
 
-        }).FirstOrDefault();
+            }).FirstOrDefault();
 
             return PartialView(z);
         }
-  
+
         [HttpPost]
         public IActionResult DetaljiZaposlenika(GostDetaljiZaposlenikaVM z)
         {
@@ -115,7 +150,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                 return RedirectToAction(z.ImeAkcije, z.ImeKontrolera);
             else
                 return RedirectToAction(z.ImeAkcije, z.ImeKontrolera, new { Id = z.IdPozivatelja });
-          
+
         }
 
 
@@ -202,7 +237,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             return View(g);
         }
-    
+
         public IActionResult Obrisi(int GostID)
         {
             Gost g = db.Gost.Where(x => x.Id == GostID).FirstOrDefault();

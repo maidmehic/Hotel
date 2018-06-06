@@ -30,6 +30,7 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
                 Naziv = x.Naziv,
                 Cijena = x.Cijena,
                 Vrsta = x.Vrsta,
+                MjernaJedinica=x.MjernaJedinica,
                 ID = x.Id
             }).ToList();
 

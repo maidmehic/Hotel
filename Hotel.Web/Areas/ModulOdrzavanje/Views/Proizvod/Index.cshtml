@@ -3,12 +3,13 @@
     ViewData["Title"] = "Proizvodi";
 }
 
-<table class="table table-striped">
+<table class="table table-striped tabela">
     <thead>
         <tr>
             <th>Naziv</th>
             <th>Cijena</th>
             <th>Vrsta</th>
+            <th>Mjerna jedinica</th>
             <th>Akcija</th>
 
         </tr>
@@ -21,6 +22,7 @@
                 <td>@i.Naziv</td>
                 <td>@i.Cijena</td>
                 <td>@i.Vrsta</td>
+                <td>@i.MjernaJedinica</td>
                 <td id="akcije">
                     @Html.ActionLink("Uredi", "Edit", "Proizvod", new { ProizvodId = i.ID }, new { @class = "btn btn-success" })
                     @Html.ActionLink("Obrisi", "Obrisi", "Proizvod", new { id = i.ID }, new { @class = "btn btn-danger" })
@@ -45,3 +47,12 @@
         text-align: center;
     }
 </style>
+
+<script type="text/javascript">
+    $('.tabela').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json"
+        }
+    });
+
+</script>

@@ -105,8 +105,10 @@
                                 <li>
                                     <a><i class="fa fa-group"></i> Gosti <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li>@Html.ActionLink("Prikazi", "Index", "Gost", new { })</li>
-                                        
+                                        <li>@Html.ActionLink("Index", "Index", "Gost", new { })</li>
+                                        <li>@Html.ActionLink("Svi gosti", "PrikaziSveGoste", "Gost", new { })</li>
+                                        <li>@Html.ActionLink("Dodaj", "Dodaj", "Gost", new { })</li>
+
                                     </ul>
                                 </li>
                                 <li>

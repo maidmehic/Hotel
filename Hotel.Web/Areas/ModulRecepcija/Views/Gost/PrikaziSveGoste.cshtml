@@ -1,0 +1,54 @@
+﻿@model Hotel.Web.Areas.ModulRecepcija.ViewModels.GostIndexVM
+@{
+    ViewData["Title"] = "Gosti Hotela";
+}
+
+<table class="table table-striped tabela">
+
+    <thead>
+        <tr>
+            <th>Ime i prezime</th>
+
+            <th>Broj pasoša</th>
+            <th>Državljanstvo </th>
+            <th>Grad</th>
+            <th>Telefon </th>
+            <th>Email </th>
+            <td>Datum rođenja</td>
+            <th>Spol </th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model.Gosti)
+        {
+
+            <tr>
+
+                <td>@i.ImePrezime</td>
+                <td>@i.BrojPasosa</td>
+                <td>@i.Drzavljanstvo</td>
+                <td>@i.Grad</td>
+                <td>@i.Telefon</td>
+                <td>@i.Email</td>
+                <td>@i.DatumRodenja</td>
+                <td>@i.Spol</td>
+
+
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+@Html.ActionLink("Dodaj novog gosta", "Dodaj", "Gost", new { }, new { @class = "btn btn-primary" })
+<script type="text/javascript">
+    $('.tabela').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json",
+        },
+
+    });
+
+</script>
