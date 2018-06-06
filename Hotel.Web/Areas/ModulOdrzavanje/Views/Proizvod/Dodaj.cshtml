@@ -15,14 +15,14 @@
 
     <div class="form-group">
         <label>Naziv:</label>
-        <input asp-for="Naziv" name="Naziv" class="form-control" />
+        <input asp-for="Naziv" name="Naziv" class="form-control" required/>
         <span style="color:red">@Html.ValidationMessageFor(x => x.Naziv)</span>
     </div>
 
 
     <div class="form-group">
         <label>Cijena:</label>
-        <input type="text" asp-for="Cijena" class="form-control" />
+        <input type="text" asp-for="Cijena" class="form-control" min="1" required/>
         <span style="color:red">@Html.ValidationMessageFor(x => x.Cijena)</span>
     </div>
 
@@ -39,7 +39,7 @@
 
     <div class="form-group">
         <label>Mjerna jedinica: </label>
-        <select asp-for="MjernaJedinica" class="form-control">
+        <select asp-for="MjernaJedinica" class="form-control" required>
             <option>Komad</option>
             <option>Kg</option>
             <option>Litar</option>
