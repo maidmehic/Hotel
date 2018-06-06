@@ -36,17 +36,24 @@
         margin-bottom: 10px;
         width: 200px;
     }
-
+    .divKlasa {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+    
 </style>
 
-<form asp-action="Snimi" asp-controller="Proizvod">
+<div class="divKlasa">
+
+    <form asp-action="Snimi" asp-controller="Proizvod">
         <table>
             <tr>
-                <td><input asp-for="Kolicina" hidden/></td>
+                <td><input asp-for="Kolicina" hidden /></td>
             </tr>
             <tr>
                 <th class="tdPolje">Naziv</th>
-                <td><input asp-for="Naziv"  class = "form-control" placeholder = "Unesite naziv"/></td>
+                <td><input asp-for="Naziv" class="form-control" placeholder="Unesite naziv" /></td>
                 <td class="tdValidacija"><span style="color:red" class="validacija">@Html.ValidationMessageFor(x => x.Naziv)</span></td>
             </tr>
             <tr>
@@ -57,7 +64,7 @@
             <tr>
                 <th class="tdPolje">Vrsta</th>
                 <td>
-                <select asp-for="Vrsta" asp-items="@Model.VrstaStavke" class = "form-control"></select>
+                    <select asp-for="Vrsta" asp-items="@Model.VrstaStavke" class="form-control"></select>
                 </td>
                 <td class="tdValidacija"> <span style="color:red" class="validacija">@Html.ValidationMessageFor(x => x.Vrsta)</span></td>
             </tr>
@@ -65,7 +72,7 @@
                 <th class="tdPolje">Mjerna jedinica</th>
                 <td>
                     <select asp-for="MjernaJedinica" asp-items="@Model.MjernaJedinicaStavke" class="form-control"></select>
-                 </td>
+                </td>
                 <td class="tdValidacija"><span style="color:red" class="validacija">@Html.ValidationMessageFor(x => x.MjernaJedinica)</span></td>
             </tr>
             <tr>
@@ -78,6 +85,8 @@
 
 
     </form>
+</div>
+
 <br /><br />
 
 
