@@ -1,39 +1,80 @@
 ﻿@using Hotel.Data.Models;
 @model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziStavkeVM
 @{
-    ViewData["Title"] = "PrikaziDodajStavke";
-
+    ViewData["Title"] = "";
 }
-<h2>Stavke</h2>
+
+
 <style>
     #tabela td {
         text-align: center;
+        padding: 10px;
     }
 
     #tabela th {
         text-align: center;
+        padding: 10px;
     }
+
+
+   .tdPolje {
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    b {
+        display: inline-block;
+        width: 150px;
+    }
+
+    .tdValidacija {
+        padding-left: 10px;
+    }
+
+    .validacija span {
+        display: inline-block;
+        width: 300px;
+    }
+
+    .form-control {
+        margin-bottom: 10px;
+        width: 250px;
+    }
+
+    .divKlasa {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+
 </style>
-<form action="/ModulRestoran/Narudzba/SnimiStavku">
-    <table>
-        <tr>
-            <td>@Html.HiddenFor(x=>x.NarudzbaId)</td>
-        </tr>
-        <tr>
-            <td>@Html.DropDownListFor(x => x.ProizvodId, Model.ProizvodiStavke, new { @class = "form-control" })</td>
-        </tr>
-        <tr>
-            <td>@Html.TextBoxFor(x => x.Kolicina, new { @class = "form-control", @placeholder = "Unesite količinu" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Kolicina)</span></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Dodaj" class="btn btn-success" /></td>
-        </tr>
-    </table>
-</form>
+
+<div class="divKlasa">
+    <form action="/ModulRestoran/Narudzba/SnimiStavku">
+        <table>
+            <tr>
+                <td>@Html.HiddenFor(x => x.NarudzbaId)</td>
+            </tr>
+            <tr>
+                <th class="tdPolje">Proizvod:</th>
+                <td>@Html.DropDownListFor(x => x.ProizvodId, Model.ProizvodiStavke, new { @class = "form-control" })</td>
+            </tr>
+            <tr>
+                <th class="tdPolje">Količina:</th>
+                <td>@Html.TextBoxFor(x => x.Kolicina, new { @class = "form-control", @placeholder = "Unesite količinu" })</td>
+                <td class="tdValidacija"><span class="validacija" style="color:red">@Html.ValidationMessageFor(x => x.Kolicina)</span></td>
+            </tr>
+            <tr>
+                <td> </td>
+                <td><input type="submit" value="Dodaj" class="btn btn-round btn btn-success" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
 <br /><br />
 
-<table class="table table-striped" id="tabela">
+<table class="table table-hover" id="tabela">
     <tr>
         <th>Proizvod</th>
         <th>Vrsta</th>

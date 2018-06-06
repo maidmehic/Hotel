@@ -1,9 +1,10 @@
 ﻿@using Hotel.Data.Models;
 @{
-    ViewData["Title"] = "PrikaziNarudzbe";
+    ViewData["Title"] = "Narudžbe";
 }
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazNarudzbiVM
-<h2>PrikaziNarudzbe</h2>
+
+
 
 <style>
     td {
@@ -18,46 +19,60 @@
     <table>
         <tr>
             <td><b>Odaberite stanje:</b></td>
-            <td>@Html.DropDownListFor(x => x.StanjeOdabir, Model.StanjeStavke, new { @class = "form-control" })</td>
-            <td><input type="submit" value="Traži" class="btn btn-success" /></td>
+            <td style="padding-left:10px;">@Html.DropDownListFor(x => x.StanjeOdabir, Model.StanjeStavke, new { @class = "form-control" })</td>
+            <td style="padding-left:10px;"><input type="submit" value="Traži" class="btn btn-round btn btn-success" /></td>
         </tr>
     </table>
 </form>
 <br /><br />
 
-<table class="table table-striped">
-    <tr>
-        <th>Datum kreiranja</th>
-        <th>Hitnost</th>
-        <th>Opis</th>
-        <th>Stanje</th>
-        <th>Narudžbu kreirao</th>
-        <th>Akcija</th>
-    </tr>
-    @foreach (Narudzba n in Model.Narudzbe)
-    {
+<table class="table table-striped" id="tabela">
+    <thead>
         <tr>
-            <td>@n.DatumKreiranja.ToString("dd.MM.yyyy HH:mm")</td>
-            <td>@n.Hitnost</td>
-            <td>@n.Opis</td>
-            @if (n.Zavrsena == false && n.Otkazana == false)
-            {
-                <td>Na čekanju</td>
-            }
-            @if (n.Zavrsena == false && n.Otkazana == true)
-            {
-                <td>Otkazana</td>
-            }
-            @if (n.Zavrsena != false)
-            {
-                <td>Završena</td>
-            }
-
-            <td>@n.Zaposlenik.Ime @n.Zaposlenik.Prezime</td>
-            <td>
-                <a href="/ModulAdministracija/Narudzba/PrikaziStavkeNarudzbe?Id=@n.Id" class="btn btn-success">Prikaži stavke</a>
-           </td>
+            <th>Datum kreiranja</th>
+            <th>Hitnost</th>
+            <th>Opis</th>
+            <th>Stanje</th>
+            <th>Narudžbu kreirao</th>
+            <th>Akcija</th>
         </tr>
-    }
+    </thead>
+   <tbody>
+@foreach (Narudzba n in Model.Narudzbe)
+{
+    <tr>
+        <td>@n.DatumKreiranja.ToString("dd.MM.yyyy HH:mm")</td>
+        <td>@n.Hitnost</td>
+        <td>@n.Opis</td>
+        @if (n.Zavrsena == false && n.Otkazana == false)
+        {
+            <td>Na čekanju</td>
+        }
+        @if (n.Zavrsena == false && n.Otkazana == true)
+        {
+            <td>Otkazana</td>
+        }
+        @if (n.Zavrsena != false)
+        {
+            <td>Završena</td>
+        }
+
+        <td>@n.Zaposlenik.Ime @n.Zaposlenik.Prezime</td>
+        <td>
+            <a href="/ModulAdministracija/Narudzba/PrikaziStavkeNarudzbe?Id=@n.Id" class="btn btn-success">Prikaži stavke</a>
+        </td>
+    </tr>
+}
+   </tbody>   
 </table>
 
+
+<script type="text/javascript">
+    $("#tabela").DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json"
+        },
+        "searching": false,
+        "ordering": false
+    });
+</script>

@@ -1,9 +1,9 @@
 ﻿@using Hotel.Data.Models;
 @{
-    ViewData["Title"] = "PrikaziZaposlenike";
+    ViewData["Title"] = "Zaposlenici";
 }
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazZaposlenikaVM
-    <br /><br />
+  
 <style>
     td {
         text-align: center;
@@ -19,14 +19,17 @@
 <form action="/ModulAdministracija/Zaposlenik/PrikaziZaposlenike">
     <table>
         <tr>
-            <td>
+            <td style="padding-right:10px;">
                 @Html.DropDownListFor(x => x.Tip, Model.tipoviStavke, new { @class = "form-control" })
             </td>
-            <td>
+            <td style="padding-right:10px;">
                @Html.TextBoxFor(x => x.ImePrezimePretraga, new { @class = "form-control", placeholder = "Ime i prezime..." })
             </td>
             <td>
                <input type="submit" value="Pretraži" class=" btn btn-round btn btn-primary" />
+            </td>
+            <td>
+                <a href="/ModulAdministracija/Zaposlenik/DodajZaposlenika" class=" btn btn-round btn-success">Novi zaposlenik</a>
             </td>
         </tr>
         <tr>
@@ -35,7 +38,6 @@
     </table> 
 </form>
 <br />
-<a href="/ModulAdministracija/Zaposlenik/DodajZaposlenika" class=" btn btn-round btn-success">Novi zaposlenik</a>
 
 
 <br /><br />

@@ -1,17 +1,18 @@
 ﻿@using Hotel.Data.Models;
 @{
-    Layout = "_LayoutAjax";
-    ViewData["Title"] = "PrikaziStavkeZaDostavu";
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Naručeni proizvodi";
 }
 @model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziStavkeDostaveVM
-<h2>Naručeni proizvodi</h2>
     <style>
     #tabela td {
         text-align: center;
+        padding:10px;
     }
 
     #tabela th {
         text-align: center;
+        padding:10px;
     }
 </style>
 
@@ -38,5 +39,5 @@
 </table>
 @if (Model.StavkeDostave.FirstOrDefault().Dostava.Zavrsena == false)
 {
-    <a href="/ModulRestoran/DostavaStavke/IsporuciDostavu?DostavaId=@Model.StavkeDostave.FirstOrDefault().DostavaId" class="btn btn-warning">Isporuči</a>
+    <a href="/ModulRestoran/DostavaStavke/IsporuciDostavu?DostavaId=@Model.StavkeDostave.FirstOrDefault().DostavaId" class="btn btn-round btn btn-danger">Isporuči proizvode</a>
 }

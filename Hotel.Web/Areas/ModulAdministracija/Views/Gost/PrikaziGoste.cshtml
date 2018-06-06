@@ -1,6 +1,6 @@
 ﻿@using Hotel.Data.Models;
 @{
-    ViewData["Title"] = "Prikaz gostiju";
+    ViewData["Title"] = "Gosti";
     int brojac = 0;
 }
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazGostijuVM
@@ -15,17 +15,17 @@
    
     <table>
         <tr>
-            <th>
+            <th style="padding-right:10px;">
                 Ime i prezime:
             </th>
-            <td>
+            <td style="padding-right:10px;">
                 @Html.TextBoxFor(m => m.ImePrezimePretraga, new { placeholder = "Ime i prezime...", @class ="form-control" })
             </td>
-            <td>
+            <td style="padding-right:10px;">
                 @Html.DropDownListFor(x => x.PretragaGrad, Model.GradoviStavke,new { @class = "form-control" })
             </td>
             <td>
-                <input type="submit" class="btn btn-success" value="Pretraži" />
+                <input type="submit" class="btn btn-round btn btn-success" value="Pretraži" />
             </td>
         </tr>
     </table>
@@ -33,37 +33,50 @@
 </form>
 
 <br /><br />
-    <table class="table table-striped">
-        <tr>
-            <th>R.br.</th>
-            <th>Ime i prezime</th>
-            <th>Datum rođenja</th>
-            <th>Broj pasoša</th>
-            <th>Email</th>
-            <th>Telefon</th>
-            <th>Državljanstvo</th>
-            <th>Spol</th>
-            <th>Grad</th>
-            <th>Država</th>
-            <th>Akcija</th>
-        </tr>
-        
-        @foreach (Gost g in Model.Gosti)
-        {
+    <table class="table table-hover" id="tabela">
+        <thead>
             <tr>
-                <td>@(++brojac)</td>
-                <td>@g.Ime @g.Prezime</td>
-                <td>@g.DatumRodenja.ToString("dd.MM.yyyy")</td>
-                <td>@g.BrojPasosa</td>
-                <td>@g.Email</td>
-                <td>@g.Telefon</td>
-                <td>@g.Drzavljanstvo</td>
-                <td>@g.Spol</td>
-                <td>@g.Grad.Naziv</td>
-                <td>@g.Grad.Drzava.Naziv</td>
-                <td><a href="/ModulAdministracija/Gost/PrikaziDetaljeGosta?gostId=@g.Id" class="btn btn-success">Info</a></td>
+                <th>R.br.</th>
+                <th>Ime i prezime</th>
+                <th>Datum rođenja</th>
+                <th>Broj pasoša</th>
+                <th>Email</th>
+                <th>Telefon</th>
+                <th>Državljanstvo</th>
+                <th>Spol</th>
+                <th>Grad</th>
+                <th>Država</th>
+                <th>Akcija</th>
             </tr>
-        }
+        </thead>
+        
+        <tbody>
+            @foreach (Gost g in Model.Gosti)
+            {
+                <tr>
+                    <td>@(++brojac)</td>
+                    <td>@g.Ime @g.Prezime</td>
+                    <td>@g.DatumRodenja.ToString("dd.MM.yyyy")</td>
+                    <td>@g.BrojPasosa</td>
+                    <td>@g.Email</td>
+                    <td>@g.Telefon</td>
+                    <td>@g.Drzavljanstvo</td>
+                    <td>@g.Spol</td>
+                    <td>@g.Grad.Naziv</td>
+                    <td>@g.Grad.Drzava.Naziv</td>
+                    <td><a href="/ModulAdministracija/Gost/PrikaziDetaljeGosta?gostId=@g.Id" class="btn btn-success">Info</a></td>
+                </tr>
+            }
+        </tbody>
+       
     </table>
-
+<script type="text/javascript">
+    $("#tabela").DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json"
+        },
+        "searching": false,
+        "ordering": false
+    });
+</script>
 

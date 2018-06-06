@@ -1,21 +1,24 @@
 ﻿@using Hotel.Data.Models;
 
 @{
-    ViewData["Title"] = "PrikaziStavkeNarudzbe";
+    ViewData["Title"] = "Stavke narudžbe";
     int brojac = 1;
 }
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazStavkiNarudzbeVM
-<h2>PrikaziStavkeNarudzbe</h2>
+
+
 <style>
-    td {
+   #tabela td {
         text-align: center;
+        padding:10px;
     }
 
-    th {
+    #tabela th {
         text-align: center;
+        padding: 10px;
     }
 </style>
-<table class="table table-striped">
+<table class="table table-striped" id="tabela">
     <tr>
         <th>R.br.</th>
         <th>Naziv</th>

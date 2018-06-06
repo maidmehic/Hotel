@@ -4,13 +4,40 @@
 @{
 
     Layout = Model.Link.ToString();
-    ViewData["Title"] = "DodajProizvod";
+    ViewData["Title"] = "Novi proizvod";
 }
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
-<h2>Dodaj proizvod</h2>
 
+<style>
+    .tdPolje {
+        text-align: right;
+        padding-right: 10px;
+        display: inline-block;
+        width: 150px;
+    }
+
+    /*b {
+        display: inline-block;
+        width: 150px;
+    }*/
+
+    .tdValidacija {
+        padding-left: 10px;
+    }
+
+    .validacija span {
+        display: inline-block;
+        width: 300px;
+    }
+
+    .form-control {
+        margin-bottom: 10px;
+        width: 200px;
+    }
+
+</style>
 
 <form asp-action="Snimi" asp-controller="Proizvod">
         <table>
@@ -18,32 +45,40 @@
                 <td><input asp-for="Kolicina" hidden/></td>
             </tr>
             <tr>
-                <th>Naziv</th>
+                <th class="tdPolje">Naziv</th>
                 <td><input asp-for="Naziv"  class = "form-control" placeholder = "Unesite naziv"/></td>
-                <td><span style="color:red">@Html.ValidationMessageFor(x => x.Naziv)</span></td>
+                <td class="tdValidacija"><span style="color:red" class="validacija">@Html.ValidationMessageFor(x => x.Naziv)</span></td>
             </tr>
             <tr>
-                <th>Cijena</th>
+                <th class="tdPolje">Cijena</th>
                 <td><input asp-for="Cijena" class="form-control" placeholder="Unesite cijenu" /></td>
-                <td><span style="color:red">@Html.ValidationMessageFor(x => x.Cijena)</span></td>
+                <td class="tdValidacija"><span style="color:red" class="validacija">@Html.ValidationMessageFor(x => x.Cijena)</span></td>
             </tr>
             <tr>
-                <th>Vrsta</th>
+                <th class="tdPolje">Vrsta</th>
                 <td>
                 <select asp-for="Vrsta" asp-items="@Model.VrstaStavke" class = "form-control"></select>
                 </td>
-                <td><span style="color:red">@Html.ValidationMessageFor(x => x.Vrsta)</span></td>
+                <td class="tdValidacija"> <span style="color:red" class="validacija">@Html.ValidationMessageFor(x => x.Vrsta)</span></td>
             </tr>
             <tr>
-                <th>Mjerna jedinica</th>
+                <th class="tdPolje">Mjerna jedinica</th>
                 <td>
                     <select asp-for="MjernaJedinica" asp-items="@Model.MjernaJedinicaStavke" class="form-control"></select>
                  </td>
-                <td><span style="color:red">@Html.ValidationMessageFor(x => x.MjernaJedinica)</span></td>
+                <td class="tdValidacija"><span style="color:red" class="validacija">@Html.ValidationMessageFor(x => x.MjernaJedinica)</span></td>
             </tr>
-            <tr><td><input type="submit" value="Sačuvaj" class="btn btn-success" /></td></tr>
+            <tr>
+                <td></td>
+                <td style="text-align:center;">
+                    <input type="submit" value="Sačuvaj" class=" btn btn-round btn-success" style="width:50%;" />
+                </td>
+            </tr>
         </table>
+
+
     </form>
+<br /><br />
 
 
 @*<form action="/ModulAdministracija/Proizvod/Snimi">

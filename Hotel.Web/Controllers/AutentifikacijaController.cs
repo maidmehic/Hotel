@@ -26,7 +26,7 @@ namespace Hotel.Web.Controllers
             Zaposlenik zaposlenik = db.Zaposlenik.SingleOrDefault(x => x.username == input.username && x.password == input.password);
             if (zaposlenik == null)
             {
-                TempData["error_poruka"] = "pogresan username ili password";
+                TempData["error_poruka"] = "Pogresan username ili password.";
                 return View("Index", input);
             }
             

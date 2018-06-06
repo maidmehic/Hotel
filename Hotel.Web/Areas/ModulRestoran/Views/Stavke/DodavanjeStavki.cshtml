@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewData["Title"] = "DodavanjeStavki";
+    ViewData["Title"] = "Unesite proizvode";
     //string poruka =(string) ViewBag.poruka;
 }
 @model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziNarudzbuDodajProizvodeVM
 
-<h2>DodavanjeStavki</h2>
+
 
 
 <style>
@@ -16,38 +16,81 @@
     #tabela th {
         text-align: center;
     }
-</style>
-<form action="/ModulRestoran/Stavke/SnimiStavku"  ajax-poziv="da" ajax-rezultat="ajaxDiv">
 
-    <table>
-        <tr>@Html.HiddenFor(m => m.NarudzbaId)</tr>
-        <tr>
-            <td><b>Opis</b></td>
-            <td>@Html.TextAreaFor(m => m.Narudzba.Opis, new { @class = "form-control", @readonly = "readonly" })</td>
-        </tr>
-        <tr>
-            <td><b>Hitnost</b></td>
-            <td>@Html.TextBoxFor(m => m.Narudzba.Hitnost, new { @class = "form-control", @readonly = "readonly" })</td>
-        </tr>
-        <tr>
-            <td><b>Datum kreiranja</b></td>
-            <td>@Html.TextBoxFor(m => m.Narudzba.DatumKreiranja, new { @class = "form-control", @readonly = "readonly" })</td>
-        </tr>
-        <tr>
-            <td><b>Narudžbu kreirao</b></td>
-            <td>@Html.TextBoxFor(m => m.Narudzba.Zaposlenik.Ime, new { @class = "form-control", @readonly = "readonly" })</td>
-        </tr>
-        <tr>
-            <td>@Html.DropDownListFor(m => m.ProizvodId, Model.ProizvodiStavke, new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(m => m.ProizvodId)</span></td>
-        </tr>
-        <tr>
-            <td>@Html.TextBoxFor(m => m.Kolicina, new { @class = "form-control", @placeholder = "Unesite količinu" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(m => m.Kolicina)</span></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Dodaj" class="btn btn-success" /></td>
-        </tr>
-    </table>
-</form>
+     .tdPolje {
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    b {
+        display: inline-block;
+        width: 150px;
+    }
+
+    .tdValidacija {
+        padding-left: 10px;
+    }
+
+    .validacija span {
+        display: inline-block;
+        width: 200px;
+    }
+
+    .form-control {
+        margin-bottom: 10px;
+        width: 250px;
+    }
+
+    .divKlasa {
+        margin-left: auto;
+        margin-right: auto;
+        width: 55%;
+    }
+</style>
+
+<div class="divKlasa">
+    <form action="/ModulRestoran/Stavke/SnimiStavku" ajax-poziv="da" ajax-rezultat="ajaxDiv">
+
+        <table>
+            <tr>@Html.HiddenFor(m => m.NarudzbaId)</tr>
+            <tr>
+                <td class="tdPolje"><b>Opis</b></td>
+                <td>@Html.TextAreaFor(m => m.Narudzba.Opis, new { @class = "form-control", @readonly = "readonly" })</td>
+            </tr>
+            <tr>
+                <td class="tdPolje"><b>Hitnost</b></td>
+                <td>@Html.TextBoxFor(m => m.Narudzba.Hitnost, new { @class = "form-control", @readonly = "readonly" })</td>
+            </tr>
+            <tr>
+                <td class="tdPolje"><b>Datum kreiranja</b></td>
+                <td>@Html.TextBoxFor(m => m.Narudzba.DatumKreiranja, new { @class = "form-control", @readonly = "readonly" })</td>
+            </tr>
+            <tr>
+                <td class="tdPolje"><b>Narudžbu kreirao</b></td>
+                <td>@Html.TextBoxFor(m => m.Narudzba.Zaposlenik.Ime, new { @class = "form-control", @readonly = "readonly" })</td>
+            </tr>
+            <tr>
+                <td><hr /></td>
+                <td><hr /></td>
+                <td><hr /></td>
+            </tr>
+            <tr>
+                <th class="tdPolje">Proizvod:</th>
+                <td>@Html.DropDownListFor(m => m.ProizvodId, Model.ProizvodiStavke, new { @class = "form-control" })</td>
+                <td class="tdValidacija"><span class="validacija" style="color:red">@Html.ValidationMessageFor(m => m.ProizvodId)</span></td>
+            </tr>
+            <tr>
+                <th class="tdPolje">Količina:</th>
+                <td>@Html.TextBoxFor(m => m.Kolicina, new { @class = "form-control", @placeholder = "Unesite količinu" })</td>
+                <td class="tdValidacija"><span class="validacija" style="color:red">@Html.ValidationMessageFor(m => m.Kolicina)</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-left:80px;"><input type="submit" value="Dodaj" class="btn btn-round btn btn-success" style="width:50%;"/></td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
 <div class="form-group" id="ajaxDiv"></div>

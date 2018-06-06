@@ -1,11 +1,16 @@
 ﻿@using Hotel.Data.Models;
 @{
-    ViewData["Title"] = "Prikazi";
+    ViewData["Title"] = "Sve pogodnosti";
     List<Pogodnost> pogodnosti = (List<Pogodnost>) ViewData["pogodnosti"];
 }
-
-<h2>Prikazi</h2>
-<a href="/ModulAdministracija/Pogodnost/Dodaj" class="btn btn-success" ajax-poziv="da" ajax-rezultat="ajaxDiv">Dodaj</a><br /><br />
+<style>
+    #ajaxDiv {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+</style>
+<a href="/ModulAdministracija/Pogodnost/Dodaj" class="btn btn-round btn btn-success" ajax-poziv="da" ajax-rezultat="ajaxDiv">Nova pogodnost</a><br /><br />
 <div class="form-group" id="ajaxDiv"></div>
 
 <table class="table table-striped">

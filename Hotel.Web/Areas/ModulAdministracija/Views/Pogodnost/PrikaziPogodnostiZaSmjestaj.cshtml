@@ -1,12 +1,17 @@
 ﻿@using Hotel.Data.Models;
 @{
-    ViewData["Title"] = "PrikaziPogodnostiZaSmjestaj";
+    ViewData["Title"] = "Pogodnosti smještaja";
     List<PogodnostiSmjestaja> temp = (List<PogodnostiSmjestaja>)ViewData["p"];
     int smjestajID = (int)ViewData["smjestajID"];
 }
-
-<h2>PrikaziPogodnostiZaSmjestaj</h2>
-<a href="/ModulAdministracija/Pogodnost/DodajPogodnostZaSmjestaj?smjestajID=@smjestajID" class="btn btn-success" ajax-poziv="da" ajax-rezultat="ajaxDiv">Dodaj</a><br /><br />
+<style>
+    #ajaxDiv {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+</style>
+<a href="/ModulAdministracija/Pogodnost/DodajPogodnostZaSmjestaj?smjestajID=@smjestajID" class="btn btn-round btn btn-success" ajax-poziv="da" ajax-rezultat="ajaxDiv">Nova pogodnost</a><br /><br />
 <div class="form-group" id="ajaxDiv"></div>
 
 <form>

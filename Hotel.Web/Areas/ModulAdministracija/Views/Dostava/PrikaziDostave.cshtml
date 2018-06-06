@@ -1,11 +1,11 @@
 ﻿@using Hotel.Data.Models;
 @{
     Layout = "_LayoutAdmin";
-    ViewData["Title"] = "PrikaziDostave";
+    ViewData["Title"] = "Dostave u sobu";
 }
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikaziDostaveVM
 
-<h2>PrikaziDostave</h2>
+
 <style>
     td {
         text-align: center;
@@ -18,41 +18,55 @@
 <form action="/ModulAdministracija/Dostava/PrikaziDostave">
     <table>
         <tr>
-            <td>
+            <td style="padding-left:10px;">
                 @Html.DropDownListFor(x => x.StanjeOdabir, Model.stanjeStavke, new { @class = "form-control" })
             </td>
-            <td><input type="submit" value="Pretraži" class="btn btn-success" /></td>
+            <td style="padding-left:10px;"><input type="submit" value="Pretraži" class="btn btn-round btn btn-success" /></td>
         </tr>
     </table>
 </form>
 <br /><br />
-<table class="table table-striped">
-    <tr>
-        <th>Vrijeme narudžbe</th>
-        <th>Broj smještaja</th>
-        <th>Sprat smještaja</th>
-        <th>Nosilac check-ina</th>
-        <th>Stanje narudžbe</th>
-        <th>Akcija</th>
-    </tr>
-    @foreach (Dostava d in Model.Dostave)
-    {
+<table class="table table-striped" id="tabela">
+    <thead>
         <tr>
-            <td>@d.Datum.ToString("dd/MM/yyyy HH:mm")</td>
-            <td>@d.RezervisanSmjestaj.Smjestaj.BrojSmjestaja</td>
-            <td>@d.RezervisanSmjestaj.Smjestaj.Sprat</td>
-            <td>@d.RezervisanSmjestaj.CheckIN.Gost.Ime @d.RezervisanSmjestaj.CheckIN.Gost.Prezime</td>
-            @if (d.Zavrsena == false)
-            {
-                <td>Na čekanju</td>
-            }
-            else
-            {
-                <td>Završena</td>
-            }
-            <td><a href="/ModulAdministracija/Dostava/PrikaziStavkeZaDostavu?DostavaId=@d.Id" class="btn btn-success" ajax-poziv="da" ajax-rezultat="ajaxdiv">Prikazi proizvode</a></td>
+            <th>Vrijeme narudžbe</th>
+            <th>Broj smještaja</th>
+            <th>Sprat smještaja</th>
+            <th>Nosilac check-ina</th>
+            <th>Stanje narudžbe</th>
+            <th>Akcija</th>
         </tr>
+    </thead>
+   <tbody>
+       @foreach (Dostava d in Model.Dostave)
+       {
+           <tr>
+               <td>@d.Datum.ToString("dd/MM/yyyy HH:mm")</td>
+               <td>@d.RezervisanSmjestaj.Smjestaj.BrojSmjestaja</td>
+               <td>@d.RezervisanSmjestaj.Smjestaj.Sprat</td>
+               <td>@d.RezervisanSmjestaj.CheckIN.Gost.Ime @d.RezervisanSmjestaj.CheckIN.Gost.Prezime</td>
+               @if (d.Zavrsena == false)
+               {
+                   <td>Na čekanju</td>
+               }
+               else
+               {
+                   <td>Završena</td>
+               }
+               <td><a href="/ModulAdministracija/Dostava/PrikaziStavkeZaDostavu?DostavaId=@d.Id" class="btn btn-success" >Prikazi proizvode</a></td>
+           </tr>
 
-    }
+       }
+   </tbody>
+   
 </table>
 <div id="ajaxdiv"></div>
+<script type="text/javascript">
+    $("#tabela").DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json"
+        },
+        "searching": false,
+        "ordering": false
+    });
+</script>

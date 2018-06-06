@@ -1,47 +1,74 @@
 ﻿@model Hotel.Web.Areas.ModulAdministracija.ViewModels.NovaUslugaHotelaVM
 @{
-    ViewData["Title"] = "DodajUsluguHotela";
+    ViewData["Title"] = "Nova usluga hotela";
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
 
-<h2>Dodaj Uslugu Hotela</h2>
+<style>
+    .form-control {
+        margin-bottom: 10px;
+    }
 
+    b {
+        display: inline-block;
+        width: 150px;
+    }
+    .kk {
+        text-align: right;
+        padding-right: 10px;
+    }
+    .divKlasa {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+    .hh span {
+        display: inline-block;
+        width: 300px;
+    }
 
-<form action="/ModulAdministracija/UslugeHotela/Snimi">
-    <table>
-        <tr>
-            <td><b>Naziv</b></td>
-            <td>@Html.TextBoxFor(x => x.Naziv, new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Naziv)</span></td>
-        </tr>
-        <tr>
-            <td><b>Datum početka</b></td>
-            @*<td>@Html.TextBoxFor(x => x.DatumPocetka, new { @class = "form-control" })</td>*@
-            <td><input asp-for="DatumPocetka" class="form-control" /></td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.DatumPocetka)</span></td>
-        </tr>
-        <tr>
-            <td><b>Datum završetka</b></td>
-            @*<td>@Html.TextBoxFor(x => x.DatumZavrsetka, new { @class = "form-control" })</td>*@
-            <td><input asp-for="DatumZavrsetka" class="form-control"/></td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.DatumZavrsetka)</span></td>
-        </tr>
-        <tr>
-            <td><b>Opis</b></td>
-            <td>@Html.TextBoxFor(x => x.Opis, new { @class = "form-control" })</td>
-        </tr>
-        <tr>
-            <td><b>Cijena</b></td>
-            <td>@Html.TextBoxFor(x => x.Cijena, new { @class = "form-control" })</td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="Sačuvaj" class="btn btn-success" />
-            </td>
-        </tr>
+    .ll {
+        padding-left: 10px;
+    }
+</style>
+
+<div class="divKlasa">
+    <form action="/ModulAdministracija/UslugeHotela/Snimi">
+        <table>
+            <tr>
+                <td class="kk"><b>Naziv</b></td>
+                <td>@Html.TextBoxFor(x => x.Naziv, new { @class = "form-control" })</td>
+                <td class="ll"><span class="hh" style="color:red">@Html.ValidationMessageFor(x => x.Naziv)</span></td>
+            </tr>
+            
+            <tr>
+                <td class="kk"><b>Opis</b></td>
+                <td>@Html.TextAreaFor(x => x.Opis, new { @class = "form-control" })</td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Cijena</b></td>
+                <td>@Html.TextBoxFor(x => x.Cijena, new { @class = "form-control" })</td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Datum početka</b></td>
+                @*<td>@Html.TextBoxFor(x => x.DatumPocetka, new { @class = "form-control" })</td>*@
+                <td><input asp-for="DatumPocetka" class="form-control" /></td>
+                <td class="ll"><span class="hh" style="color:red">@Html.ValidationMessageFor(x => x.DatumPocetka)</span></td>
+            </tr>
+            <tr>
+                <td class="kk"><b>Datum završetka</b></td>
+                @*<td>@Html.TextBoxFor(x => x.DatumZavrsetka, new { @class = "form-control" })</td>*@
+                <td><input asp-for="DatumZavrsetka" class="form-control" /></td>
+                <td class="ll"><span class="hh" style="color:red">@Html.ValidationMessageFor(x => x.DatumZavrsetka)</span></td>
+            </tr>
         </table>
-</form>
+        <hr />
+        <input type="submit" value="Sačuvaj" class="btn btn-round btn btn-success" style="width: 30%;margin-left:40%;" />
+
+    </form>
+</div>
+
 
 
 

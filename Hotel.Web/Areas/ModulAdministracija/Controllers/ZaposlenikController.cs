@@ -73,6 +73,11 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
                 Value = "Udata",
                 Text = "Udata"
             });
+            _brStavke.Add(new SelectListItem()
+            {
+                Value = "Slobodan/a",
+                Text = "Slobodan/a"
+            });
 
             zaposlenik.brakStavke = _brStavke;
         }
@@ -97,6 +102,12 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
         {
             if (GradId == null)
                 return Json("Odaberite grad!");
+            return Json(true);
+        }
+        public IActionResult ProvjeriUsername(string username,int Id)
+        {
+            if (db.Zaposlenik.Where(x=>x.username==username && x.Id!=Id).Any())
+                return Json("Korisničko ime je zauzeto!");
             return Json(true);
         }
 
@@ -182,6 +193,8 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
             z.DatumZaposljenja = zaposlenik.DatumZaposljenja;
             z.JMBG = zaposlenik.JMBG;
             z.Spol = zaposlenik.Spol;
+            z.password = zaposlenik.password;
+            z.username = zaposlenik.username;
             z.Aktivan = zaposlenik.Aktivan;
             z.isAdministrator = zaposlenik.isAdministrator;
             z.isCistacica = zaposlenik.isCistacica;
@@ -218,6 +231,8 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
             Model.Email = z.Email;
             Model.BrojUgovora = z.BrojUgovora;
             Model.JMBG = z.JMBG;
+            Model.password = z.password;
+            Model.username = z.username;
             Model.Spol = z.Spol;
             Model.Aktivan = z.Aktivan;
             Model.GradId = z.GradId;

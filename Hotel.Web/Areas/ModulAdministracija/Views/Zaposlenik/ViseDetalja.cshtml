@@ -1,9 +1,9 @@
 ﻿@using Hotel.Data.Models;
+@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazZaposlenikaVM
 
 @{
-    ViewData["Title"] = "ViseDetalja";
+    ViewData["Title"] = "Više informacija | "+Model.Zaposlenik.Ime+" "+Model.Zaposlenik.Prezime;
 }
-@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazZaposlenikaVM
     <style>
         td{text-align:center;}
         th{text-align:center;}
@@ -17,6 +17,7 @@
         <th>Bračni status</th>
         <th>Broj ugovora</th>
         <th>Datum zaposlenja</th>
+        <th>Username</th>
         <th>Aktivan</th>
         <th>Tip zaposlenja</th>
     </tr>
@@ -28,6 +29,7 @@
             <td>@Model.Zaposlenik.BracniStatus</td>
             <td>@Model.Zaposlenik.BrojUgovora</td>
             <td>@Model.Zaposlenik.DatumZaposljenja.ToString("dd-MM-yyyy")</td>
+            <td>@Model.Zaposlenik.username</td>
             @if (Model.Zaposlenik.Aktivan)
             {
             <td>DA</td>}

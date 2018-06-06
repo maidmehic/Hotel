@@ -1,11 +1,12 @@
 ﻿@using Hotel.Data.Models;
 @{
    
-    ViewData["Title"] = "PrikaziProizvode";
+    ViewData["Title"] = "Proizvodi";
     int brojac = 1;
 }
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazProizvodaVM
-<h2>Prikazi proizvode</h2>
+
+
 <style>
    #tabela td {
         text-align: center;
@@ -14,24 +15,31 @@
    #tabela th {
         text-align: center;
     }
+    #ajaxdiv {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
 </style>
 
 <form action="/ModulAdministracija/Proizvod/PrikaziProizvode">
     <table>
         <tr>
-            <td>
-                @Html.TextBoxFor(x => x.NazivPretraga, new { @class = "form-control", placeholder = "Unesite naziv" })
+            <td style="padding-right:10px;">
+                @Html.TextBoxFor(x => x.NazivPretraga, new { @class = "form-control", placeholder = "Unesite naziv..." })
             </td>
-            <td>
+            <td style="padding-right:10px;">
                 @Html.DropDownListFor(x => x.VrstaOdabir, Model.vrstaStavke, new { @class = "form-control" })
             </td>
-            <td><input type="submit" value="Pretraži" class="btn btn-success" /></td>
+            <td><input type="submit" value="Pretraži" class="btn btn-round btn btn-success" /></td>
+            <td>
+                <a class="btn btn-round btn btn-primary" id="dodajProizvodBtn">Dodaj proizvod</a>
+            </td>
         </tr>
     </table>
 </form><br />
 
 @*<a href="/ModulAdministracija/Proizvod/DodajProizvod" class="btn btn-primary" ajax-poziv="da" ajax-rezultat="ajaxdiv">Dodaj proizvod</a><br /><br />*@
-<a class="btn btn-primary" id="dodajProizvodBtn">Dodaj proizvod</a><br /><br />
 
 <div class="form-group" id="ajaxdiv"></div>
 <script>
@@ -48,26 +56,42 @@
 
 
 <table class="table table-striped" id="tabela">
-    <tr>
-        <th>R.br.</th>
-        <th>Naziv</th>
-        <th>Vrsta</th>
-        <th>Cijena</th>
-        <th>Količina</th>
-        <th>Mjerna jedinica</th>
-        <th>Akcija</th>
-    </tr>
-    @foreach (Proizvodi p in Model.Proizvodi)
-    {
+    <thead>
         <tr>
-            <td>@(brojac++)</td>
-            <td>@p.Naziv</td>
-            <td>@p.Vrsta</td>
-            <td>@p.Cijena</td>
-            <td>@p.Kolicina</td>
-            <td>@p.MjernaJedinica</td>
-            <td><a href="/ModulAdministracija/Proizvod/UrediProizvod?Id=@p.Id" class="btn btn-info">Uredi</a>
-                <a href="/ModulAdministracija/Proizvod/Obrisi?Id=@p.Id" class="btn btn-danger">Obriši</a></td>
+            <th>R.br.</th>
+            <th>Naziv</th>
+            <th>Vrsta</th>
+            <th>Cijena</th>
+            <th>Količina</th>
+            <th>Mjerna jedinica</th>
+            <th>Akcija</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (Proizvodi p in Model.Proizvodi)
+        {
+            <tr>
+                <td>@(brojac++)</td>
+                <td>@p.Naziv</td>
+                <td>@p.Vrsta</td>
+                <td>@p.Cijena</td>
+                <td>@p.Kolicina</td>
+                <td>@p.MjernaJedinica</td>
+                <td>
+                    <a href="/ModulAdministracija/Proizvod/UrediProizvod?Id=@p.Id" class="btn btn-info">Uredi</a>
+                    <a href="/ModulAdministracija/Proizvod/Obrisi?Id=@p.Id" class="btn btn-danger">Obriši</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    
 </table>
+<script type="text/javascript">
+    $("#tabela").DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json"
+        },
+        "searching": false,
+        "ordering": false
+    });
+</script>

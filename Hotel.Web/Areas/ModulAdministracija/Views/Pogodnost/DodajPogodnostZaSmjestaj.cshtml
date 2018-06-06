@@ -4,20 +4,45 @@
 }
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.NovaPogodnostZaSmjestajVM
 
+    <style>
+        b {
+            display: inline-block;
+            width: 150px;
+        }
+        .tdPolje {
+            text-align: right;
+            padding-right: 10px;
+        }
+        .tdValidacija {
+            padding-left: 10px;
+        }
+        .validacija span {
+            display: inline-block;
+            width: 300px;
+        }
+        .form-control {
+            width: 250px;
+        }
+
+    </style>
 <form action="/ModulAdministracija/Pogodnost/SnimiPogodnostZaSmjestaj">
     <table>
         <tr>
             <td>@Html.HiddenFor(x=>x.smjestajID)</td>
         </tr>
         <tr>
-            <td>Odaberite pogodnost</td>
+            <td class="tdPolje"><b>Odaberite pogodnost:</b></td>
             <td>@Html.DropDownListFor(x=>x.StavkaPogodnosti,Model._stavke, new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.StavkaPogodnosti)</span></td>
+            <td class="tdValidacija"><span class="validacija" style="color:red">@Html.ValidationMessageFor(x => x.StavkaPogodnosti)</span></td>
+        </tr>
+        <tr>
+            <td style="color:white;">.</td>
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" value="Spremi" class="btn btn-success" />  </td>
+            <td><input type="submit" value="Spremi" class="btn btn-round btn btn-success" />  </td>
 
         </tr>
     </table>
+   <br />
 </form>

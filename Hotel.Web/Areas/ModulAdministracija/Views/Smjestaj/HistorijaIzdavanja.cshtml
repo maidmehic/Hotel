@@ -1,11 +1,10 @@
 ﻿@using Hotel.Data.Models;
 @{
-    ViewData["Title"] = "HistorijaIzdavanja";
+    ViewData["Title"] = "Pregled historije izdavanja smještaja";
 }
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.HistorijaIzdavanjaVM
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
-<h2>Pregle historije gostiju na smjestaju</h2>
 
 <style>
     td {
@@ -13,6 +12,10 @@
         padding:5px;
     }
     th{text-align:center;}
+    #tabela td{
+
+        padding:15px;
+    }
 </style>
 <form>
     <table>
@@ -20,11 +23,11 @@
             <td>@Html.HiddenFor(x => x.id)</td>
         </tr>
         <tr>
-            <td>OD:</td>
+            <td><b>Period od:</b></td>
             <td>
                 <input asp-for="CheckInDatum" class="form-control" />
             </td>
-            <td><input type="submit" value="Traži" class="btn btn-primary" /></td>
+            <td><input type="submit" value="Traži" class=" btn btn-round btn-primary" /></td>
         </tr>
             @*<tr>
                 <td>Period CheckOut-a</td>
@@ -37,36 +40,52 @@
 
     <br />
 
-    <table class="table table-striped">
-        
-        <tr>
-            <th>Ime</th>
-            <th>Prezime</th>
-            <th>Grad</th>
-            <th>Državljanstvo</th>
-            <th>Pasoš</th>
-            <th>Email</th>
-            <th>Datum Check In-a</th>
-            <th>Datum Check Out-a</th>
-            <th>Nosilac check in-a</th>
-        </tr>
-        @foreach (RezervisanSmjestaj s in Model.RezervacijeZaSmjestaj)
-        {
+    <table  id="tabela" class="table table-hover">
+        <thead>
             <tr>
-                <td>@s.Gost.Ime</td>
-                <td>@s.Gost.Prezime</td>
-                <td>@s.Gost.Grad.Naziv</td>
-                <td>@s.Gost.Drzavljanstvo</td>
-                <td>@s.Gost.BrojPasosa</td>
-                <td>@s.Gost.Email</td>
-                <td>@s.CheckIN.DatumDolaska.ToString("dd.MM.yyyy Hh:mm")</td>
-                <td>@s.CheckIN.DatumOdlaska.ToString("dd.MM.yyyy hh:mm")</td>
-                <td>@s.CheckIN.Gost.Ime @s.CheckIN.Gost.Prezime</td>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Grad</th>
+                <th>Državljanstvo</th>
+                <th>Pasoš</th>
+                <th>Email</th>
+                <th>Datum Check In-a</th>
+                <th>Datum Check Out-a</th>
+                <th>Nosilac check in-a</th>
             </tr>
-        }
+        </thead>
+        
+        <tbody>
+
+            @foreach (RezervisanSmjestaj s in Model.RezervacijeZaSmjestaj)
+            {
+                <tr>
+                    <td>@s.Gost.Ime</td>
+                    <td>@s.Gost.Prezime</td>
+                    <td>@s.Gost.Grad.Naziv</td>
+                    <td>@s.Gost.Drzavljanstvo</td>
+                    <td>@s.Gost.BrojPasosa</td>
+                    <td>@s.Gost.Email</td>
+                    <td>@s.CheckIN.DatumDolaska.ToString("dd.MM.yyyy Hh:mm")</td>
+                    <td>@s.CheckIN.DatumOdlaska.ToString("dd.MM.yyyy hh:mm")</td>
+                    <td>@s.CheckIN.Gost.Ime @s.CheckIN.Gost.Prezime</td>
+                </tr>
+            }
+        </tbody>
+       
     </table>
 </form>
 
+
+<script type="text/javascript">
+    $("#tabela").DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json"
+        },
+        "searching": false,
+        "ordering": false
+    });
+</script>
 
 
 

@@ -1,7 +1,7 @@
 ﻿@model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikazSmjestajaVM
 @using Hotel.Data.Models;
 @{
-    ViewData["Title"] = "PrikaziSmjestaj";
+    ViewData["Title"] = "Smještaj";
 }
 <br />
 <style>
@@ -13,22 +13,24 @@
 <form action="/ModulAdministracija/Smjestaj/PrikaziSmjestaj">
     <table>
         <tr>
-            <td>
+            <td style="padding-right:10px;">
                 @Html.TextBoxFor(x => x.BrojPretraga, new { @class = "form-control", placeholder = "Broj..." })
             </td>
-            <td>
+            <td style="padding-right:10px;">
                 @Html.DropDownListFor(x => x.StatusPretraga, Model.PretragaPoStatusu, new { @class = "form-control" })
             </td>
             <td>
-                <input type="submit" class="btn btn-primary" value="Traži" />
+                <input type="submit" class="btn btn-round btn btn-primary" value="Traži" />
+            </td>
+            <td>
+                <a href="/ModulAdministracija/Smjestaj/DodajSmjestaj" class="btn btn-round btn btn-success">Novi smještaj</a>
             </td>
         </tr>
     </table>
-    <a href="/ModulAdministracija/Smjestaj/DodajSmjestaj" class="btn btn-success">Novi smještaj</a>
 </form>
 <br />
 <br />
-<table class="table table-striped">
+<table class="table table-hover">
     <tr>
         <th>Broj</th>
         <th>Sprat</th>

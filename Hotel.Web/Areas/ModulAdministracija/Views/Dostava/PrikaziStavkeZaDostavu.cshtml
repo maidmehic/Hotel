@@ -1,20 +1,22 @@
 ﻿@using Hotel.Data.Models;
 @{
-    Layout = "_LayoutAjax";
-    ViewData["Title"] = "PrikaziStavkeZaDostavu";
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Stavke dostave";
 }
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.PrikaziStavkeDostaveVM
 <style>
-    td {
+   #tabela td {
         text-align: center;
+        padding:10px;
     }
 
-    th {
+    #tabela th {
         text-align: center;
+        padding: 10px;
     }
 </style>
-<h2>PrikaziStavkeZaDostavu</h2>
-<table class="table table-striped">
+
+<table class="table table-striped" id="tabela">
     <tr>
         <th>Proizvod</th>
         <th>Vrsta</th>

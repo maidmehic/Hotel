@@ -1,6 +1,6 @@
 ﻿@using Hotel.Data.Models;
 @{
-    ViewData["Title"] = "PrikaziZalihe";
+    ViewData["Title"] = "Zalihe proizvoda";
     int brojac = 1;
 }
 @model Hotel.Web.Areas.ModulRestoran.ViewModels.PrikaziZaliheVM
@@ -8,51 +8,75 @@
 <style>
     #tabela td {
         text-align: center;
+        padding:10px;
     }
-#tabela th{text-align:center;}
+    #tabela th {
+        text-align: center;
+        padding: 10px;
+    }
 </style>
 
 
 @if (ViewBag.Poruka != null)
 {
-    <div class="alert alert-danger">
+    <div class="alert alert-danger alert-dismissible fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
         <center><span>@Html.Raw(ViewBag.Poruka)</span></center>
     </div>
 }
 <form action="/ModulRestoran/Proizvod/PrikaziZalihe">
     <table>
         <tr>
-            <td>
-                @Html.TextBoxFor(x => x.NazivPretraga, new { @class = "form-control", placeholder = "Unesite naziv" })
+            <td style="padding-right:5px;">
+                @Html.TextBoxFor(x => x.NazivPretraga, new { @class = "form-control", placeholder = "Unesite naziv..." })
             </td>
-            <td>
+            <td style="padding-right:5px;">
                 @Html.DropDownListFor(x=>x.VrstaOdabir,Model.vrstaStavke,new {@class="form-control"})
             </td>
-            <td><input type="submit" value="Pretraži" class="btn btn-success" /></td>
+            <td><input type="submit" value="Pretraži" class="btn btn-round btn btn-success" /></td>
+            <td>
+                <a href="/ModulRestoran/Narudzba/NovaNarudzba" class="btn btn-round btn btn-primary">Nova narudžba</a>
+            </td>
         </tr> 
     </table>
-</form><br />
-<a href="/ModulRestoran/Narudzba/NovaNarudzba" class="btn btn-primary">Napravi narudžbu</a>
+</form><hr /><br />
 
 
-<table class="table table-striped" id="tabela">
-    <tr>
-        <th>R.br.</th>
-        <th>Naziv</th>
-        <th>Vrsta</th>
-        <th>Cijena</th>
-        <th>Količina</th>
-        <th>Mjerna jedinica</th>
-    </tr>
-    @foreach (Proizvodi p in Model.Proizvodi)
-    {
+<table class="table table-hover" id="tabela">
+    <thead>
         <tr>
-            <td>@(brojac++)</td>
-            <td>@p.Naziv</td>
-            <td>@p.Vrsta</td>
-            <td>@p.Cijena KM</td>
-            <td>@p.Kolicina</td>
-            <td>@p.MjernaJedinica</td>
+            <th>R.br.</th>
+            <th>Naziv</th>
+            <th>Vrsta</th>
+            <th>Cijena</th>
+            <th>Količina</th>
+            <th>Mjerna jedinica</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (Proizvodi p in Model.Proizvodi)
+        {
+            <tr>
+                <td>@(brojac++)</td>
+                <td>@p.Naziv</td>
+                <td>@p.Vrsta</td>
+                <td>@p.Cijena KM</td>
+                <td>@p.Kolicina</td>
+                <td>@p.MjernaJedinica</td>
+            </tr>
+        }
+    </tbody>
+    
 </table>
+
+<script type="text/javascript">
+    $("#tabela").DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json"
+        },
+        "searching": false,
+        "ordering": false
+    });
+</script>

@@ -26,8 +26,8 @@
     @foreach (RezervisanSmjestaj s in Model.RezervisaniSmjestaji)
     {
         <tr>
-            <td>@s.CheckIN.DatumDolaska</td>
-            <td>@s.CheckIN.DatumOdlaska</td>
+            <td>@s.CheckIN.DatumDolaska.ToString("dd.MM.yyyy")</td>
+            <td>@s.CheckIN.DatumOdlaska.ToString("dd.MM.yyyy")</td>
             <td>@s.CheckIN.Gost.Ime @s.CheckIN.Gost.Prezime</td>
             <td>@s.CheckIN.TipUsluge.Naziv</td>
             <td>@s.Smjestaj.BrojSmjestaja</td>

@@ -1,55 +1,92 @@
 ﻿@model Hotel.Web.Areas.ModulAdministracija.ViewModels.NoviSmjestajVM
 @{
-    ViewData["Title"] = "DodajSmjestaj";
+    ViewData["Title"] = "Novi smještaj";
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
-<h1>Novi smjestaj</h1>
-<form action="/ModulAdministracija/Smjestaj/Snimi">
-    <table>
-        <tr>
-            <td>
-                @Html.HiddenFor(x=>x.Zauzeto)
-            </td>
-        </tr>
-        <tr>
-            <td>Broj smještaja</td>
-            @*<td>@Html.TextBoxFor(x=>x.BrojSmjestaja,new { @class = "form-control" })</td>*@
-            <td><input asp-for="BrojSmjestaja" class="form-control"/></td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.BrojSmjestaja)</span></td>
-        </tr>
-        <tr>
-            <td>Sprat</td>
-            @*<td>@Html.TextBoxFor(x => x.Sprat, new { @class = "form-control" })</td>*@
-            <td><input asp-for="Sprat" class="form-control" /></td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Sprat)</span></td>
-        </tr>
-        <tr>
-            <td>Kvadratura</td>
-            <td><input asp-for="Kvadratura" class="form-control" /></td>
-            @*<td>@Html.TextBoxFor(x => x.Kvadratura, new { @class = "form-control" })</td>*@
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Kvadratura)</span></td>
-        </tr>
-        <tr>
-            <td>Broj kreveta</td>
-            <td><input asp-for="BrojKreveta" class="form-control" /></td>
-            @*<td>@Html.TextBoxFor(x => x.BrojKreveta, new { @class = "form-control" })</td>*@
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.BrojKreveta)</span></td>
-        </tr>
-        <tr>
-            <td>Vrsta smještaja</td>
-            <td>@Html.DropDownListFor(x => x.VrstaSmjestajaId,Model._vrstaStavke, new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.VrstaSmjestajaId)</span></td>
-        </tr>
 
-        <tr>
-            <td>Cijena noćenja</td>
-            <td>@Html.TextBoxFor(x=>x.Cijena,new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Cijena)</span></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Sašuvaj" class="btn btn-success" /></td>
-        </tr>
-    </table>
-</form>
+<style>
+    .tdPolje {
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    b {
+        display: inline-block;
+        width: 150px;
+    }
+
+    .tdValidacija {
+        padding-left: 10px;
+    }
+
+    .validacija span {
+        display: inline-block;
+        width: 300px;
+    }
+
+    .form-control {
+        margin-bottom: 10px;
+        width: 250px;
+    }
+
+    .divKlasa {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+</style>
+
+<div class="divKlasa">
+    <form action="/ModulAdministracija/Smjestaj/Snimi">
+        <table>
+            <tr>
+                <td>
+                    @Html.HiddenFor(x => x.Zauzeto)
+                </td>
+            </tr>
+            <tr>
+                <td class="tdPolje"><b>Broj smještaja</b></td>
+                @*<td>@Html.TextBoxFor(x=>x.BrojSmjestaja,new { @class = "form-control" })</td>*@
+                <td><input asp-for="BrojSmjestaja" class="form-control" /></td>
+                <td class="tdValidacija"><span class="validacija" style="color:red">@Html.ValidationMessageFor(x => x.BrojSmjestaja)</span></td>
+            </tr>
+            <tr>
+                <td class="tdPolje"><b>Sprat</b></td>
+                @*<td>@Html.TextBoxFor(x => x.Sprat, new { @class = "form-control" })</td>*@
+                <td><input asp-for="Sprat" class="form-control" /></td>
+                <td class="tdValidacija"><span class="validacija" style="color:red">@Html.ValidationMessageFor(x => x.Sprat)</span></td>
+            </tr>
+            <tr>
+                <td class="tdPolje"><b>Kvadratura</b></td>
+                <td><input asp-for="Kvadratura" class="form-control" /></td>
+                @*<td>@Html.TextBoxFor(x => x.Kvadratura, new { @class = "form-control" })</td>*@
+                <td class="tdValidacija"><span class="validacija" style="color:red">@Html.ValidationMessageFor(x => x.Kvadratura)</span></td>
+            </tr>
+            <tr>
+                <td class="tdPolje"><b>Broj kreveta</b></td>
+                <td><input asp-for="BrojKreveta" class="form-control" /></td>
+                @*<td>@Html.TextBoxFor(x => x.BrojKreveta, new { @class = "form-control" })</td>*@
+                <td class="tdValidacija"><span class="validacija" style="color:red">@Html.ValidationMessageFor(x => x.BrojKreveta)</span></td>
+            </tr>
+            <tr>
+                <td class="tdPolje"><b>Vrsta smještaja</b></td>
+                <td>@Html.DropDownListFor(x => x.VrstaSmjestajaId, Model._vrstaStavke, new { @class = "form-control" })</td>
+                <td class="tdValidacija"><span class="validacija" style="color:red">@Html.ValidationMessageFor(x => x.VrstaSmjestajaId)</span></td>
+            </tr>
+            <tr>
+                <td class="tdPolje"><b>Cijena noćenja</b></td>
+                <td>@Html.TextBoxFor(x => x.Cijena, new { @class = "form-control" })</td>
+                <td class="tdValidacija"><span class="validacija" style="color:red">@Html.ValidationMessageFor(x => x.Cijena)</span></td>
+            </tr>
+        </table>
+        <hr />
+        <input type="submit" value="Sačuvaj" class=" btn btn-round btn-success" style="width: 30%;margin-left:37%;" />
+
+
+    </form>
+
+
+</div>
+
 

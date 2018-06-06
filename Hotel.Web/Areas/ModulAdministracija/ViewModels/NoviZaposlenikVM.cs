@@ -15,12 +15,12 @@ namespace Hotel.Web.Areas.ModulAdministracija.ViewModels
         public int Id { set; get; }
         
         [Required(ErrorMessage ="Ime je obavezno!")]
-        [StringLength(maximumLength:30,MinimumLength =2,ErrorMessage ="Ime ne smije biti manje od 2 a veće od 30 slova.")]
+        [StringLength(maximumLength:30,MinimumLength =2,ErrorMessage ="Potrebno unijeti od 2 do 30 slova.")]
         [RegularExpression(@"^[a-žA-Ž]+$", ErrorMessage = "Koristiti samo slova!")]
         public string Ime { set; get; }
 
         [Required(ErrorMessage = "Prezime je obavezno!")]
-        [StringLength(maximumLength: 30, MinimumLength = 2, ErrorMessage = "Prezime ne smije biti manje od 2 a veće od 30 slova.")]
+        [StringLength(maximumLength: 30, MinimumLength = 2, ErrorMessage = "Potrebno unijeti od 2 do 30 slova.")]
         [RegularExpression(@"^[a-žA-Ž]+$", ErrorMessage = "Koristiti samo slova!")]
         public string Prezime { set; get; }
 
@@ -55,7 +55,14 @@ namespace Hotel.Web.Areas.ModulAdministracija.ViewModels
 
         [Remote(action: nameof(ZaposlenikController.ProvjeriSpol), controller: "Zaposlenik")]
         public string Spol { set; get; }
-        
+
+        [Required(ErrorMessage ="Korisničko ime je obavezno!")]
+        [Remote(action: nameof(ZaposlenikController.ProvjeriUsername), controller: "Zaposlenik",AdditionalFields =nameof(Id))]
+        public string username { set; get; }
+
+        [Required(ErrorMessage ="Lozinka je obavezna!")]
+        public string password { set; get; }
+
         public bool Aktivan { set; get; }
         public bool isAdministrator { set; get; }
         public bool isRecepcioner { set; get; }

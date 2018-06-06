@@ -1,39 +1,74 @@
 ﻿@using Hotel.Data.Models;
 @{
-    ViewData["Title"] = "NovaNarudzba";
+    ViewData["Title"] = "Nova narudžba";
 }
 @model Hotel.Web.Areas.ModulRestoran.ViewModels.DodajNarudzbuVM
+<style>
+    .tdPolje {
+        text-align: right;
+        padding-right: 10px;
+    }
 
-<h2>NovaNarudzba</h2>
+    b {
+        display: inline-block;
+        width: 150px;
+    }
 
-<form action="/ModulRestoran/Narudzba/Snimi">
-    <table >
-        <tr>
-            <td><b>Opis</b></td>
-            <td>@Html.TextAreaFor(m=>m.Opis, new { @class = "form-control" })</td>
-        </tr>
-        <tr>
-            <td><b>Hitnost</b></td>
-            <td>@Html.DropDownListFor(m=>m.Hitnost,Model.HitnostStavke, new { @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Hitnost)</span></td>
-        </tr>
-        <tr>
-            <td><b>Datum kreiranja</b></td>
-            <td>@Html.TextBoxFor(m => m.DatumKreiranja, new { @class = "form-control", @readonly = "readonly" })</td>
-        </tr>
-        <tr>
-            <td>@Html.HiddenFor(m=>m.ZaposlenikId)</td>
-        </tr>
-        <tr>
-            <td>@Html.HiddenFor(m => m.Otkazana)</td>
-        </tr>
-        <tr>
-            <td>@Html.HiddenFor(m => m.Zavrsena)</td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Dodajte proizvode" class="btn btn-primary" /></td>
-        </tr>
-    </table>
-</form>
+    .tdValidacija {
+        padding-left: 10px;
+    }
+
+    .validacija span {
+        display: inline-block;
+        width: 300px;
+    }
+
+    .form-control {
+        margin-bottom: 10px;
+        width: 250px;
+    }
+
+    .divKlasa {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+</style>
+
+<div class="divKlasa">
+
+    <form action="/ModulRestoran/Narudzba/Snimi">
+        <table>
+            <tr>
+                <th class="tdPolje">Opis</th>
+                <td>@Html.TextAreaFor(m => m.Opis, new { @class = "form-control" })</td>
+            </tr>
+            <tr>
+                <th class="tdPolje">Hitnost</th>
+                <td>@Html.DropDownListFor(m => m.Hitnost, Model.HitnostStavke, new { @class = "form-control" })</td>
+                <td class="tdValidacija"><span class="validacija" style="color:red">@Html.ValidationMessageFor(x => x.Hitnost)</span></td>
+            </tr>
+            <tr>
+                <td class="tdPolje"><b>Datum kreiranja</b></td>
+                <td>@Html.TextBoxFor(m => m.DatumKreiranja, new { @class = "form-control", @readonly = "readonly" })</td>
+            </tr>
+            <tr>
+                <td>@Html.HiddenFor(m => m.ZaposlenikId)</td>
+            </tr>
+            <tr>
+                <td>@Html.HiddenFor(m => m.Otkazana)</td>
+            </tr>
+            <tr>
+                <td>@Html.HiddenFor(m => m.Zavrsena)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-left:50px;"><input type="submit" value="Dodajte proizvode" class="btn btn-round btn btn-primary" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+
 
 

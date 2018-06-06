@@ -3,19 +3,53 @@
     Layout = "_LayoutAjax";
     ViewData["Title"] = "Dodaj";
 }
+
+
+<style>
+    b {
+        display: inline-block;
+        width: 150px;
+    }
+
+    .tdPolje {
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    .tdValidacija {
+        padding-left: 10px;
+    }
+
+    .validacija span {
+        display: inline-block;
+        width: 300px;
+    }
+
+    .form-control {
+        width: 250px;
+    }
+</style>
+
+
+
 @model Hotel.Web.Areas.ModulAdministracija.ViewModels.NovaPogodnostVM
 <form action="/ModulAdministracija/Pogodnost/Snimi">
     <table>
         <tr>
-            <td>Opis</td>
+            <td class="tdPolje"><b>Opis:</b></td>
             <td>@Html.TextBoxFor(x=>x.Opis , new{ @class = "form-control" })</td>
-            <td><span style="color:red">@Html.ValidationMessageFor(x => x.Opis)</span></td>
+            <td class="tdValidacija"><span class="validacija" style="color:red">@Html.ValidationMessageFor(x => x.Opis)</span></td>
         </tr>
         <tr>
+            <td style="color:white;">.</td>
+        </tr>
+        <tr>
+            <td></td>
             <td>
-                <input type="submit"value="Sačuvaj" class="btn btn-success" />
+                <input type="submit"value="Sačuvaj" class="btn btn-round btn btn-success" />
             </td>
         </tr>
     </table>
+    <br />
 </form>
 

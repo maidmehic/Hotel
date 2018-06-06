@@ -2,25 +2,25 @@
 @using Hotel.Data.Models;
 @using Hotel.Web.Areas.ModulAdministracija.ViewModels;
 @{
-    ViewData["Title"] = "PrikaziUslugeHotela";
+    ViewData["Title"] = "Usluge hotela";
 }
 <br />
 <form action="/ModulAdministracija/UslugeHotela/PrikaziUslugeHotela">
     <table>
         <tr>
-            <td>
-                @Html.TextBoxFor(x => x.PretragaNaziv, new { @class = "form-control",placeholder="Naziv" })
+            <td style="padding-right:10px;">
+                @Html.TextBoxFor(x => x.PretragaNaziv, new { @class = "form-control",placeholder="Naziv..." })
             </td>
-            <td>@Html.DropDownListFor(x=>x.PretragaAktivnostId,Model.StavkePretragaAktivnost , new { @class = "form-control" })</td>
-            <td><input type="submit" value="Traži" class="btn btn-primary" /></td>
+            <td style="padding-right:10px;">@Html.DropDownListFor(x=>x.PretragaAktivnostId,Model.StavkePretragaAktivnost , new { @class = "form-control" })</td>
+            <td><input type="submit" value="Traži" class="btn btn-round btn btn-primary" /></td>
             <td>
-                <a href="/ModulAdministracija/UslugeHotela/DodajUsluguHotela" class="btn btn-success">Nova usluga hotela</a>
+                <a href="/ModulAdministracija/UslugeHotela/DodajUsluguHotela" class="btn btn-round btn btn-success">Nova usluga hotela</a>
             </td>
         </tr>
     </table>
 </form>
 <br /><br />
-<table class="table table-striped">
+<table class="table table-hover">
     <tr>
         <th>Naziv</th>
         <th>Datum početka</th>
