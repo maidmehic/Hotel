@@ -83,7 +83,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             RezervisanaUsluga ru = new RezervisanaUsluga();
             ru.CheckINId = model.CheckINId;
-            ru.UslugeHotelaId = model.Usluga.Id;
+            ru.UslugeHotelaId = model.UslugaId;
 
             db.RezervisanaUsluga.Add(ru);
             db.SaveChanges();

@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Dodaj stavku";
-    Layout = "_LayoutAjax";
+    
 }
 
 
@@ -27,7 +27,7 @@
 
     <div class="form-group">
         <label>Kolicina</label>
-        <input class="form-control" type="text" asp-for="Kolicina" />
+        <input class="form-control" asp-for="Kolicina" min="1"/>
         <span asp-validation-for="Kolicina" class="text-danger"></span>
     </div>
 

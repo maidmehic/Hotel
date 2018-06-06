@@ -23,7 +23,8 @@
     <input asp-for="CheckINId" value="@Model.CheckINId" hidden/>
     <div>
         <label>Usluga hotela:</label>
-        @Html.DropDownListFor(x => x.Usluga.Id, Model.UslugeHotela, "Odaberite uslugu hotela", new { @class = "form-control" })
+        @Html.DropDownListFor(x => x.UslugaId, Model.UslugeHotela, "Odaberite uslugu hotela", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UslugaId, "", new { @class = "text-danger" })
     </div>
      <br />
 

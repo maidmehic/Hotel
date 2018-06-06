@@ -198,7 +198,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             model.Proizvodi = db.Proizvod.Where(x => x.Vrsta != "sastojak").ToList();
             model.RezervisanSmjestajId = RezervisanSmjestajId;
 
-            return View(model);
+            return PartialView(model);
         }
         [HttpPost]
         public IActionResult DodajStavku(DostavaDodajStavkuVM model)

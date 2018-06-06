@@ -42,7 +42,7 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
         {
             ProizvodDodajVM model = new ProizvodDodajVM();
             model.NarudzbaId = NarudzbaId;
-
+            model.Cijena = 1;
 
 
            return View(model);
