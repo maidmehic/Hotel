@@ -8,7 +8,7 @@
 
 
 
-<table class="table table-striped">
+<table class="table table-striped tabela">
     <thead>
         <tr>
             <th>Podaci o rezervaciji</th>
@@ -44,3 +44,12 @@
 @Html.ActionLink("Prikazi smještaje", "ProvjeriSlobodanSmjestaj", "RezervisanSmjestaj", new { }, new { @class = "btn btn-success" })
 
 
+<script type="text/javascript">
+    $('.tabela').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json",
+        },
+        "ordering": false
+    });
+
+</script>

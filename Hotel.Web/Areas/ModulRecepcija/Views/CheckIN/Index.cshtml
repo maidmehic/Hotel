@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="form-inline">
-        @Html.TextBox("pretraga", "", new { @class = "form form-control pretrag" }) <input type="submit" value="Trazi" class="btn btn-default" />
+        @Html.TextBox("pretraga", "", new { @class = "form form-control pretrag" }) <input type="submit" value="Trazi" class="btn btn-primary" id="trazi"/>
     </div>
 
 }
@@ -42,7 +42,7 @@
 
 
 <br /><br />
-<table class="table table-striped">
+<table class="table table-striped tabela">
 
     <thead>
         <tr>
@@ -91,9 +91,9 @@
 
 
                     <td>
-                        <a asp-action="Detalji" asp-controller="Gost" asp-route-GostId="@i.GostId" asp-route-ImeKontrolera="CheckIn" asp-route-ImeAkcije="Index" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn" class="btn btn-primary dugmad">Detalji gosta</a>
+                        <a asp-action="Detalji" asp-controller="Gost" asp-route-GostId="@i.GostId" asp-route-ImeKontrolera="CheckIn" asp-route-ImeAkcije="Index" ajax-poziv="da" ajax-rezultat="ajaxDiv" id="jbtn" class="btn btn-primary dugmad"><span>Detalji gosta</span></a>
                        
-                        <a asp-action="CheckOut" asp-controller="CheckIN" asp-route-GostId="@i.GostId" class="  btn btn-info dugmad" data-toggle="modal" data-target="#exampleModal">Check-Out</a>
+                        <a asp-action="CheckOut" asp-controller="CheckIN" asp-route-GostId="@i.GostId" class="  btn btn-info dugmad" data-toggle="modal" data-target="#exampleModal"><span>Check-Out</span></a>
 
 
 
@@ -128,13 +128,16 @@
 </div>
 
 <style type="text/css">
-    /*.dugmad {
+    .dugmad {
         margin-top: 5px;
         width: 80px;
         text-align: center;     
         padding:2px;
-    }*/
-
+    }
+    #trazi{
+        margin-bottom:0px;
+        margin-right:0px;
+    }
     #akcija{
         text-align:center;
     }
@@ -142,3 +145,12 @@
         width: 25%;
     }
 </style>
+
+<script type="text/javascript">
+    $('.tabela').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Croatian.json",
+        },
+        "ordering": false
+    });
+    </script>

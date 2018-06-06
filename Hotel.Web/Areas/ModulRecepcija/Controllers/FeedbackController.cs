@@ -18,7 +18,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             Zaposlenik k = HttpContext.GetLogiraniKorisnik();
             if (k == null || k.isRecepcioner == false)
             {
-                TempData["error_poruka"] = "nemate pravo pristupa/TREBA RECEPCIJA";
+                TempData["error_poruka"] = "nemate pravo pristupa";
                 return RedirectToAction("Index", "Autentifikacija", new { area = " " });
 
             }
@@ -28,9 +28,9 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             model.feedbaci = db.Feedback.Select(x => new FeedbackIndexVM.Row
             {
                 Sadrzaj=x.Sadrzaj,
-                Gost=x.CheckIN.Gost.Ime + x.CheckIN.Gost.Prezime,
+                Gost=x.CheckIN.Gost.Ime +" "+x.CheckIN.Gost.Prezime,
                 CheckINId=x.CheckINId,
-                CheckIN="Boravio u:"+x.CheckIN.TipUsluge.Naziv +" "+x.CheckIN.TipUsluge.Cijena + "KM// OD:"+x.CheckIN.DatumDolaska.ToShortDateString() +"-DO:"+ x.CheckIN.DatumOdlaska.ToShortDateString()
+                CheckIN="Boravio u:"+x.CheckIN.TipUsluge.Naziv +" OD:"+x.CheckIN.DatumDolaska.ToShortDateString() +"-DO:"+ x.CheckIN.DatumOdlaska.ToShortDateString()
                 
             }).ToList();
             return View(model);

@@ -64,17 +64,17 @@
 
     $(".uredi").on("click", function (event) {
 
-        //var x = $(".inputKolicina").attr("value");
+        
         var y = $(".uredi").attr("attr");
-        //alert(x);
-        alert(y);
+       
+     
         $.ajax({
             type: 'GET',
             url: '/ModulRecepcija/Dostava/UrediStavku?StavkaId=' + y,
             contentType: "html",
             success: function (rezultat) {
                 $("#ajaxDiv2").html(rezultat);
-                alert("uso");
+                
             }
         })
     });

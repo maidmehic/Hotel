@@ -29,13 +29,16 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
             }
             return RedirectToAction("PrikaziNarudzbe");
         }
-        public IActionResult DodajNarudzbu()
+        public IActionResult DodajNarudzbu(bool? partial)
         {
             DodajNarudzbuVM model = new DodajNarudzbuVM();
 
             model.DatumKreiranja = DateTime.Now.Date.ToShortDateString();
 
-            return PartialView(model);
+            if (partial == true)
+                return PartialView(model);
+            else
+            return View(model);
         }
         [HttpPost]
         public IActionResult DodajNarudzbu(DodajNarudzbuVM model)

@@ -16,6 +16,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
             public string Naziv { set; get; }
             public string Vrsta { set; get; }
             public float Cijena { set; get; }
+            public string MjernaJedinica { set; get; }
         }
     }
 }

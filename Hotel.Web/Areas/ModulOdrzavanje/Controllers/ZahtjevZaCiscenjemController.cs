@@ -49,15 +49,13 @@ namespace Hotel.Web.Areas.ModulOdrzavanje.Controllers
         public IActionResult OznaciObavljenim(int ZahtjevId)
         {
             ZahtjevZaCiscenjem z = new ZahtjevZaCiscenjem();
+            Zaposlenik zz = HttpContext.GetLogiraniKorisnik();
 
             z = db.ZahtjevZaCiscenjem.Where(x => x.Id == ZahtjevId).FirstOrDefault();
-
+            z.ZaposlenikId = zz.Id;
             z.Obavljen = true;
 
-           
-            
-
-
+          
 
             db.ZahtjevZaCiscenjem.Update(z);
             db.SaveChanges();
