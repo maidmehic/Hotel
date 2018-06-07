@@ -20,7 +20,7 @@ namespace Hotel.Web.Areas.ModulAdministracija.ViewModels
                 _stavke.Add(new SelectListItem { Value = 1.ToString(), Text = "Administratori" });
                 _stavke.Add(new SelectListItem { Value = 2.ToString(), Text = "Čistači" });
                 _stavke.Add(new SelectListItem { Value = 3.ToString(), Text = "Recepcioneri" });
-                _stavke.Add(new SelectListItem { Value = 4.ToString(), Text = "Kuhari" });
+                _stavke.Add(new SelectListItem { Value = 4.ToString(), Text = "Konobari" });
                 
                 return _stavke;
             }
