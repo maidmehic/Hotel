@@ -14,12 +14,6 @@
     </div>
 
     <div class="form-group">
-        <label>Datum odlaska:</label>
-        <input asp-for="DatumOdlaska" class="form-control" />
-        <span asp-validation-for="DatumOdlaska" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
         <label>Broj djece:</label>
         <input asp-for="BrojDjece" class="form-control"/>
         <span asp-validation-for="BrojDjece" class="text-danger"></span>
@@ -44,8 +38,8 @@
 
     <div class="form-group">
         <label>Tip usluge</label>
-        @Html.DropDownListFor(x => x.TipUsluge.Id, Model.TipoviUsluga, "Odaberite tip usluge", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.TipUsluge.Id, "Odaberite tip usluge", new { @class = "text-danger" })
+        @Html.DropDownListFor(x => x.TipUslugeId, Model.TipoviUsluga, "Odaberite tip usluge", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.TipUslugeId, "", new { @class = "text-danger" })
     </div>
 
     <br />

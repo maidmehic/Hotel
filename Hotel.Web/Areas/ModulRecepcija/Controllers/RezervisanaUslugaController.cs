@@ -29,7 +29,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             model.usluge = db.RezervisanaUsluga.Select(x => new RezervisanaUslugaIndexVM.Row{
                 Id=x.Id,
                 UslugeHotela = x.UslugeHotela.Naziv +"/"+ x.UslugeHotela.Opis + "/" +x.UslugeHotela.Cijena,
-                CheckIN= x.CheckIN.Gost.Ime+" "+x.CheckIN.Gost.Prezime +"("+ x.CheckIN.DatumDolaska.ToShortDateString() +"-" + x.CheckIN.DatumOdlaska.ToShortDateString() + ")"
+                CheckIN= x.CheckIN.Gost.Ime+" "+x.CheckIN.Gost.Prezime +"("+ x.CheckIN.DatumDolaska.ToShortDateString() +"-" + ((x.CheckIN.DatumOdlaska == null) ? "-" : (DateTime.Parse(x.CheckIN.DatumOdlaska.ToString()).ToShortDateString())) + ")"
 
 
 
@@ -57,7 +57,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             sr = db.RezervisanSmjestaj.Include(x=>x.CheckIN.Gost).Include(x=>x.Gost).Where(x=>x.Id==RezervisanSmjestajID).Where(x => x.Id == RezervisanSmjestajID).FirstOrDefault();
 
             model.Rezervacija = sr.CheckIN.Gost.Ime + " "+ sr.CheckIN.Gost.Prezime;
-            model.Datum ="Od: " + sr.CheckIN.DatumDolaska.ToShortDateString() + " do" + sr.CheckIN.DatumOdlaska.ToShortDateString();
+            model.Datum ="Od: " + sr.CheckIN.DatumDolaska.ToShortDateString() + "do: "+((sr.CheckIN.DatumOdlaska==null)?"-":(DateTime.Parse(sr.CheckIN.DatumOdlaska.ToString()).ToShortDateString()));
             model.Gost = sr.Gost.Ime + " " + sr.Gost.Prezime;
             model.CheckINId = sr.CheckINId;
 

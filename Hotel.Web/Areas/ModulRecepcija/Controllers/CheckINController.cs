@@ -37,7 +37,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                     BrojDjece = x.BrojDjece,
                     BrojOdraslih = x.BrojOdraslih,
                     DatumDolaska = x.DatumDolaska.ToShortDateString(),
-                    DatumOdlaska = x.DatumOdlaska.ToShortDateString(),
+                    DatumOdlaska = (x.DatumOdlaska == null) ? "-" : (DateTime.Parse(x.DatumOdlaska.ToString()).ToShortDateString()),
                   
                     Napomena = x.Napomena,
                     Gost = x.Gost.Ime + " " + x.Gost.Prezime,
@@ -60,7 +60,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                     BrojDjece = x.BrojDjece,
                     BrojOdraslih = x.BrojOdraslih,
                     DatumDolaska = x.DatumDolaska.ToShortDateString(),
-                    DatumOdlaska = x.DatumOdlaska.ToShortDateString(),
+                    DatumOdlaska = (x.DatumOdlaska == null) ? "-" : (DateTime.Parse(x.DatumOdlaska.ToString()).ToShortDateString()),
                    
                     Napomena = x.Napomena,
                     Gost = x.Gost.Ime + " " + x.Gost.Prezime,
@@ -80,7 +80,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                     BrojDjece = x.BrojDjece,
                     BrojOdraslih = x.BrojOdraslih,
                     DatumDolaska = x.DatumDolaska.ToShortDateString(),
-                    DatumOdlaska = x.DatumOdlaska.ToShortDateString(),
+                    DatumOdlaska = (x.DatumOdlaska == null) ? "-" : (DateTime.Parse(x.DatumOdlaska.ToString()).ToShortDateString()),
 
                     Napomena = x.Napomena,
                     Gost = x.Gost.Ime + " " + x.Gost.Prezime,
@@ -101,7 +101,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                     BrojDjece = x.BrojDjece,
                     BrojOdraslih = x.BrojOdraslih,
                     DatumDolaska = x.DatumDolaska.ToShortDateString(),
-                    DatumOdlaska = x.DatumOdlaska.ToShortDateString(),
+                    DatumOdlaska = (x.DatumOdlaska==null)?"-": (DateTime.Parse(x.DatumOdlaska.ToString()).ToShortDateString()),
                  
                     Napomena = x.Napomena,
                     Gost = x.Gost.Ime + " " + x.Gost.Prezime,
@@ -151,33 +151,15 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
         }
 
 
-        bool ProvjeriValidnost(DateTime datum)
-        {
-            if (datum > DateTime.Now)
-                return true;
-            else
-                return false;
-        }
-
-        public JsonResult ValidanDatum(DateTime DatumZavrsetka, DateTime DatumPocetka)
-        {
-            if (DatumZavrsetka < DatumPocetka)
-                return Json("Datum završetka mora biti veći od datuma početka.");
-
-            if (DatumZavrsetka == DatumPocetka)
-                return Json("Datum završetka ne smije biti isti kao datum početka.");
-
-            return Json(true);
-        }
+      
 
         [HttpPost]
         public IActionResult Dodaj(CheckINDodajVM model)
         {
-            JsonResult a = ValidanDatum(model.DatumOdlaska, model.DatumDolaska);
-                string b = a.Value.ToString();
+            
 
 
-            if (!ModelState.IsValid || b!=null)
+            if (!ModelState.IsValid)
             {
                 PripremiStavkeModela(model);
                 return View("Dodaj", model);
@@ -185,8 +167,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             CheckIN c = new CheckIN();
 
-           
-            c.TipUslugeId = model.TipUsluge.Id;
+
+            c.TipUslugeId = model.TipUslugeId;
             c.ZaposlenikId = HttpContext.GetLogiraniKorisnik().Id;
             c.BrojDjece = model.BrojDjece;
             c.BrojOdraslih = model.BrojOdraslih;
@@ -195,7 +177,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
 
             c.DatumDolaska = model.DatumDolaska;
-            c.DatumOdlaska = model.DatumOdlaska;
+            //c.DatumOdlaska = null;
            
             c.Napomena = model.Napomena;
             c.GostId = model.GostId;

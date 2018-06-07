@@ -34,7 +34,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
                 GostId=x.GostId,
                 CheckINID=x.CheckINId,
                 SmjestajId=x.SmjestajId,
-                CheckIN= "Nosioc rezervacije: "+ x.CheckIN.Gost.Ime + " "+ x.CheckIN.Gost.Prezime +" Boravio od: " +x.CheckIN.DatumDolaska.ToShortDateString()+"do: " +x.CheckIN.DatumOdlaska.ToShortDateString()
+                CheckIN= "Nosioc rezervacije: "+ x.CheckIN.Gost.Ime + " "+ x.CheckIN.Gost.Prezime +" Boravio od: " +x.CheckIN.DatumDolaska.ToShortDateString()+"do: " +x.CheckIN.DatumOdlaska.ToString()
                 
             }).ToList();
 
@@ -101,21 +101,21 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             s.Zauzeto = true;
             db.Smjestaj.Update(s);
         }
-        public IActionResult Obrisi(int ID)
-        {
+        //public IActionResult Obrisi(int ID)
+        //{
 
-            RezervisanSmjestaj s = new RezervisanSmjestaj();
+        //    RezervisanSmjestaj s = new RezervisanSmjestaj();
 
-            s = db.RezervisanSmjestaj.Include(x=>x.Smjestaj).Where(x => x.Id == ID).FirstOrDefault();
-            s.Smjestaj.Zauzeto = false;
-            db.Smjestaj.Update(s.Smjestaj);
+        //    s = db.RezervisanSmjestaj.Include(x=>x.Smjestaj).Where(x => x.Id == ID).FirstOrDefault();
+        //    s.Smjestaj.Zauzeto = false;
+        //    db.Smjestaj.Update(s.Smjestaj);
 
 
-            db.RezervisanSmjestaj.Remove(s);
-            db.SaveChanges();
+        //    db.RezervisanSmjestaj.Remove(s);
+        //    db.SaveChanges();
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
         public IActionResult ProvjeriSlobodanSmjestaj()
         {
             Zaposlenik k = HttpContext.GetLogiraniKorisnik();
@@ -132,7 +132,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             {
                Gost=x.Gost.Ime + " "+ x.Gost.Prezime,
                Rezervisao= x.CheckIN.Gost.Ime + " " + x.CheckIN.Gost.Prezime,
-               BoraviOdDo= "OD: "+x.CheckIN.DatumDolaska.ToShortDateString() +" DO: " + x.CheckIN.DatumOdlaska.ToShortDateString(),
+               BoraviOdDo= "OD: "+x.CheckIN.DatumDolaska.ToShortDateString() +" DO: " + x.CheckIN.DatumOdlaska.ToString(),
                Zauzeto=x.Smjestaj.Zauzeto,
                RezervisanSmjestajId=x.Id,
                OpisSobe=x.Smjestaj.BrojSmjestaja.ToString() +" "+x.Smjestaj.VrstaSmjestaja.Naziv
@@ -211,7 +211,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             RezervisanSmjestajOdaberiSmjestajVM model = new RezervisanSmjestajOdaberiSmjestajVM();
 
             model.DatumDolaska = c.DatumDolaska.ToShortDateString();
-            model.DatumOdlaska = c.DatumOdlaska.ToShortDateString();
+            model.DatumOdlaska = c.DatumOdlaska.ToString();
             model.Smjestaji = new SelectList(Smjestaji, "Id", "Polje");
             model.CheckInId = c.Id;
             model.GostId = c.GostId;
@@ -246,7 +246,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             ViewBag.Poruka = poruka;
 
             model.DatumDolaska = c.DatumDolaska.ToShortDateString();
-            model.DatumOdlaska = c.DatumOdlaska.ToShortDateString();
+            model.DatumOdlaska = c.DatumOdlaska.ToString();
             model.GostNosioc=c.Gost.Ime+" "+c.Gost.Prezime;
             model.PodaciOSmjestaju = s.BrojSmjestaja + " " + s.VrstaSmjestaja.Naziv;
             model.SmjestajId = s.Id;

@@ -13,8 +13,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
         public int Id { set; get; }
         [Required(ErrorMessage ="Datum dolaska je obavezan")]
         public DateTime DatumDolaska { get; set; }
-        [Required(ErrorMessage ="Datum odlaska je obavezan")]
-        public DateTime DatumOdlaska { get; set; }
+
         [Required(ErrorMessage ="Broj djece je obavezan")]
         [RangeAttribute(0,10,ErrorMessage ="Broj djece ne može biti negativan ili veći od 10")]
         public int BrojDjece { get; set; }
@@ -30,7 +29,8 @@ namespace Hotel.Web.Areas.ModulRecepcija.ViewModels
         public int GostId { get; set; }
        
        
-        public TipUsluge TipUsluge { get; set; }
+        [Required(ErrorMessage ="Odaberite validan Tip usluge")]
+        public int TipUslugeId { get; set; }
       
         public SelectList TipoviUsluga { get; set; }
     }

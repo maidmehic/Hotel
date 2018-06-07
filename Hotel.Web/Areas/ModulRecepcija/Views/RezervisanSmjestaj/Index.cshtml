@@ -28,8 +28,7 @@
                 <td>@i.Gost</td>
                 <td>@i.Smjestaj</td>
                 <td>
-                    @Html.ActionLink("Detalji", "IndexOdabranogSmjestaja", "RezervisanSmjestaj",new { CheckINId=i.CheckINID, SmjestajId=i.SmjestajId }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Obrisi", "Obrisi", "RezervisanSmjestaj", new { ID = i.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Detalji", "IndexOdabranogSmjestaja", "RezervisanSmjestaj",new { CheckINId=i.CheckINID, SmjestajId=i.SmjestajId }, new { @class = "btn btn-success" })                  
                     @Html.ActionLink("Usluge", "UslugeOdabranogSmjestaja", "RezervisanaUsluga", new { RezervisanSmjestajID=i.Id },new {@class="btn btn-warning"})
                   
 

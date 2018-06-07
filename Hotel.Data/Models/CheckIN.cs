@@ -9,7 +9,7 @@ namespace Hotel.Data.Models
     {
         public int Id { set; get; }
         public DateTime DatumDolaska { get; set; }
-        public DateTime DatumOdlaska { get; set; }
+        public DateTime? DatumOdlaska { get; set; }
         public int BrojDjece { get; set; }
         public int BrojOdraslih { get; set; }
        

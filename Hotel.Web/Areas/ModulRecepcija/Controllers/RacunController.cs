@@ -27,7 +27,7 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
             RacunIndexVM model = new RacunIndexVM();
             model.racuni = db.Racun.Select(x => new RacunIndexVM.Row
             {
-                CheckIN = x.CheckIN.BrojDjece + "--" + x.CheckIN.BrojOdraslih + "  /" + x.CheckIN.DatumDolaska.ToShortDateString() + "-" + x.CheckIN.DatumOdlaska.ToShortDateString(),
+                CheckIN = x.CheckIN.BrojDjece + "--" + x.CheckIN.BrojOdraslih + "  /" + x.CheckIN.DatumDolaska.ToShortDateString() + "-" + ((x.CheckIN.DatumOdlaska == null) ? "-" : (DateTime.Parse(x.CheckIN.DatumOdlaska.ToString()).ToShortDateString())),
                 DatumIzdavanja = x.DatumIzdavanja,
                 Suma = x.Suma,
                 Gost = x.Gost.Ime +" "+ x.Gost.Prezime
