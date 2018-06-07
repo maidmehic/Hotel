@@ -45,7 +45,8 @@ namespace Hotel.Web.Areas.ModulAdministracija.Controllers
                    Include(x => x.Gost).
                    Include(x => x.Zaposlenik).
                    Include(x => x.TipUsluge).
-                   Where(x => (x.DatumDolaska >= Od && x.DatumDolaska <= Do && x.DatumOdlaska>=DateTime.Now) || (x.DatumDolaska >= Od && Do == null && x.DatumOdlaska >= DateTime.Now) || (Od == null && x.DatumDolaska <= Do && x.DatumOdlaska >= DateTime.Now) || (Od == null && Do == null && x.DatumOdlaska >= DateTime.Now)).OrderByDescending(x => x.DatumDolaska)
+                  // Where(x=>x.DatumOdlaska==null)
+                   Where(x => (x.DatumDolaska >= Od && x.DatumDolaska <= Do && x.DatumOdlaska==null) || (x.DatumDolaska >= Od && Do == null && x.DatumOdlaska == null) || (Od == null && x.DatumDolaska <= Do && x.DatumOdlaska == null) || (Od == null && Do == null && x.DatumOdlaska == null)).OrderByDescending(x => x.DatumDolaska)
                    .ToList();
             }
             if (StatusPretraga == 2)

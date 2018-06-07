@@ -81,7 +81,7 @@
             {
                 <tr>
                     <td>@c.DatumDolaska.ToString("dd.MM.yyyy HH:mm")</td>
-                    <td>@c.DatumOdlaska.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>@((c.DatumOdlaska==null)?"-":(DateTime.Parse(c.DatumOdlaska.ToString()).ToString("dd.MM.yyyy HH:mm")))</td>
                     <td>@c.BrojOdraslih</td>
                     <td>@c.BrojDjece</td>
                     <td>@c.Gost.Ime @c.Gost.Prezime</td>
