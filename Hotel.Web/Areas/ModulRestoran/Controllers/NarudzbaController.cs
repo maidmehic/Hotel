@@ -81,7 +81,7 @@ namespace Hotel.Web.Areas.ModulRestoran.Controllers
             temp.Otkazana = n.Otkazana;
 
             db.SaveChanges();
-            return RedirectToAction("PrikaziZalihe", "Proizvod");
+            return RedirectToAction("PrikaziNarudzbe");
         }
 
 
