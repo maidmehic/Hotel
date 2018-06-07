@@ -261,9 +261,11 @@ namespace Hotel.Web.Areas.ModulRecepcija.Controllers
 
             RezervisanSmjestaj ss = new RezervisanSmjestaj();
             List<RezervisanSmjestaj> sss = new List<RezervisanSmjestaj>();
-            ss = db.RezervisanSmjestaj.Where(x => x.SmjestajId == SmjestajId && x.GostId == GostId).FirstOrDefault();
+            ss = db.RezervisanSmjestaj.Include(x=>x.CheckIN).Where(x => x.SmjestajId == SmjestajId && x.CheckIN.GostId != GostId && x.GostId==GostId).FirstOrDefault();
 
             //sprijeciti da obrise prvog gosta---nosioca check ina
+            if (ss == null)
+                return RedirectToAction("IndexOdabranogSmjestaja", new { CheckINId = CheckINId, SmjestajId, poruka = "Nemoguće obrisat gosta nosioca", greska = true });
 
             sss = db.RezervisanSmjestaj.Where(x => x.SmjestajId == SmjestajId && x.CheckINId == CheckINId).ToList();
             if(sss.Count == 1)
